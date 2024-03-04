@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('billings', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->integer('duration'); // in months
+            $table->decimal('price', 10, 2);
             $table->timestamps();
         });
     }
