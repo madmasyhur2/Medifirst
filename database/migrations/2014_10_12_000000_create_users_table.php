@@ -6,21 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-	/**
-	 * Run the migrations.
-	 */
-	public function up(): void
-	{
-		Schema::create('users', function (Blueprint $table) {
-			$table->id();
-			$table->string('name');
-			$table->string('email')->unique();
-			$table->timestamp('email_verified_at')->nullable();
-			$table->string('password');
-			$table->rememberToken();
-			$table->timestamps();
-		});
-	}
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->string('role')->default('user');
+            $table->string('avatar')->default('../assets/image/default.jpg');
+            $table->string('address');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+    }
 
 	/**
 	 * Reverse the migrations.

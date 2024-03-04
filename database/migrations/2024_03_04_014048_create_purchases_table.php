@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('warehouse_id');
+            $table->unsignedBigInteger('supplier_id');
+            $table->date('purchased_at');
+            $table->decimal('cost', 10, 2);
+            $table->enum('payment_method', ['cash', 'credit'])->default('cash');
+            $table->foreign('warehouse_id')->references('id')->on('users');
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->timestamps();
         });
     }

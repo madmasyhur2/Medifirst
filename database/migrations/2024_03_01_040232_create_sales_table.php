@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('cashier_id');
-            $table->unsignedBigInteger('membership_id');
+            $table->unsignedBigInteger('membership_id')->nullable();
             $table->string('sold_to');
             $table->boolean('is_cash')->default(true);
             $table->dateTime('sold_at');
-            $table->integer('total-amount');
+            $table->decimal('price', 10, 2);
+            $table->foreign('cashier_id')->references('id')->on('users');
+            $table->foreign('membership_id')->references('id')->on('memberships');
             $table->timestamps();
         });
     }
