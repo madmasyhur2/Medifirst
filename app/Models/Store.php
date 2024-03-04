@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Membership extends Model
+class Store extends Model
 {
     use HasFactory;
 
-    public function sales()
+    public function products()
     {
-        return $this->hasMany(Sale::class);
+        return $this->hasMany(Product::class);
     }
+
+    //relation dengan role owner 1 to many
 }
