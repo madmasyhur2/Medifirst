@@ -17,7 +17,8 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->randomElement(['obat', 'skincare', 'obat herbal', 'jamu', 'suplemen', 'alat kesehatan', 'lain-lain']),
+            'description' => $this->faker->text
         ];
     }
 }

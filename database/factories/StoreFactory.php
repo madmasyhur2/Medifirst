@@ -17,7 +17,15 @@ class StoreFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'owner_id' => $this->faker->randomNumber(1, 5), // owner is a user with id from 1 to 5
+            'logo_photo_path' => $this->faker->imageUrl(),
+            'name' => $this->faker->name,
+            'address' => $this->faker->address,
+            'province' => $this->faker->state,
+            'city' => $this->faker->city,
+            'district' => $this->faker->city,
+            'village' => $this->faker->city,
+            'license_photo_path' => $this->faker->imageUrl(),
         ];
     }
 }
