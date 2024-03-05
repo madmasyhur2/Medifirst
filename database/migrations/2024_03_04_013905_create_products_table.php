@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('variant', ['pcs', 'strip', 'box'])->default('pcs');
             $table->enum('group', ['obat bebas', 'obat bebas terbatas', 'obat keras', 'lain-lain'])->nullable();
             $table->boolean('is_consigment')->default(false);
+            $table->string('product_photo_path')->nullable();
             $table->string('location');
             $table->integer('stock')->default(0);
             $table->date('expired_at');

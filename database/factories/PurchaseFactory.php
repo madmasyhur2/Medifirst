@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,11 @@ class PurchaseFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'warehouse_id' => User::inRandomOrder()->first()->id,
+            'supplier_id' => Supplier::inRandomOrder()->first()->id,
+            'purchased_at' => $this->faker->date(),
+            'cost' => $this->faker->randomFloat(2, 0, 1000),
+            'payment_method' => $this->faker->randomElement(['cash', 'credit']),
         ];
     }
 }
