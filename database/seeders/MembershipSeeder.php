@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Membership;
 
 class MembershipSeeder extends Seeder
 {
@@ -12,6 +13,6 @@ class MembershipSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Membership::factory(4)->create();
     }
 }
