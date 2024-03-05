@@ -22,6 +22,16 @@
                             {{ __('You are logged in, as an warehouse!') }}
                         @endrole
 
+                        @role('cashier')
+                            {{ __('You are logged in, as an cashier!') }}
+                        @endrole
+
+                        @role('finance')
+                            {{ __('You are logged in, as an finance!') }}
+                        @else
+                            {{ __('You are logged in, as an default!') }}
+                        @endrole
+
                     </div>
                 </div>
             </div>

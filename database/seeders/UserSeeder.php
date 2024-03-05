@@ -16,7 +16,9 @@ class UserSeeder extends Seeder
 		$owner = User::create([
 			'name' => 'Pak Owner',
 			'email' => 'owner@medifirst.id',
-			'password' => bcrypt('owner')
+			'password' => bcrypt('owner'),
+			'role' => 'owner',
+			'address' => fake()->address(),
 		]);
 
 		$owner->assignRole('owner');
@@ -24,7 +26,9 @@ class UserSeeder extends Seeder
 		$warehouse = User::create([
 			'name' => 'Tuan Gudang',
 			'email' => 'warehouse@medifirst.id',
-			'password' => bcrypt('warehouse')
+			'password' => bcrypt('warehouse'),
+			'role' => 'warehouse',
+			'address' => fake()->address(),
 		]);
 
 		$warehouse->assignRole('warehouse');
@@ -33,6 +37,8 @@ class UserSeeder extends Seeder
 			'name' => 'Mbak Kasir',
 			'email' => 'cashier@medifirst.id',
 			'password' => bcrypt('cashier'),
+			'role' => 'cashier',
+			'address' => fake()->address(),
 		]);
 
 		$cashier->assignRole('cashier');
@@ -41,6 +47,8 @@ class UserSeeder extends Seeder
 			'name' => 'Mas Finance',
 			'email' => 'finance@medifirst.id',
 			'password' => bcrypt('finance'),
+			'role' => 'finance',
+			'address' => fake()->address(),
 		]);
 
 		$finance->assignRole('finance');
