@@ -69,8 +69,15 @@
                                     <span class="input-group-text bg-transparent">
                                         <i class="las la-envelope"></i>
                                     </span>
-                                    <input type="email" id="email" name="email" class="form-control border border-start-0"
+                                    <input type="email" id="email" name="email"
+                                        class="form-control border border-start-0 @error('email') is-invalid @enderror"
                                         placeholder="Ketikkan email Anda disini" />
+
+                                    @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
 
