@@ -1,18 +1,15 @@
-<!-- plugins:js -->
-<script src="{{ asset('backend/vendors/js/vendor.bundle.base.js') }}"></script>
-<!-- endinject -->
+<!--begin::Javascript-->
+<script>
+    var hostUrl = "{{ asset('backend') }}";
+</script>
+<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+<script src="{{ asset('backend/plugins/global/plugins.bundle.js') }}"></script>
+<script src="{{ asset('backend/js/scripts.bundle.js') }}"></script>
+<!--end::Global Javascript Bundle-->
 
-<!-- Plugin js for this page -->
-<script src="{{ asset('backend/vendors/chart.js/Chart.min.js') }}"></script>
-<script src="{{ asset('backend/vendors/jquery-circle-progress/js/circle-progress.min.js') }}"></script>
-<!-- End plugin js for this page -->
+<!--begin::Vendors Javascript(used for this page only)-->
+<!--end::Vendors Javascript-->
 
-<!-- inject:js -->
-<script src="{{ asset('backend/js/off-canvas.js') }}"></script>
-<script src="{{ asset('backend/js/hoverable-collapse.js') }}"></script>
-<script src="{{ asset('backend/js/misc.js') }}"></script>
-<!-- endinject -->
-
-<!-- Custom js for this page -->
-<script src="{{ asset('backend/js/dashboard.js') }}"></script>
-<!-- End custom js for this page -->
+<!--begin::Custom Javascript(used for this page only)-->
+<!--end::Custom Javascript-->
+<!--end::Javascript-->
