@@ -34,7 +34,7 @@
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('backend/images/nav-brand.png') }}" alt="Logo" height="40" class="d-inline-block align-text-center me-2">
-                Medify
+                Medifirst
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -60,6 +60,11 @@
                 <div class="card px-5 py-4">
                     <div class="card-body">
                         <h1 class="card-title fw-bold text-center">Masuk Akun <span style="color: #296BB2;">Medifirst</span></h1>
+                        @if(Session::has('error_message'))
+                            <div class="alert alert-danger">
+                                {{ Session::get('error_message') }}
+                            </div>
+                        @endif
                         <form action="{{ route('login') }}" method="POST" class="mt-5 d-grid gap-2">
                             @csrf
 
@@ -69,8 +74,14 @@
                                     <span class="input-group-text bg-transparent">
                                         <i class="las la-envelope"></i>
                                     </span>
-                                    <input type="email" id="email" name="email" class="form-control border border-start-0"
-                                        placeholder="Ketikkan email Anda disini" />
+                                    <input type="email" id="email" type="email" name="email" class="form-control border border-start-0 @error('email') is-invalid @enderror"
+                                        placeholder="Ketikkan email Anda disini" required/>
+                                        
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                 </div>
                             </div>
 
@@ -78,8 +89,14 @@
                                 <label for="password" class="form-label fw-bold">Password<b class="text-danger">*</b></label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-transparent"><i class="las la-lock"></i></span>
-                                    <input type="password" id="password" name="password" class="form-control border border-start-0 border-end-0"
-                                        placeholder="Ketikkan password Anda disini" />
+                                    <input type="password" id="password" name="password" class="form-control border border-start-0 border-end-0 @error('password') is-invalid @enderror"
+                                        placeholder="Ketikkan password Anda disini" required/>
+                                        
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     <span class="input-group-text bg-transparent" style="cursor: pointer" id="toggle-password">
                                         <i class="las la-eye"></i>
                                     </span>
@@ -87,8 +104,13 @@
                             </div>
 
                             <button type="submit" id="btn-submit" class="btn text-white py-2 mt-3" style="background-color: #535561">Masuk</button>
-                            <small class="text-center">Belum punya akun? <a href="#daftar" class="fw-bold text-decoration-none">Daftar</a></small>
+                            <small class="text-center">Belum punya akun? <a href="{{ route('register') }}" class="fw-bold text-decoration-none">Daftar</a></small>
                         </form>
+                        <div id="error-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 0; right: 0; margin: 20px; z-index: 1000;">
+                            <div class="toast-body bg-danger text-white">
+                                <strong>Error:</strong> <span id="error-message"></span>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -128,8 +150,32 @@
                     $('#btn-submit').prop('disabled', true);
                 }
             })
+
+            // // Capture error message and show toast notification
+            // $(document).ready(function() {
+            //     // Fungsi untuk memeriksa apakah email valid
+            //     function validateEmail(email) {
+            //         var re = /\S+@\S+\.\S+/;
+            //         return re.test(email);
+            //     }
+            //     $('#submit-button').on('click', function() {
+            //         var email = $('#email').val().trim();
+            //         var password = $('#password').val().trim();
+            //         if (!validateEmail(email)) {
+            //             $('#error-message').text('Email belum terdaftar!');
+            //             $('.toast').toast('show');
+            //             return false;
+            //         }
+            //         if (!validatePassword(password)) {
+            //             $('#error-message').text('Password salah!');
+            //             $('.toast').toast('show');
+            //             return false;
+            //         }
+            //         return true; 
+            //     });
+            // });
         });
     </script>
+    @include('sweetalert::alert')
 </body>
-
 </html>

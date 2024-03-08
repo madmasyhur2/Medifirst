@@ -20,7 +20,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'store_id' => Store::inRandomOrder()->first()->id,
+            'store_id' => 1,
             'supplier_id' => Supplier::inRandomOrder()->first()->id,
             'category_id' => Category::inRandomOrder()->first()->id,
             'sku_code' => $this->faker->unique()->text(10),

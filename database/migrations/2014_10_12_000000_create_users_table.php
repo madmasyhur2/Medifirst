@@ -19,7 +19,7 @@ return new class extends Migration
 			$table->string('password');
 			$table->string('role')->default('user');
 			$table->string('avatar')->default('../assets/image/default.jpg');
-			$table->string('address');
+			$table->string('address')->default('N/A');
 			$table->rememberToken();
 			$table->timestamps();
 		});
