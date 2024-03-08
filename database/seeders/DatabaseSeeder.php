@@ -20,14 +20,14 @@ class DatabaseSeeder extends Seeder
 			RoleSeeder::class,
 			RolesAndPermissionsSeeder::class,
 			UserSeeder::class,
-			BillingSeeder::class,
-			CategorySeeder::class,
-			MembershipSeeder::class,
-			SupplierSeeder::class,
-			StoreSeeder::class,
-			ProductSeeder::class,
-			SaleSeeder::class,
-			PurchaseSeeder::class,
+			// BillingSeeder::class,
+			// CategorySeeder::class,
+			// MembershipSeeder::class,
+			// SupplierSeeder::class,
+			// StoreSeeder::class,
+			// ProductSeeder::class,
+			// SaleSeeder::class,
+			// PurchaseSeeder::class,
 		]);
 	}
 }
