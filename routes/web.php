@@ -24,6 +24,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
 	// Profiles
 	Route::get('/profiles', [AdminProfileController::class, 'show'])->name('profiles.show');
+	Route::put('/profiles/update', [AdminProfileController::class, 'update'])->name('profiles.update');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
