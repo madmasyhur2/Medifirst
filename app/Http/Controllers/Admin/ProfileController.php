@@ -13,6 +13,9 @@ class ProfileController extends Controller
 		$user_id = auth()->user()->id;
 		$user = User::where('id', $user_id)->first();
 		// dd($user);
-		return view('pages.admin.profiles.show', compact('user'));
+		return view('pages.admin.profiles.show', [
+			'pageTitle' => 'Akun Owner',
+			'user' => $user,
+		]);
 	}
 }
