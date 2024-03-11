@@ -8,8 +8,11 @@
 <!--end::Global Javascript Bundle-->
 
 <!--begin::Vendors Javascript(used for this page only)-->
+<!-- :: stack in each view :: -->
 <!--end::Vendors Javascript-->
 
 <!--begin::Custom Javascript(used for this page only)-->
+<!-- :: stack in each view :: -->
 <!--end::Custom Javascript-->
+
 <!--end::Javascript-->
