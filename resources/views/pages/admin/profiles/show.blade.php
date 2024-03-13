@@ -79,8 +79,8 @@
             <!--begin::Content-->
             <div id="kt_account_settings_profile_details" class="collapse show">
                 <!--begin::Form-->
-                <form action="{{ route('admin.profiles.update') }}" method="POST" enctype="multipart/form-data"
-                    id="kt_account_profile_details_form form-update-profile" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                <form action="{{ route('admin.profiles.update') }}" method="POST" enctype="multipart/form-data" id="kt_account_profile_details_form"
+                    class="form fv-plugins-bootstrap5 fv-plugins-framework">
                     @csrf @method('PUT')
 
                     <!--begin::Card body-->
@@ -96,8 +96,7 @@
                                         <div class="image-input image-input-outline" data-kt-image-input="true"
                                             style="background-image: url('{{ asset('backend/media/svg/avatars/blank.svg') }}')">
                                             <!--begin::Preview existing avatar-->
-                                            <div class="image-input-wrapper w-125px h-125px"
-                                                style="background-image: url({{ asset('backend/media/avatars/300-1.jpg') }})">
+                                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $user->avatar_url }})">
                                             </div>
                                             <!--end::Preview existing avatar-->
 
@@ -163,8 +162,9 @@
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
-                                            <input type="text" name="role" class="form-control form-control-lg form-control-solid" placeholder="---"
-                                                value="Pemilik Apotek" readonly />
+                                            <input type="hidden" name="role" value="{{ $user->role }}" />
+                                            <input type="text" name="jabatan" class="form-control form-control-lg form-control-solid"
+                                                placeholder="---" value="Pemilik Apotek" readonly />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -271,7 +271,7 @@
                     <!--begin::Actions-->
                     <div class="card-footer d-flex justify-content-end py-6 px-9">
                         <button type="reset" class="btn btn-light btn-active-light-primary me-2">Batal</button>
-                        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit btn-submit-form">Simpan</button>
+                        <button type="button" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan</button>
                     </div>
                     <!--end::Actions-->
                     <input type="hidden">
@@ -309,11 +309,25 @@
     <!--end::Custom Javascript-->
 
     <!--begin::Additional Javascript(used for this page only)-->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#btn-submit-form').click(function() {
-                $('#form-update-profile').submit();
+            $('#kt_account_profile_details_submit').click(function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You are about to update the account information',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, submit!',
+                    confirmButtonColor: '#409add',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#kt_account_profile_details_form').submit();
+                    } else {
+                        Swal.fire('Cancelled', 'Failed to update account', 'error');
+                    }
+                })
             })
         })
     </script>

@@ -5,6 +5,7 @@
 <head>
     <title>Medifirst - Dashboard</title>
     @include('includes.admin.meta')
+
     @stack('before-style')
     @include('includes.admin.style')
     @stack('after-style')
