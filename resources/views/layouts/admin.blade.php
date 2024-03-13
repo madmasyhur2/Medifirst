@@ -5,7 +5,6 @@
 <head>
     <title>Medifirst - Dashboard</title>
     @include('includes.admin.meta')
-
     @stack('before-style')
     @include('includes.admin.style')
     @stack('after-style')
@@ -93,7 +92,6 @@
     @stack('before-script')
     @include('includes.admin.script')
     @stack('after-script')
-
     @include('sweetalert::alert')
 </body>
 <!--end::Body-->
