@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
+use App\Notifications\WelcomeEmailNotification;
 
 class RegisterController extends Controller
 {
@@ -83,7 +84,8 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
 
         try {
-            $this->create($request->all());
+            $user = $this->create($request->all());
+            $user->notify(new WelcomeEmailNotification($user));
 
             Alert::success('Buka Email Anda', 'Kami sudah mengirim email untuk mengkonfirmasi pendaftaranmu di Medifirst.');
 
