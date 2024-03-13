@@ -92,6 +92,7 @@
     @stack('before-script')
     @include('includes.admin.script')
     @stack('after-script')
+
     @include('sweetalert::alert')
 </body>
 <!--end::Body-->
