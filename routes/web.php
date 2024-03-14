@@ -28,6 +28,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
 	// Profiles
 	Route::get('/profiles', [AdminProfileController::class, 'index'])->name('profiles.index');
+	Route::put('/profiles/update', [AdminProfileController::class, 'update'])->name('profiles.update');
 
 	// Contact
 	Route::get('/contacts', [AdminContactController::class, 'index'])->name('contact.index');
@@ -49,6 +50,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
 	// Sale
 	Route::get('/sale', [AdminSaleController::class, 'index'])->name('sale.index');
+	
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
