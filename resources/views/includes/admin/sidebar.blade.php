@@ -4,7 +4,7 @@
     <!--begin::Brand-->
     <div class="aside-logo py-8" id="kt_aside_logo">
         <!--begin::Logo-->
-        <a href="index.html" class="d-flex align-items-center">
+        <a href="{{ route('admin.dashboard') }}" class="menu-link menu-center">
             <img alt="Logo" src="{{ asset('backend/media/logos/logo.svg') }}" class="h-45px logo" />
         </a>
         <!--end::Logo-->
@@ -23,12 +23,12 @@
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item here show py-2">
                     <!--begin:Menu link-->
-                    <span class="menu-link menu-center">
+                    <a href="{{ route('admin.dashboard') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-outline ki-screen fs-2x"></i>
                         </span>
                         <span class="menu-title">Dashboard</span>
-                    </span>
+                    </a>
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
@@ -36,15 +36,15 @@
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
                     <!--begin:Menu link-->
-                    <span class="menu-link menu-center">
+                    <a href="{{ route('admin.masterdata.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-outline ki-share fs-2x"></i>
                         </span>
                         <span class="menu-title">Master Data</span>
-                    </span>
+                    </a>
                     <!--end:Menu link-->
                     <!--begin:Menu sub-->
-                    <div class="menu-sub menu-sub-dropdown menu-sub-indention px-2 py-4 w-250px mh-75 overflow-auto">
+                    {{-- <div class="menu-sub menu-sub-dropdown menu-sub-indention px-2 py-4 w-250px mh-75 overflow-auto">
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu content-->
@@ -1014,7 +1014,7 @@
                             <!--end:Menu sub-->
                         </div>
                         <!--end:Menu item-->
-                    </div>
+                    </div> --}}
                     <!--end:Menu sub-->
                 </div>
                 <!--end:Menu item-->
@@ -1022,7 +1022,7 @@
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
                     <!--begin:Menu link-->
-                    <a class="menu-link menu-center" href="{{ route('admin.profiles.show') }}">
+                    <a href="{{ route('admin.profiles.index')}}" class="menu-link menu-center" >
                         <span class="menu-icon me-0">
                             <i class="ki-outline ki-people fs-2x"></i>
                         </span>
@@ -1035,12 +1035,12 @@
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
                     <!--begin:Menu link-->
-                    <span class="menu-link menu-center">
+                    <a href="{{ route('admin.report.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-outline ki-chart-pie-4 fs-2x"></i>
                         </span>
                         <span class="menu-title">Laporan</span>
-                    </span>
+                    </a>
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
@@ -1048,12 +1048,12 @@
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
                     <!--begin:Menu link-->
-                    <span class="menu-link menu-center">
+                    <a href="{{ route('admin.sale.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-outline ki-receipt-square fs-2x"></i>
                         </span>
                         <span class="menu-title">Penjualan</span>
-                    </span>
+                    </a>
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
@@ -1061,12 +1061,12 @@
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
                     <!--begin:Menu link-->
-                    <span class="menu-link menu-center">
+                    <a href="{{ route('admin.purchase.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-outline ki-credit-cart fs-2x"></i>
                         </span>
                         <span class="menu-title">Pembelian</span>
-                    </span>
+                    </a>
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
@@ -1074,12 +1074,12 @@
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
                     <!--begin:Menu link-->
-                    <span class="menu-link menu-center">
+                    <a href="{{ route('admin.finance.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-outline ki-wallet fs-2x"></i>
                         </span>
                         <span class="menu-title">Keuangan</span>
-                    </span>
+                    </a>
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
@@ -1087,12 +1087,12 @@
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
                     <!--begin:Menu link-->
-                    <span class="menu-link menu-center">
+                    <a href="{{ route('admin.multioutlet.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-outline ki-delivery-door fs-2x"></i>
                         </span>
                         <span class="menu-title">Multi Outlet</span>
-                    </span>
+                    </a>
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
@@ -1100,12 +1100,12 @@
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
                     <!--begin:Menu link-->
-                    <span class="menu-link menu-center">
+                    <a href="{{ route('admin.contact.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
                             <i class="ki-outline ki-address-book fs-2x"></i>
                         </span>
                         <span class="menu-title">Kontak</span>
-                    </span>
+                    </a>
                     <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->

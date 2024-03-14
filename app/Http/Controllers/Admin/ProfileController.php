@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-	public function show()
+	public function index()
 	{
 		$user_id = auth()->user()->id;
 		$user = User::where('id', $user_id)->first();
 		// dd($user);
-		return view('pages.admin.profiles.show', [
+		return view('pages.admin.profiles.index', [
 			'pageTitle' => 'Akun Owner',
 			'user' => $user,
 		]);
