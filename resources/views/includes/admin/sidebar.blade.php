@@ -26,7 +26,7 @@
                     <!--begin:Menu link-->
                     <span class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-screen fs-2x"></i>
+                            <i class="las la-desktop fs-2x"></i>
                         </span>
                         <span class="menu-title">Dashboard</span>
                     </span>
@@ -39,7 +39,7 @@
                     <!--begin:Menu link-->
                     <span class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-share fs-2x"></i>
+                            <i class="las la-share-alt fs-2x"></i>
                         </span>
                         <span class="menu-title">Master Data</span>
                     </span>
@@ -1026,7 +1026,7 @@
                     <!--begin:Menu link-->
                     <a class="menu-link menu-center" href="{{ route('admin.profiles.show') }}">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-people fs-2x"></i>
+                            <i class="las la-users fs-2x"></i>
                         </span>
                         <span class="menu-title">Akun</span>
                     </a>
@@ -1039,7 +1039,7 @@
                     <!--begin:Menu link-->
                     <span class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-chart-pie-4 fs-2x"></i>
+                            <i class="las la-chart-pie fs-2x"></i>
                         </span>
                         <span class="menu-title">Laporan</span>
                     </span>
@@ -1052,7 +1052,7 @@
                     <!--begin:Menu link-->
                     <span class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-receipt-square fs-2x"></i>
+                            <i class="las la-receipt fs-2x"></i>
                         </span>
                         <span class="menu-title">Penjualan</span>
                     </span>
@@ -1065,7 +1065,7 @@
                     <!--begin:Menu link-->
                     <span class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-credit-cart fs-2x"></i>
+                            <i class="las la-credit-card fs-2x"></i>
                         </span>
                         <span class="menu-title">Pembelian</span>
                     </span>
@@ -1078,7 +1078,7 @@
                     <!--begin:Menu link-->
                     <span class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-wallet fs-2x"></i>
+                            <i class="las la-wallet fs-2x"></i>
                         </span>
                         <span class="menu-title">Keuangan</span>
                     </span>
@@ -1091,7 +1091,7 @@
                     <!--begin:Menu link-->
                     <span class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-delivery-door fs-2x"></i>
+                            <i class="las la-door-open fs-2x"></i>
                         </span>
                         <span class="menu-title">Multi Outlet</span>
                     </span>
@@ -1104,7 +1104,7 @@
                     <!--begin:Menu link-->
                     <span class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-address-book fs-2x"></i>
+                            <i class="las la-phone fs-2x"></i>
                         </span>
                         <span class="menu-title">Kontak</span>
                     </span>
