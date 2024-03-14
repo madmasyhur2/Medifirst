@@ -39,22 +39,22 @@
                 <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                     <!--begin::Nav item-->
                     <li class="nav-item mt-2">
-                        <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="account/overview.html">Owner</a>
+                        <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="#">Owner</a>
                     </li>
                     <!--end::Nav item-->
                     <!--begin::Nav item-->
                     <li class="nav-item mt-2">
-                        <a class="nav-link text-active-primary ms-0 me-10 py-5" href="account/settings.html">Karyawan</a>
+                        <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#">Karyawan</a>
                     </li>
                     <!--end::Nav item-->
                     <!--begin::Nav item-->
                     <li class="nav-item mt-2">
-                        <a class="nav-link text-active-primary ms-0 me-10 py-5" href="account/security.html">Apotek</a>
+                        <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#">Apotek</a>
                     </li>
                     <!--end::Nav item-->
                     <!--begin::Nav item-->
                     <li class="nav-item mt-2">
-                        <a class="nav-link text-active-primary ms-0 me-10 py-5" href="account/activity.html">Billing</a>
+                        <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#">Billing</a>
                     </li>
                     <!--end::Nav item-->
                 </ul>
@@ -79,7 +79,10 @@
             <!--begin::Content-->
             <div id="kt_account_settings_profile_details" class="collapse show">
                 <!--begin::Form-->
-                <form id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
+                <form action="{{ route('admin.profiles.update') }}" method="POST" enctype="multipart/form-data" id="kt_account_profile_details_form"
+                    class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                    @csrf @method('PUT')
+
                     <!--begin::Card body-->
                     <div class="card-body border-top p-9">
                         <div class="row mb-6">
@@ -93,8 +96,7 @@
                                         <div class="image-input image-input-outline" data-kt-image-input="true"
                                             style="background-image: url('{{ asset('backend/media/svg/avatars/blank.svg') }}')">
                                             <!--begin::Preview existing avatar-->
-                                            <div class="image-input-wrapper w-125px h-125px"
-                                                style="background-image: url({{ asset('backend/media/avatars/300-1.jpg') }})">
+                                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $user->avatar_url }})">
                                             </div>
                                             <!--end::Preview existing avatar-->
 
@@ -104,11 +106,12 @@
                                                 data-bs-original-title="Change avatar" data-kt-initialized="1">
                                                 <i class="ki-outline ki-pencil fs-7"></i>
                                                 <!--begin::Inputs-->
-                                                <input type="file" name="avatar" accept=".png, .jpg, .jpeg">
-                                                <input type="hidden" name="avatar_remove">
+                                                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                                <input type="hidden" name="avatar_remove" />
                                                 <!--end::Inputs-->
                                             </label>
                                             <!--end::Label-->
+
                                             <!--begin::Cancel-->
                                             <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                                 data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar"
@@ -116,6 +119,7 @@
                                                 <i class="ki-outline ki-cross fs-2"></i>
                                             </span>
                                             <!--end::Cancel-->
+
                                             <!--begin::Remove-->
                                             <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                                 data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar"
@@ -145,8 +149,8 @@
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
-                                            <input type="text" name="nama_lengkap" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Ketikkan nama lengkap Anda" value="" />
+                                            <input type="text" name="name" class="form-control form-control-lg form-control-solid"
+                                                placeholder="Ketikkan nama lengkap Anda" value="{{ old('name', $user->name) }}" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -158,8 +162,9 @@
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
-                                            <input type="text" name="jabatan" class="form-control form-control-lg form-control-solid" placeholder="---"
-                                                value="Pemilik Apotek" disabled />
+                                            <input type="hidden" name="role" value="{{ $user->role }}" />
+                                            <input type="text" name="jabatan" class="form-control form-control-lg form-control-solid"
+                                                placeholder="---" value="Pemilik Apotek" readonly />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -174,8 +179,8 @@
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="company" class="form-control form-control-lg form-control-solid"
-                                            placeholder="Ketikkan alamat Anda" value="" />
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-solid"
+                                            placeholder="Ketikkan alamat Anda" value="{{ old('address', $user->address) }}" />
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                     </div>
                                     <!--end::Col-->
@@ -191,7 +196,7 @@
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <input type="email" name="email" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Ketikkan nama email Anda" value="" />
+                                                placeholder="Ketikkan nama email Anda" value="{{ old('email', $user->email) }}" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -204,7 +209,7 @@
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <input type="password" name="password" class="form-control form-control-lg form-control-solid"
-                                                placeholder="---" value="" />
+                                                placeholder="••••••••" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -266,7 +271,7 @@
                     <!--begin::Actions-->
                     <div class="card-footer d-flex justify-content-end py-6 px-9">
                         <button type="reset" class="btn btn-light btn-active-light-primary me-2">Batal</button>
-                        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan</button>
+                        <button type="button" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan</button>
                     </div>
                     <!--end::Actions-->
                     <input type="hidden">
@@ -302,4 +307,29 @@
     <script src="{{ asset('backend/js/custom/utilities/modals/two-factor-authentication.js') }}"></script>
     <script src="{{ asset('backend/js/custom/utilities/modals/users-search.js') }}"></script>
     <!--end::Custom Javascript-->
+
+    <!--begin::Additional Javascript(used for this page only)-->
+    <script>
+        $(document).ready(function() {
+            $('#kt_account_profile_details_submit').click(function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You are about to update the account information',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, submit!',
+                    confirmButtonColor: '#409add',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#kt_account_profile_details_form').submit();
+                    } else {
+                        Swal.fire('Cancelled', 'Failed to update account', 'error');
+                    }
+                })
+            })
+        })
+    </script>
+    <!--end::Additional Javascript-->
 @endpush

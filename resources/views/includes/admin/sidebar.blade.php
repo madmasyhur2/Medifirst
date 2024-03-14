@@ -1,11 +1,11 @@
 <div id="kt_aside" class="aside overflow-visible pb-5 pt-5 pt-lg-0" data-kt-drawer="true" data-kt-drawer-name="aside"
-    data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="auto"
-    data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
+    data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="auto" data-kt-drawer-direction="start"
+    data-kt-drawer-toggle="#kt_aside_mobile_toggle">
     <!--begin::Brand-->
     <div class="aside-logo py-8" id="kt_aside_logo">
         <!--begin::Logo-->
-        <a href="index.html" class="d-flex align-items-center">
-            <img alt="Logo" src="{{ asset('backend/media/logos/logo.svg') }}" class="h-45px logo" />
+        <a href="#" class="d-flex align-items-center">
+            <img alt="Logo" src="{{ asset('backend/images/nav-brand.png') }}" class="h-45px logo" />
         </a>
         <!--end::Logo-->
     </div>
@@ -21,7 +21,8 @@
             <div class="menu menu-column menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 fw-semibold"
                 id="#kt_aside_menu" data-kt-menu="true">
                 <!--begin:Menu item-->
-                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item here show py-2">
+                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start"
+                    class="menu-item {{ request()->routeIs('admin.dashboard') ? 'here show' : '' }} py-2">
                     <!--begin:Menu link-->
                     <span class="menu-link menu-center">
                         <span class="menu-icon me-0">
@@ -1020,7 +1021,8 @@
                 <!--end:Menu item-->
 
                 <!--begin:Menu item-->
-                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start" class="menu-item py-2">
+                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start"
+                    class="menu-item {{ request()->routeIs('admin.profiles.show') ? 'here show' : '' }} py-2">
                     <!--begin:Menu link-->
                     <a class="menu-link menu-center" href="{{ route('admin.profiles.show') }}">
                         <span class="menu-icon me-0">
