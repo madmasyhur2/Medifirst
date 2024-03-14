@@ -12,13 +12,16 @@ class ProfileController extends Controller
 {
 	public function index()
 	{
-		$user_id = auth()->user()->id;
-		$user = User::where('id', $user_id)->first();
-		// dd($user);
-		return view('pages.admin.profiles.index', [
-			'pageTitle' => 'Akun Owner',
-			'user' => $user,
-		]);
+		try {
+			$user_id = auth()->user()->id;
+			$user = User::where('id', $user_id)->first();
+			// dd($user);
+			return view('pages.admin.profiles.index', [
+				'user' => $user,
+			]);
+		} catch (\Throwable $th) {
+			//throw $th;
+		}
 	}
 
 	public function update(Request $request)
