@@ -19,13 +19,13 @@ class EmployeeController extends Controller
 
 		try {
 			if ($request->ajax()) {
-				$query = User::query()->where('role', '<>', 'owner')->get();
+				$query = User::query()->where('role', '<>', 'owner');
 
 				return DataTables::eloquent($query)
 					->addIndexColumn()
 					->addColumn('action', function ($data) {
 						return '
-							<a href="' . $data->id . '" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+							<a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
 								data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
 								<i class="ki-outline ki-down fs-5 ms-1"></i>
 							</a>

@@ -163,7 +163,8 @@
                         <!--begin::Search-->
                         <div class="d-flex align-items-center position-relative me-3">
                             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
-                            <input type="text" data-kt-customer-table-filter="search" class="form-control w-250px ps-12" placeholder="Cari Nama" />
+                            <input type="text" id="mySearchBar" data-kt-customer-table-filter="search" class="form-control w-250px ps-12"
+                                placeholder="Cari Nama" />
                         </div>
                         <!--end::Search-->
 
@@ -235,31 +236,47 @@
                 destroy: true,
                 processing: true,
                 serverSide: true,
-                searching: false,
-                paging: false,
+                dom: "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-4 d-flex align-items-center'li><'col-sm-8'p>>",
                 ajax: {
                     url: '{!! url()->current() !!}',
                 },
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
                     },
                     {
                         data: 'name',
                         name: 'name',
+                        orderable: true,
+                        searchable: true
                     },
                     {
                         data: 'address',
                         name: 'address',
+                        orderable: true,
+                        searchable: true
                     },
                     {
                         data: 'role',
                         name: 'role',
+                        orderable: true,
+                        searchable: true
                     },
                     {
                         data: 'email',
                         name: 'email',
+                        orderable: true,
+                        searchable: true
                     },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        serchable: false
+                    }
                 ],
                 columnDefs: [{
                     "targets": [0],
@@ -267,6 +284,12 @@
                     "searchable": false,
                 }]
             });
+
+            $('#mySearchBar').keyup(function() {
+                $('#kt_customers_table').DataTable().search($(this).val()).draw();
+            });
+
+            $.fn.dataTable.ext.errMode = 'throw';
         });
     </script>
     <!--end::Additional Javascript-->
