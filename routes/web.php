@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\EmployeeController as AdminEmployeeController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\FinanceController as AdminFinanceController;
 use App\Http\Controllers\Admin\MasterDataController as AdminMasterDataController;
@@ -12,7 +13,9 @@ use App\Http\Controllers\Admin\MultiOutletController as AdminMultiOutletControll
 use App\Http\Controllers\Admin\PurchaseController as AdminPurchaseController;
 use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Http\Controllers\Admin\SaleController as AdminSaleController;
+
 use App\Http\Controllers\HomeController;
+
 use RealRashid\SweetAlert\Facades\Alert;
 
 Route::get('/', function () {
@@ -29,6 +32,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 	// Profiles
 	Route::get('/profiles', [AdminProfileController::class, 'index'])->name('profiles.index');
 	Route::put('/profiles/update', [AdminProfileController::class, 'update'])->name('profiles.update');
+
+	Route::get('/employees', [AdminEmployeeController::class, 'index'])->name('employees.index');
 
 	// Contact
 	Route::get('/contacts', [AdminContactController::class, 'index'])->name('contact.index');
@@ -50,7 +55,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
 	// Sale
 	Route::get('/sale', [AdminSaleController::class, 'index'])->name('sale.index');
-	
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');

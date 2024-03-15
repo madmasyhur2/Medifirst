@@ -26,7 +26,7 @@
                     <!--begin:Menu link-->
                     <a href="{{ route('admin.dashboard') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-screen fs-2x"></i>
+                            <i class="las la-desktop fs-2x"></i>
                         </span>
                         <span class="menu-title">Dashboard</span>
                     </a>
@@ -39,7 +39,7 @@
                     <!--begin:Menu link-->
                     <a href="{{ route('admin.masterdata.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-share fs-2x"></i>
+                            <i class="las la-share-alt fs-2x"></i>
                         </span>
                         <span class="menu-title">Master Data</span>
                     </a>
@@ -1022,11 +1022,11 @@
 
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start"
-                    class="menu-item {{ request()->routeIs('admin.profiles.show') ? 'here show' : '' }} py-2">
+                    class="menu-item {{ request()->routeIs('admin.profiles.*') ? 'here show' : '' }} py-2">
                     <!--begin:Menu link-->
-                    <a href="{{ route('admin.profiles.index')}}" class="menu-link menu-center" >
+                    <a href="{{ route('admin.profiles.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-people fs-2x"></i>
+                            <i class="las la-users fs-2x"></i>
                         </span>
                         <span class="menu-title">Akun</span>
                     </a>
@@ -1039,7 +1039,7 @@
                     <!--begin:Menu link-->
                     <a href="{{ route('admin.report.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-chart-pie-4 fs-2x"></i>
+                            <i class="las la-chart-pie fs-2x"></i>
                         </span>
                         <span class="menu-title">Laporan</span>
                     </a>
@@ -1052,7 +1052,7 @@
                     <!--begin:Menu link-->
                     <a href="{{ route('admin.sale.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-receipt-square fs-2x"></i>
+                            <i class="las la-receipt fs-2x"></i>
                         </span>
                         <span class="menu-title">Penjualan</span>
                     </a>
@@ -1065,7 +1065,7 @@
                     <!--begin:Menu link-->
                     <a href="{{ route('admin.purchase.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-credit-cart fs-2x"></i>
+                            <i class="las la-credit-card fs-2x"></i>
                         </span>
                         <span class="menu-title">Pembelian</span>
                     </a>
@@ -1078,7 +1078,7 @@
                     <!--begin:Menu link-->
                     <a href="{{ route('admin.finance.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-wallet fs-2x"></i>
+                            <i class="las la-wallet fs-2x"></i>
                         </span>
                         <span class="menu-title">Keuangan</span>
                     </a>
@@ -1091,7 +1091,7 @@
                     <!--begin:Menu link-->
                     <a href="{{ route('admin.multioutlet.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-delivery-door fs-2x"></i>
+                            <i class="las la-door-open fs-2x"></i>
                         </span>
                         <span class="menu-title">Multi Outlet</span>
                     </a>
@@ -1104,7 +1104,7 @@
                     <!--begin:Menu link-->
                     <a href="{{ route('admin.contact.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
-                            <i class="ki-outline ki-address-book fs-2x"></i>
+                            <i class="las la-phone fs-2x"></i>
                         </span>
                         <span class="menu-title">Kontak</span>
                     </a>
