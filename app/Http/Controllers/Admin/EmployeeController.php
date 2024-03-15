@@ -23,15 +23,34 @@ class EmployeeController extends Controller
 
 				return DataTables::eloquent($query)
 					->addIndexColumn()
+					->editColumn('role', function ($data) {
+						if ($data->role == 'cashier') return '<span class="badge badge-info">Kasir</span>';
+						if ($data->role == 'finance') return '<span class="badge badge-warning">Keuangan</span>';
+						if ($data->role == 'warehouse') return '<span class="badge badge-secondary">Pergudangan</span>';
+						return '-';
+					})
+					->addColumn('shift', function ($data) {
+						return '
+							<span>06.00 - 15.00</span> <br>
+							<span class="badge badge-secondary badge-sm">+1 shift lainnya</span>
+						';
+					})
+					->addColumn('phone', function ($data) {
+						return '
+							<span>08123456789</span>
+						';
+					})
 					->addColumn('action', function ($data) {
 						return '
-							<a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
-								data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-								<i class="ki-outline ki-down fs-5 ms-1"></i>
+							<a href="#edit_data_' . $data->id . '" class="btn btn-sm btn-icon bg-body">
+								<i class="ki-solid ki-pencil text-dark fs-1"></i>
+							</a>
+							<a href="#hapus_data_' . $data->id . '" class="btn btn-sm btn-icon bg-body">
+								<i class="ki-solid ki-trash text-danger fs-1"></i>
 							</a>
 						';
 					})
-					->rawColumns(['action'])
+					->rawColumns(['action', 'role', 'shift', 'phone'])
 					->make(true);
 			}
 

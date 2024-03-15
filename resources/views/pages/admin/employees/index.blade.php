@@ -194,11 +194,12 @@
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
                     <thead>
                         <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="w-10px pe-2">No</th>
+                            <th class="min-w-10px pe-2">No.</th>
                             <th class="min-w-125px">Nama</th>
                             <th class="min-w-125px">Alamat</th>
                             <th class="min-w-125px">Jabatan</th>
                             <th class="min-w-125px">Shift</th>
+                            <th class="min-w-125px">No HP</th>
                             <th class="text-end min-w-70px">Aksi</th>
                         </tr>
                     </thead>
@@ -266,8 +267,14 @@
                         searchable: true
                     },
                     {
-                        data: 'email',
-                        name: 'email',
+                        data: 'shift',
+                        name: 'shift',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone',
                         orderable: true,
                         searchable: true
                     },
@@ -280,9 +287,12 @@
                 ],
                 columnDefs: [{
                     "targets": [0],
-                    "visible": false,
+                    "visible": true,
                     "searchable": false,
-                }]
+                }],
+                order: [
+                    [0, 'desc']
+                ]
             });
 
             $('#mySearchBar').keyup(function() {
