@@ -18,7 +18,8 @@ class UserSeeder extends Seeder
 			'email' => 'owner@medifirst.id',
 			'password' => bcrypt('owner'),
 			'role' => 'owner',
-			'address' => fake()->address(),
+			'address' => fake('id_ID')->address(),
+			'phone_number' => fake('id_ID')->phoneNumber(),
 		]);
 
 		$owner->assignRole('owner');
@@ -28,7 +29,8 @@ class UserSeeder extends Seeder
 			'email' => 'warehouse@medifirst.id',
 			'password' => bcrypt('warehouse'),
 			'role' => 'warehouse',
-			'address' => fake()->address(),
+			'address' => fake('id_ID')->address(),
+			'phone_number' => fake('id_ID')->phoneNumber(),
 		]);
 
 		$warehouse->assignRole('warehouse');
@@ -38,7 +40,8 @@ class UserSeeder extends Seeder
 			'email' => 'cashier@medifirst.id',
 			'password' => bcrypt('cashier'),
 			'role' => 'cashier',
-			'address' => fake()->address(),
+			'address' => fake('id_ID')->address(),
+			'phone_number' => fake('id_ID')->phoneNumber(),
 		]);
 
 		$cashier->assignRole('cashier');
@@ -48,7 +51,8 @@ class UserSeeder extends Seeder
 			'email' => 'finance@medifirst.id',
 			'password' => bcrypt('finance'),
 			'role' => 'finance',
-			'address' => fake()->address(),
+			'address' => fake('id_ID')->address(),
+			'phone_number' => fake('id_ID')->phoneNumber(),
 		]);
 
 		$finance->assignRole('finance');

@@ -20,6 +20,7 @@ return new class extends Migration
 			$table->string('role')->default('user');
 			$table->string('avatar')->default('../assets/image/default.jpg');
 			$table->string('address')->default('N/A');
+			$table->string('phone_number')->nullable();
 			$table->rememberToken();
 			$table->timestamps();
 		});

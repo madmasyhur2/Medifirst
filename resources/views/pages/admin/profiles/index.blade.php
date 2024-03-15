@@ -73,8 +73,29 @@
                     <h3 class="fw-bold m-0">Akun Owner</h3>
                 </div>
                 <!--end::Card title-->
+                <!--begin::Card toolbar-->
+                <div class="card-toolbar">
+                    <!--begin::Toolbar-->
+                    <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+                        <!--begin::Add customer-->
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer">
+                            Edit Profile
+                        </button>
+                        <!--end::Add customer-->
+                    </div>
+                    <!--end::Toolbar-->
+                    <!--begin::Group actions-->
+                    <div class="d-flex justify-content-end align-items-center d-none" data-kt-customer-table-toolbar="selected">
+                        <div class="fw-bold me-5">
+                            <span class="me-2" data-kt-customer-table-select="selected_count"></span>Selected
+                        </div>
+                        <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected">Delete Selected</button>
+                    </div>
+                    <!--end::Group actions-->
+                </div>
+                <!--end::Card toolbar-->
             </div>
-            <!--begin::Card header-->
+            <!--end::Card header-->
 
             <!--begin::Content-->
             <div id="kt_account_settings_profile_details" class="collapse show">
@@ -95,43 +116,20 @@
                                         <!--begin::Image input-->
                                         <div class="image-input image-input-outline" data-kt-image-input="true"
                                             style="background-image: url('{{ asset('backend/media/svg/avatars/blank.svg') }}')">
-                                            <!--begin::Preview existing avatar-->
-                                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $user->avatar_url }})">
-                                            </div>
-                                            <!--end::Preview existing avatar-->
-
-                                            <!--begin::Label-->
-                                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar"
-                                                data-bs-original-title="Change avatar" data-kt-initialized="1">
-                                                <i class="ki-outline ki-pencil fs-7"></i>
-                                                <!--begin::Inputs-->
-                                                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                                                <input type="hidden" name="avatar_remove" />
-                                                <!--end::Inputs-->
-                                            </label>
-                                            <!--end::Label-->
-
-                                            <!--begin::Cancel-->
-                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar"
-                                                data-bs-original-title="Cancel avatar" data-kt-initialized="1">
-                                                <i class="ki-outline ki-cross fs-2"></i>
-                                            </span>
-                                            <!--end::Cancel-->
-
-                                            <!--begin::Remove-->
-                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar"
-                                                data-bs-original-title="Remove avatar" data-kt-initialized="1">
-                                                <i class="ki-outline ki-cross fs-2"></i>
-                                            </span>
-                                            <!--end::Remove-->
+                                            @empty($user->avatar_url)
+                                                <!--begin::Preview existing avatar-->
+                                                <div class="image-input-wrapper w-125px h-125px"
+                                                    style="background-image: url('{{ asset('backend/media/svg/avatars/blank.svg') }}')">
+                                                </div>
+                                                <!--end::Preview existing avatar-->
+                                            @else
+                                                <!--begin::Preview existing avatar-->
+                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $user->avatar_url }})">
+                                                </div>
+                                                <!--end::Preview existing avatar-->
+                                            @endempty
                                         </div>
                                         <!--end::Image input-->
-                                        <!--begin::Hint-->
-                                        <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                                        <!--end::Hint-->
                                     </div>
                                     <!--end::Col-->
                                 </div>
@@ -143,32 +141,29 @@
                             <div class="col-lg-10">
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
-                                    <div class="col-lg-6">
-                                        <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Nama Lengkap</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="fv-row fv-plugins-icon-container">
-                                            <input type="text" name="name" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Ketikkan nama lengkap Anda" value="{{ old('name', $user->name) }}" />
-                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                        </div>
-                                        <!--end::Col-->
+                                    <!--begin::Label-->
+                                    <label class="col-form-label required fw-semibold fs-6">Nama Lengkap</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="fv-row fv-plugins-icon-container">
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                            placeholder="Ketikkan alamat Anda" value="{{ $user->name }}" readonly />
                                     </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
 
-                                    <div class="col-lg-6">
-                                        <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Jabatan</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="fv-row fv-plugins-icon-container">
-                                            <input type="hidden" name="role" value="{{ $user->role }}" />
-                                            <input type="text" name="jabatan" class="form-control form-control-lg form-control-solid"
-                                                placeholder="---" value="Pemilik Apotek" readonly />
-                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                        </div>
-                                        <!--end::Col-->
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label class="col-form-label required fw-semibold fs-6">Jabatan</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="fv-row fv-plugins-icon-container">
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                            placeholder="Ketikkan alamat Anda" value="{{ $user->role_name }}" readonly />
                                     </div>
+                                    <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
 
@@ -179,9 +174,8 @@
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-solid"
-                                            placeholder="Ketikkan alamat Anda" value="{{ old('address', $user->address) }}" />
-                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                            placeholder="Ketikkan alamat Anda" value="{{ $user->address }}" />
                                     </div>
                                     <!--end::Col-->
                                 </div>
@@ -189,77 +183,85 @@
 
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
-                                    <div class="col-lg-6">
-                                        <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Email</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="fv-row fv-plugins-icon-container">
-                                            <input type="email" name="email" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Ketikkan nama email Anda" value="{{ old('email', $user->email) }}" />
-                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                        </div>
-                                        <!--end::Col-->
+                                    <!--begin::Label-->
+                                    <label class="col-form-label required fw-semibold fs-6">No. HP</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="fv-row fv-plugins-icon-container">
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                            placeholder="Ketikkan alamat Anda" value="{{ $user->phone_number }}" />
                                     </div>
-
-                                    <div class="col-lg-6">
-                                        <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Password</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="fv-row fv-plugins-icon-container">
-                                            <input type="password" name="password" class="form-control form-control-lg form-control-solid"
-                                                placeholder="••••••••" />
-                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
+                                    <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
 
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
-                                    <div class="col-lg-6">
-                                        <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">No. SIPA</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="fv-row fv-plugins-icon-container">
-                                            <input type="text" name="no_sipa" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Ketikkan No. SIPA Anda" value="" />
-                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                        </div>
-                                        <!--end::Col-->
+                                    <!--begin::Label-->
+                                    <label class="col-form-label required fw-semibold fs-6">Email</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="fv-row fv-plugins-icon-container">
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                            placeholder="Ketikkan alamat Anda" value="{{ $user->email }}" />
                                     </div>
-
-                                    <div class="col-lg-6">
-                                        <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Berlaku Sampai</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="fv-row fv-plugins-icon-container">
-                                            <input type="text" name="berlaku_sampai" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Ketikkan tanggal kadaluarsa No. SIPA Anda" value="" />
-                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                        </div>
-                                        <!--end::Col-->
-                                    </div>
+                                    <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
 
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
-                                    <div class="col-lg-6">
-                                        <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Dokumen pendukung</label>
-                                        <!--end::Label-->
-                                        <!--begin::Col-->
-                                        <div class="fv-row fv-plugins-icon-container">
-                                            <input type="file" name="no_sipa" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Upload surat SIPA Anda" />
-                                        </div>
-                                        <!--end::Col-->
+                                    <!--begin::Label-->
+                                    <label class="col-form-label required fw-semibold fs-6">Password</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="fv-row fv-plugins-icon-container">
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                            placeholder="Ketikkan alamat Anda" value="*****" />
                                     </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label class="col-form-label required fw-semibold fs-6">Nomor Lisensi</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="fv-row fv-plugins-icon-container">
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                            placeholder="Ketikkan alamat Anda" value="446/0153/1427/1-16" />
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label class="col-form-label required fw-semibold fs-6">Berlaku Sampai</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="fv-row fv-plugins-icon-container">
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                            placeholder="Ketikkan alamat Anda" value="25 Agustus 2025" />
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+
+                                <!--begin::Input group-->
+                                <div class="row mb-6">
+                                    <!--begin::Label-->
+                                    <label class="col-form-label required fw-semibold fs-6">Dokumen Pendukung</label>
+                                    <!--end::Label-->
+                                    <!--begin::Col-->
+                                    <div class="fv-row fv-plugins-icon-container">
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                            placeholder="Ketikkan alamat Anda" value="Surat SIPA OWNER" />
+                                    </div>
+                                    <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -267,14 +269,6 @@
                         </div>
                     </div>
                     <!--end::Card body-->
-
-                    <!--begin::Actions-->
-                    <div class="card-footer d-flex justify-content-end py-6 px-9">
-                        <button type="reset" class="btn btn-light btn-active-light-primary me-2">Batal</button>
-                        <button type="button" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan</button>
-                    </div>
-                    <!--end::Actions-->
-                    <input type="hidden">
                 </form>
                 <!--end::Form-->
             </div>
