@@ -38,8 +38,16 @@ class MasterDataController extends Controller
                         return $item->category->name; 
                     })
                     ->addColumn('action', function($item){
-                        return '<div class="d-flex justify-content-end">
-                                    <a class="btn btn-sm btn-primary me-2" style="background-color: #8F9098;">Action</a>
+                        return '<div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="action_button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #8F9098; color: white">
+                                        Action
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="action_button">
+                                        <li><a class="dropdown-item" href="masterdata/edit">Edit Produk</a></li>
+                                        <li><a class="dropdown-item" href="#">Tambah Stok Produk</a></li>
+                                        <li><a class="dropdown-item" href="#">Detail Produk</a></li>
+                                        <li><a class="dropdown-item" href="#">Hapus Produk</a></li>
+                                    </ul>
                                 </div>';
                     })
                     ->rawColumns(['name', 'sku_code', 'action'])
@@ -74,25 +82,10 @@ class MasterDataController extends Controller
         }
     }
 
-    public function add(Request $request)
+    public function add()
     {
-        try {
-            $categories = Category::all();
-            return view('pages.admin.masterdata.add', compact('categories'));
-        } catch (\Throwable $th) {
-            alert()->error($th->getMessage());
-			return redirect(route('dashboard'));
-        }
+        return view('pages.admin.masterdata.product');
     }
 
-    public function addMultiple(Request $request)
-    {
-        try {
-            $categories = Category::all();
-            return view('pages.admin.masterdata.add-multiple', compact('categories'));
-        } catch (\Throwable $th) {
-            alert()->error($th->getMessage());
-			return redirect(route('products.index'));
-        }
-    }
+    
 }

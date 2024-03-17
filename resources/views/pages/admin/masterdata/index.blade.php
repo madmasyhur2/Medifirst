@@ -14,12 +14,12 @@
                     <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="masterdata">Produk</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="{{ route('admin.masterdata.index') }}">Produk</a>
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="masterdata/membership">Membership</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="{{ route('admin.membership.index') }}">Membership</a>
                         </li>
                         <!--end::Nav item-->
                     </ul>
@@ -35,10 +35,10 @@
                     <h1 class="mx-0 my-auto">Produk</h1>
                 </div>
                 <div class="col-md-2">
-                    <a class="btn btn-sm" style="background-color: #535561; color: white" href="masterdata/add" role="button">Tambah Produk Satuan</a>
+                    <a class="btn btn-secondary btn-sm" style="background-color: #535561; color: white" href="{{ route('admin.masterdata.edit')}}" role="button">Tambah Produk Satuan</a>
                 </div>
                 <div class="col-md-2">
-                    <a class="btn btn-sm" style="color: #282828; border: solid 1px #535561;" href="masterdata/add-multiple" role="button">Tambah Produk Massal</a>
+                    <a class="btn btn-secondary btn-sm" style="background-color: white; color: #282828; border: solid 1px #535561;" href="{{ route('admin.masterdata.add-multiple')}}" role="button">Tambah Produk Massal</a>
                 </div>
             </div>
         </div>    
