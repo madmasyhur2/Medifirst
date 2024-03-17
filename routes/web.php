@@ -43,7 +43,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
 	// Masterdata
 	Route::get('/masterdata', [AdminMasterDataController::class, 'index'])->name('masterdata.index');
-
+	Route::get('/masterdata/add', [AdminMasterDataController::class, 'add'])->name('masterdata.add');
+	Route::get('/masterdata/add-multiple', [AdminMasterDataController::class, 'addMultiple'])->name('masterdata.add-multiple');
+	
 	// Multioutler
 	Route::get('/multioutlet', [AdminMultiOutletController::class, 'index'])->name('multioutlet.index');
 

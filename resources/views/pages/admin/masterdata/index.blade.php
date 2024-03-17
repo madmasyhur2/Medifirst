@@ -5,52 +5,103 @@
 @endpush
 
 @section('content')
-    <div id="kt_content_container" class="container-xxl">
-        <!--begin::Navbar-->
-        <div class="card mb-5 mb-xl-10">
-            <div class="card-body pt-0 pb-0">
-                <!--begin::Navs-->
-                <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
-                    <!--begin::Nav item-->
-                    <li class="nav-item mt-2">
-                        <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="masterdata/product">Produk</a>
-                    </li>
-                    <!--end::Nav item-->
-                    <!--begin::Nav item-->
-                    <li class="nav-item mt-2">
-                        <a class="nav-link text-active-primary ms-0 me-10 py-5" href="masterdata/membership">Membership</a>
-                    </li>
-                    <!--end::Nav item-->
-                </ul>
-                <!--begin::Navs-->
+    <div  class="container bg-white p-4 rounded">
+        <div id="kt_content_container" class="container-xxl">
+            <!--begin::Navbar-->
+            <div class="card mb-5 mb-xl-10">
+                <div class="card-body pt-0 pb-0 px-0">
+                    <!--begin::Navs-->
+                    <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
+                        <!--begin::Nav item-->
+                        <li class="nav-item mt-2">
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="masterdata">Produk</a>
+                        </li>
+                        <!--end::Nav item-->
+                        <!--begin::Nav item-->
+                        <li class="nav-item mt-2">
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="masterdata/membership">Membership</a>
+                        </li>
+                        <!--end::Nav item-->
+                    </ul>
+                    <!--begin::Navs-->
+                </div>
+            </div>
+            <!--end::Navbar-->
+        </div>
+    
+        <div class="container py-3 my-6">
+            <div class="row">
+                <div class="col-md-8 d-flex align-items-left">
+                    <h1 class="mx-0 my-auto">Produk</h1>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-sm" style="background-color: #535561; color: white" href="masterdata/add" role="button">Tambah Produk Satuan</a>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-sm" style="color: #282828; border: solid 1px #535561;" href="masterdata/add-multiple" role="button">Tambah Produk Massal</a>
+                </div>
+            </div>
+        </div>    
+    
+        <div class="container py-3">
+            <div class="row">
+                <!-- Search Input -->
+                <div class="col-md-6 mb-3">
+                    <label for="search" class="form-label">Cari Produk</label>
+                    <input type="text" id="liveSearch" name="search" class="form-control" placeholder="Cari">
+                </div>
+                <!-- Filter Dropdowns -->
+                <div class="col-md-2 mb-3">
+                    <label for="location_filter" class="form-label">Lokasi:</label>
+                    <select id="location_filter" class="form-select">
+                        <option value="">Semua Lokasi</option>
+                        @foreach ($locations as $location)
+                            <option value="{{ $location->location }}">{{ $location->location }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="category_filter" class="form-label">Kategori:</label>
+                    <select id="category_filter" class="form-select">
+                        <option value="">Semua Kategori</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->category_name }}">{{ $category->category_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="group_filter" class="form-label">Golongan:</label>
+                    <select id="group_filter" class="form-select">
+                        <option value="">Semua Golongan</option>
+                        @foreach ($groups as $group)
+                            <option value="{{ $group->group }}">{{ $group->group }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <!-- Tabel DataTable -->
+                <div class="col-md-12">
+                    <table class="table" id="productDataTable">
+                        <thead>
+                            <tr>
+                                <th scope="col"><strong>No</strong></th>
+                                <th scope="col"><strong>Nama Produk</strong></th>
+                                <th scope="col"><strong>Varian</strong></th>
+                                <th scope="col"><strong>Golongan</strong></th>
+                                <th scope="col"><strong>Kategori</strong></th>
+                                <th scope="col"><strong>Stok</strong></th>
+                                <th scope="col"><strong>Harga</strong></th>
+                                <th scope="col"><strong>Lokasi</strong></th>
+                                <th scope="col"><strong>Terakhir Diupdate</strong></th>
+                                <th scope="col"><strong>Action</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <!--end::Navbar-->
     </div>
-
-    <div class="container py-3">
-        <div class="row">
-            <table class="table" id="dataTable">
-                <thead>
-                    <tr>
-                        <th scope="col"><strong>No</strong></th>
-                        <th scope="col"><strong>Nama Produk</strong></th>
-                        <th scope="col"><strong>Kode SKU</strong></th>
-                        <th scope="col"><strong>Varian</strong></th>
-                        <th scope="col"><strong>Golongan</strong></th>
-                        <th scope="col"><strong>Stok</strong></th>
-                        <th scope="col"><strong>Harga</strong></th>
-                        <th scope="col"><strong>Lokasi</strong></th>
-                        <th scope="col"><strong>Terakhir Diupdate</strong></th>
-                        <th scope="col"><strong>Action</strong></th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
 @endsection
 
 @push('after-script')
@@ -79,39 +130,36 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable({
+            $('#productDataTable').DataTable({
+                destroy: true,
                 processing: true,
                 serverSide: true,
+                dom: "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-4 d-flex align-items-center'li><'col-sm-8'p>>",
                 ajax: {
                     url: '{!! url()->current() !!}',
                 },
                 columns: [
                     { 
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex',
-                    orderable: false,
-                    searchable: false
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
                     },
                     {
                         data: 'name',
                         name: 'name',
                         width: '25%',
                         orderable: true,
-                        serchable: true
-                    },
-                    {
-                        data: 'sku_code',
-                        name: 'sku_code',
-                        width: '20%',
-                        orderable: true,
-                        serchable: true
+                        searchable: true
                     },
                     {
                         data: 'variant',
                         name: 'variant',
-                        width: '10%',
+                        width: '5%',
                         orderable: true,
                         serchable: true
                     },
@@ -123,9 +171,16 @@
                         serchable: true
                     },
                     {
+                        data: 'category_name',
+                        name: 'category_name',
+                        width: '10%',
+                        orderable: true,
+                        serchable: true
+                    },
+                    {
                         data: 'stock',
                         name: 'stock',
-                        width: '10%',
+                        width: '5%',
                         orderable: true,
                         serchable: true
                     },
@@ -146,7 +201,7 @@
                     {
                         data: 'updated_at',
                         name: 'updated_at',
-                        width: '20%',
+                        width: '15%',
                         orderable: true,
                         serchable: true
                     },
@@ -157,16 +212,41 @@
                         orderable: false,
                         serchable: false
                     }
-                ],
-                columnDefs: [
-                    {
-                        "targets": [ 0 ],
-                        "visible": false,
-                        "searchable": false
-                    }                     
-                ],
-                order: [[ 0, "desc" ]]
+                    ],
+                    columnDefs: [
+                        {
+                            "targets": [ 0 ],
+                            "visible": false,
+                            "searchable": false
+                        }                     
+                    ]
             });
+
+            // Live search
+            $('#liveSearch').on('keyup', function() {
+                $('#productDataTable').DataTable().search($(this).val()).draw();
+            });
+
+            // Filter by location
+            $('#location_filter').on('change', function() {
+                var filterValue = $(this).val();
+                $('#productDataTable').DataTable().column(7).search(filterValue).draw();
+            });
+
+            // Filter by category
+            $('#category_filter').on('change', function() {
+                var filterValue = $(this).val();
+                $('#productDataTable').DataTable().column(4).search(filterValue).draw();
+            });
+
+
+            // Filter by group
+            $('#group_filter').on('change', function() {
+                var filterValue = $(this).val();
+                $('#productDataTable').DataTable().column(3).search(filterValue).draw();
+            });
+
+            $.fn.dataTable.ext.errMode = 'throw';
         });
     </script>
 @endpush
