@@ -30,9 +30,9 @@ class Product extends Model
         return $this->belongsToMany(Purchase::class);
     }
 
-    public function suppliers(): BelongsToMany
+    public function suppliers()
     {
-        return $this->belongsToMany(Supplier::class);
+        return $this->belongsTo(Supplier::class);
     }
 
 }

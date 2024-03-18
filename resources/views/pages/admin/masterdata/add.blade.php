@@ -36,7 +36,7 @@
                 aria-expanded="true" aria-controls="kt_account_profile_details">
                 <!--begin::Card title-->
                 <div class="card-title m-0">
-                    <h3 class="fw-bold m-0">Edit Produk</h3>
+                    <h3 class="fw-bold m-0">Tambah Produk Satuan</h3>
                 </div>
                 <!--end::Card title-->
             </div>
@@ -116,7 +116,7 @@
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
                                         <input type="text" name="medicine" class="form-control form-control-lg form-control-solid"
-                                            placeholder="Ketikkan nama obat" value="Paramex" />
+                                            placeholder="Ketikkan nama obat" />
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                     </div>
                                     <!--end::Col-->
@@ -131,7 +131,7 @@
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
                                         <input type="text" name="supplier" class="form-control form-control-lg form-control-solid"
-                                            placeholder="Ketikkan nama supplier" value="Konimex" />
+                                            placeholder="Ketikkan nama supplier"/>
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                     </div>
                                     <!--end::Col-->
@@ -316,7 +316,7 @@
                                         <div class="fv-row fv-plugins-icon-container">
                                             <div class="input-group">
                                                 <input type="text" name="batch_code" class="form-control form-control-lg form-control-solid"
-                                                    placeholder="Masukkan Kode Batch" />
+                                                    placeholder="Masukkan Kode Batch"/>
                                             </div>
                                         </div>
                                         <!--end::Col-->

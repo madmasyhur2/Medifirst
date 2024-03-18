@@ -35,7 +35,7 @@
                     <h1 class="mx-0 my-auto">Produk</h1>
                 </div>
                 <div class="col-md-2">
-                    <a class="btn btn-secondary btn-sm" style="background-color: #535561; color: white" href="{{ route('admin.masterdata.edit')}}" role="button">Tambah Produk Satuan</a>
+                    <a class="btn btn-secondary btn-sm" style="background-color: #535561; color: white" href="{{ route('admin.masterdata.add')}}" role="button">Tambah Produk Satuan</a>
                 </div>
                 <div class="col-md-2">
                     <a class="btn btn-secondary btn-sm" style="background-color: white; color: #282828; border: solid 1px #535561;" href="{{ route('admin.masterdata.add-multiple')}}" role="button">Tambah Produk Massal</a>
@@ -65,7 +65,7 @@
                     <select id="category_filter" class="form-select">
                         <option value="">Semua Kategori</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->category_name }}">{{ $category->category_name }}</option>
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -105,7 +105,7 @@
 @endsection
 
 @push('after-script')
-    <!--begin::Vendors Javascript(used for this page only)-->
+    {{-- <!--begin::Vendors Javascript(used for this page only)-->
     <script src="{{ asset('backend/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <!--end::Vendors Javascript-->
 
@@ -126,14 +126,14 @@
     <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/main.js') }}"></script>
     <script src="{{ asset('backend/js/custom/utilities/modals/two-factor-authentication.js') }}"></script>
     <script src="{{ asset('backend/js/custom/utilities/modals/users-search.js') }}"></script>
-    <!--end::Custom Javascript-->
+    <!--end::Custom Javascript--> --}}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
     
     <script>
         $(document).ready(function() {
-            $('#productDataTable').DataTable({
+            var datatable = $('#productDataTable').DataTable({
                 destroy: true,
                 processing: true,
                 serverSide: true,
@@ -141,6 +141,9 @@
                         "<'row'<'col-sm-4 d-flex align-items-center'li><'col-sm-8'p>>",
                 ajax: {
                     url: '{!! url()->current() !!}',
+                    data: function (d) {
+                        d.category_id = $('#category_filter').val();
+                    }
                 },
                 columns: [
                     { 
@@ -171,8 +174,8 @@
                         serchable: true
                     },
                     {
-                        data: 'category_name',
-                        name: 'category_name',
+                        data: 'category_id',
+                        name: 'category_id',
                         width: '10%',
                         orderable: true,
                         serchable: true
@@ -238,7 +241,6 @@
                 var filterValue = $(this).val();
                 $('#productDataTable').DataTable().column(4).search(filterValue).draw();
             });
-
 
             // Filter by group
             $('#group_filter').on('change', function() {
