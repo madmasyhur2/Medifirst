@@ -14,9 +14,6 @@ class EmployeeController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		// $query = User::query()->where('role', '<>', 'owner')->get();
-		// dd($query->toArray());
-
 		try {
 			if ($request->ajax()) {
 				$query = User::query()->where('role', '<>', 'owner');
@@ -33,11 +30,6 @@ class EmployeeController extends Controller
 						return '
 							<span>06.00 - 15.00</span> <br>
 							<span class="badge badge-secondary badge-sm">+1 shift lainnya</span>
-						';
-					})
-					->addColumn('phone', function ($data) {
-						return '
-							<span>08123456789</span>
 						';
 					})
 					->addColumn('action', function ($data) {
@@ -67,7 +59,14 @@ class EmployeeController extends Controller
 	 */
 	public function create()
 	{
-		//
+		try {
+			return view('pages.admin.employees.form', [
+				'method' => 'POST',
+				'action' => route('admin.employees.store'),
+			]);
+		} catch (\Throwable $th) {
+			//throw $th;
+		}
 	}
 
 	/**

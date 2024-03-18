@@ -29,11 +29,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 	// Dashboard
 	Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-	// Profiles
+	// Account - Tab Owner
 	Route::get('/profiles', [AdminProfileController::class, 'index'])->name('profiles.index');
+	Route::get('/profiles/edit', [AdminProfileController::class, 'edit'])->name('profiles.edit');
 	Route::put('/profiles/update', [AdminProfileController::class, 'update'])->name('profiles.update');
 
-	Route::get('/employees', [AdminEmployeeController::class, 'index'])->name('employees.index');
+	// Account - Tab Karyawan
+	Route::resource('employees', AdminEmployeeController::class);
 
 	// Contact
 	Route::get('/contacts', [AdminContactController::class, 'index'])->name('contact.index');
@@ -45,7 +47,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 	Route::get('/masterdata', [AdminMasterDataController::class, 'index'])->name('masterdata.index');
 	Route::get('/masterdata/add', [AdminMasterDataController::class, 'add'])->name('masterdata.add');
 	Route::get('/masterdata/add-multiple', [AdminMasterDataController::class, 'addMultiple'])->name('masterdata.add-multiple');
-	
+
 	// Multioutler
 	Route::get('/multioutlet', [AdminMultiOutletController::class, 'index'])->name('multioutlet.index');
 

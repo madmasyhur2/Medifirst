@@ -66,8 +66,7 @@
         <!--begin::Basic info-->
         <div class="card mb-5 mb-xl-10">
             <!--begin::Card header-->
-            <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details"
-                aria-expanded="true" aria-controls="kt_account_profile_details">
+            <div class="card-header border-0" aria-expanded="true">
                 <!--begin::Card title-->
                 <div class="card-title m-0">
                     <h3 class="fw-bold m-0">Akun Owner</h3>
@@ -78,20 +77,12 @@
                     <!--begin::Toolbar-->
                     <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                         <!--begin::Add customer-->
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer">
+                        <a href="{{ route('admin.profiles.edit') }}" class="btn btn-secondary">
                             Edit Profile
-                        </button>
+                        </a>
                         <!--end::Add customer-->
                     </div>
                     <!--end::Toolbar-->
-                    <!--begin::Group actions-->
-                    <div class="d-flex justify-content-end align-items-center d-none" data-kt-customer-table-toolbar="selected">
-                        <div class="fw-bold me-5">
-                            <span class="me-2" data-kt-customer-table-select="selected_count"></span>Selected
-                        </div>
-                        <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected">Delete Selected</button>
-                    </div>
-                    <!--end::Group actions-->
                 </div>
                 <!--end::Card toolbar-->
             </div>
@@ -116,18 +107,10 @@
                                         <!--begin::Image input-->
                                         <div class="image-input image-input-outline" data-kt-image-input="true"
                                             style="background-image: url('{{ asset('backend/media/svg/avatars/blank.svg') }}')">
-                                            @empty($user->avatar_url)
-                                                <!--begin::Preview existing avatar-->
-                                                <div class="image-input-wrapper w-125px h-125px"
-                                                    style="background-image: url('{{ asset('backend/media/svg/avatars/blank.svg') }}')">
-                                                </div>
-                                                <!--end::Preview existing avatar-->
-                                            @else
-                                                <!--begin::Preview existing avatar-->
-                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $user->avatar_url }})">
-                                                </div>
-                                                <!--end::Preview existing avatar-->
-                                            @endempty
+                                            <!--begin::Preview existing avatar-->
+                                            <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ $user->avatar_url }})">
+                                            </div>
+                                            <!--end::Preview existing avatar-->
                                         </div>
                                         <!--end::Image input-->
                                     </div>
@@ -305,24 +288,7 @@
     <!--begin::Additional Javascript(used for this page only)-->
     <script>
         $(document).ready(function() {
-            $('#kt_account_profile_details_submit').click(function(e) {
-                e.preventDefault();
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: 'You are about to update the account information',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, submit!',
-                    confirmButtonColor: '#409add',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#kt_account_profile_details_form').submit();
-                    } else {
-                        Swal.fire('Cancelled', 'Failed to update account', 'error');
-                    }
-                })
-            })
+            //
         })
     </script>
     <!--end::Additional Javascript-->

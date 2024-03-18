@@ -169,9 +169,9 @@
                         <!--end::Search-->
 
                         <!--begin::Add customer-->
-                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer">
+                        <a href="{{ route('admin.employees.create') }}" class="btn btn-dark">
                             Tambah Akun Karyawan
-                        </button>
+                        </a>
                         <!--end::Add customer-->
                     </div>
                     <!--end::Toolbar-->
@@ -261,6 +261,12 @@
                         searchable: true
                     },
                     {
+                        data: 'phone_number',
+                        name: 'phone_number',
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
                         data: 'role',
                         name: 'role',
                         orderable: true,
@@ -271,12 +277,6 @@
                         name: 'shift',
                         orderable: false,
                         searchable: false
-                    },
-                    {
-                        data: 'phone',
-                        name: 'phone',
-                        orderable: true,
-                        searchable: true
                     },
                     {
                         data: 'action',
