@@ -44,7 +44,13 @@ class MasterDataController extends Controller
                                         <li><a class="dropdown-item" href="masterdata/'.$item->id.'/edit">Edit Produk</a></li>
                                         <li><a class="dropdown-item" href="#">Tambah Stok Produk</a></li>
                                         <li><a class="dropdown-item" href="#">Detail Produk</a></li>
-                                        <li><a class="dropdown-item" href="#">Hapus Produk</a></li>
+                                        <li>
+                                            <form method="POST" action="masterdata/'.$item->id.'/delete" id="deleteForm">
+                                                '.csrf_field().'
+                                                <input name="_method" type="hidden" value="DELETE">
+                                                <button type="submit" class="dropdown-item" id="submitForm" data-product-name="'.$item->name.'" data-product-sku-code="'.$item->sku_code.'">Hapus</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>';
                     })
@@ -163,8 +169,21 @@ class MasterDataController extends Controller
         return view('pages.admin.masterdata.update');
     }
 
-    public function add()
+    public function create()
     {
-        return view('pages.admin.masterdata.add');
+        return view('pages.admin.masterdata.create');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $product = Product::findOrFail($id);
+            $product->delete();
+            alert()->success('Produk berhasil dihapus!');
+            return back();
+        } catch (\Throwable $th) {
+            alert()->error($th->getMessage());
+            return back();
+        }
     }
 }

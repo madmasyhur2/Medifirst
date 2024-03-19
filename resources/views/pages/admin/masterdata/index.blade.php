@@ -35,7 +35,7 @@
                     <h1 class="mx-0 my-auto">Produk</h1>
                 </div>
                 <div class="col-md-2">
-                    <a class="btn btn-secondary btn-sm" style="background-color: #535561; color: white" href="{{ route('admin.masterdata.add')}}" role="button">Tambah Produk Satuan</a>
+                    <a class="btn btn-secondary btn-sm" style="background-color: #535561; color: white" href="{{ route('admin.masterdata.create')}}" role="button">Tambah Produk Satuan</a>
                 </div>
                 <div class="col-md-2">
                     <a class="btn btn-secondary btn-sm" style="background-color: white; color: #282828; border: solid 1px #535561;" href="{{ route('admin.masterdata.add-multiple')}}" role="button">Tambah Produk Massal</a>
@@ -249,6 +249,31 @@
             });
 
             $.fn.dataTable.ext.errMode = 'throw';
+
+            // Delete Confirmation
+            $('body').on('click', '#submitForm', function(e){
+                e.preventDefault();
+                var form = $(this).parents('form');
+                var productName = $(this).data('product-name');
+                var productSkuCode = $(this).data('product-sku-code');
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    html: "Anda akan menghapus produk<br><span style='font-size: 1.2em;'><strong><span style='color:red'>" + 
+                        productName + "</span></strong></span><br><span style='font-size: 1.2em;'><strong><span style='color:red'>SKU : " + 
+                        productSkuCode + "</span></strong></span><br>dari database?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'Batal',
+                    cancelButtonColor: '#8F9098',
+                    confirmButtonColor: '#DC3545',
+                    confirmButtonText: 'Hapus',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        form.submit();
+                    }
+                });
+            });
         });
     </script>
 @endpush

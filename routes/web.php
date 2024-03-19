@@ -45,8 +45,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 	Route::get('/masterdata', [AdminMasterDataController::class, 'index'])->name('masterdata.index');
 	Route::get('/masterdata/{id}/edit', [AdminMasterDataController::class, 'edit'])->name('masterdata.edit');
 	Route::put('/masterdata/{id}', [AdminMasterDataController::class, 'update'])->name('masterdata.update');
-	Route::get('/masterdata/add', [AdminMasterDataController::class, 'add'])->name('masterdata.add');
+	Route::get('/masterdata/create', [AdminMasterDataController::class, 'create'])->name('masterdata.create');
 	Route::get('/masterdata/add-multiple', [AdminMasterDataController::class, 'addMultiple'])->name('masterdata.add-multiple');
+	Route::delete('/masterdata/{id}/delete', [AdminMasterDataController::class, 'destroy'])->name('masterdata.destroy');
 
 	// Membership
 	Route::get('/membership', [AdminMasterDataController::class, 'membership'])->name('membership.index');
