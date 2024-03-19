@@ -169,9 +169,9 @@
                         <!--end::Search-->
 
                         <!--begin::Add customer-->
-                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#kt_modal_add_customer">
+                        <a href="{{ route('admin.employees.create') }}" class="btn btn-dark">
                             Tambah Akun Karyawan
-                        </button>
+                        </a>
                         <!--end::Add customer-->
                     </div>
                     <!--end::Toolbar-->
@@ -194,11 +194,12 @@
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
                     <thead>
                         <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="w-10px pe-2">No</th>
+                            <th class="min-w-10px pe-2">No.</th>
                             <th class="min-w-125px">Nama</th>
                             <th class="min-w-125px">Alamat</th>
                             <th class="min-w-125px">Jabatan</th>
                             <th class="min-w-125px">Shift</th>
+                            <th class="min-w-125px">No HP</th>
                             <th class="text-end min-w-70px">Aksi</th>
                         </tr>
                     </thead>
@@ -260,16 +261,22 @@
                         searchable: true
                     },
                     {
+                        data: 'phone_number',
+                        name: 'phone_number',
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
                         data: 'role',
                         name: 'role',
                         orderable: true,
                         searchable: true
                     },
                     {
-                        data: 'email',
-                        name: 'email',
-                        orderable: true,
-                        searchable: true
+                        data: 'shift',
+                        name: 'shift',
+                        orderable: false,
+                        searchable: false
                     },
                     {
                         data: 'action',
@@ -280,9 +287,12 @@
                 ],
                 columnDefs: [{
                     "targets": [0],
-                    "visible": false,
+                    "visible": true,
                     "searchable": false,
-                }]
+                }],
+                order: [
+                    [0, 'desc']
+                ]
             });
 
             $('#mySearchBar').keyup(function() {

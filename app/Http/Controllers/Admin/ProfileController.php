@@ -10,6 +10,11 @@ use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
+	/**
+	 * index
+	 *
+	 * @return void
+	 */
 	public function index()
 	{
 		try {
@@ -24,6 +29,31 @@ class ProfileController extends Controller
 		}
 	}
 
+	/**
+	 * edit
+	 *
+	 * @return void
+	 */
+	public function edit()
+	{
+		try {
+			$user = User::where('id', auth()->user()->id)->first();
+			return view('pages.admin.profiles.edit', [
+				'user' => $user,
+			]);
+		} catch (\Throwable $th) {
+			//throw $th;
+			alert()->error($th->getMessage());
+			return back();
+		}
+	}
+
+	/**
+	 * update
+	 *
+	 * @param  mixed $request
+	 * @return void
+	 */
 	public function update(Request $request)
 	{
 		try {
@@ -43,10 +73,22 @@ class ProfileController extends Controller
 			$validated = $request->all();
 			$user = User::where('id', auth()->user()->id)->first();
 
+			// dd($validated);
+
+			// password
 			if ($validated['password'] == null) {
 				$validated['password'] = auth()->user()->password;
 			} else {
 				$validated['password'] = bcrypt($validated['password']);
+			}
+
+			// update or remove avatar
+			if (isset($request->avatar_remove) && $request->avatar_remove == 1) {
+				if ($user->hasMedia('avatars')) {
+					$user->clearMediaCollection('avatars');
+					return redirect()->route('admin.profiles.index')->with('success', 'Avatar user berhasil dihapus');
+				}
+				return back()->with('errors', 'User tida memiliki foto avatar')->withInput();
 			}
 
 			if ($request->hasFile('avatar')) {
@@ -61,7 +103,7 @@ class ProfileController extends Controller
 			$update = $user->update($validated);
 			if ($update) {
 				alert()->success('Perubahan berhasil disimpan!');
-				return back();
+				return redirect()->route('admin.profiles.index');
 			}
 		} catch (\Throwable $th) {
 			alert()->error($th->getMessage());
