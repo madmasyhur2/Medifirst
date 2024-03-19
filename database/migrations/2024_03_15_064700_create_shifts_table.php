@@ -14,7 +14,9 @@ return new class extends Migration
 		Schema::create('shifts', function (Blueprint $table) {
 			$table->id();
 			$table->bigInteger('user_id')->unsigned();
-			$table->string('working_hour');
+			$table->string('hari')->nullable();
+			$table->string('jam_masuk')->nullable();
+			$table->string('jam_pulang')->nullable();
 			$table->timestamps();
 		});
 	}

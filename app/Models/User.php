@@ -29,6 +29,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 		'role',
 		'avatar',
 		'address',
+		'license_number',
+		'license_expired_date',
 	];
 
 	/**

@@ -163,7 +163,8 @@
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
-                                            <select class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih Jabatan Anda">
+                                            <select class="form-select form-select-solid" name="jabatan" data-control="select2"
+                                                data-placeholder="Pilih Jabatan Anda">
                                                 <option></option>
                                                 <option value="cashier">Kasir</option>
                                                 <option value="warehouse">Pergudangan</option>
@@ -223,10 +224,21 @@
                                         <label class="col-form-label required fw-semibold fs-6">Password</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
-                                        <div class="fv-row fv-plugins-icon-container">
-                                            <input type="password" name="password" class="form-control form-control-lg form-control-solid"
-                                                placeholder="••••••••" />
-                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                        <div class="fv-row fv-plugins-icon-container" data-kt-password-meter="true">
+                                            <!--begin::Input wrapper-->
+                                            <div class="position-relative mb-3">
+                                                <input class="form-control form-control-lg form-control-solid" type="password" placeholder="••••••••"
+                                                    name="password" autocomplete="off" />
+
+                                                <!--begin::Visibility toggle-->
+                                                <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                                    data-kt-password-meter-control="visibility">
+                                                    <i class="ki-outline ki-eye-slash fs-1"></i>
+                                                    <i class="ki-outline ki-eye d-none fs-1"></i>
+                                                </span>
+                                                <!--end::Visibility toggle-->
+                                            </div>
+                                            <!--end::Input wrapper-->
                                         </div>
                                         <!--end::Col-->
                                     </div>
@@ -241,7 +253,7 @@
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
-                                            <input type="text" name="no_sipa" class="form-control form-control-lg form-control-solid"
+                                            <input type="text" name="license_number" class="form-control form-control-lg form-control-solid"
                                                 placeholder="Ketikkan nomor lisensi Anda" value="" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
@@ -255,7 +267,7 @@
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <input name="berlaku_sampai" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Ketikkan tanggal kadaluarsa No. SIPA Anda" value="" id="kt_datepicker_2" />
+                                                placeholder="Ketikkan tanggal kadaluarsa no. lisensi Anda" value="" id="kt_datepicker_2" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -288,25 +300,31 @@
                                                 <div class="form-group row mb-5">
                                                     <div class="col-md-4">
                                                         <label class="form-label">Hari:</label>
-                                                        <input type="text" class="form-control mb-2 mb-md-0" placeholder="Enter full name" />
+                                                        <select class="form-select" name="shifts[][hari]" data-kt-repeater="select2"
+                                                            data-placeholder="Pilih hari shift">
+                                                            <option></option>
+                                                            <option value="senin">Senin</option>
+                                                            <option value="selasa">Selasa</option>
+                                                            <option value="rabu">Rabu</option>
+                                                            <option value="kamis">Kamis</option>
+                                                            <option value="jumat">Jum'at</option>
+                                                            <option value="sabtu">Sabtu</option>
+                                                            <option value="minggu">Minggu</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="form-label">Jam Masuk:</label>
-                                                        <input type="email" class="form-control mb-2 mb-md-0" placeholder="Enter contact number" />
+                                                        <input type="text" name="shifts[][jam_masuk]" data-kt-repeater="shiftpicker"
+                                                            class="form-control mb-2 mb-md-0" placeholder="Pilih jam masuk" />
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="form-label">Jam Pulang:</label>
-                                                        <input type="email" class="form-control mb-2 mb-md-0" placeholder="Enter contact number" />
+                                                        <input type="email" name="shifts[][jam_pulang]" data-kt-repeater="shiftpicker"
+                                                            class="form-control mb-2 mb-md-0" placeholder="Pilih jam pulang" />
                                                     </div>
                                                     <div class="col-md-2">
                                                         <a href="javascript:;" data-repeater-delete class="btn btn-sm btn-light-danger mt-3 mt-md-8">
-                                                            <i class="ki-duotone ki-trash fs-5">
-                                                                <span class="path1"></span>
-                                                                <span class="path2"></span>
-                                                                <span class="path3"></span>
-                                                                <span class="path4">
-                                                                </span><span class="path5"></span>
-                                                            </i>
+                                                            <i class="ki-solid ki-trash fs-5"></i>
                                                             Delete
                                                         </a>
                                                     </div>
@@ -318,9 +336,9 @@
 
                                     <!--begin::Form group-->
                                     <div class="form-group mt-5">
-                                        <a href="javascript:;" data-repeater-create class="btn btn-light-primary">
+                                        <a href="javascript:;" data-repeater-create class="btn btn-light-secondary">
                                             <i class="ki-duotone ki-plus fs-3"></i>
-                                            Add
+                                            Tambah Shift
                                         </a>
                                     </div>
                                     <!--end::Form group-->
@@ -386,12 +404,28 @@
 
                 show: function() {
                     $(this).slideDown();
+                    $(this).find('[data-kt-repeater="select2"]').select2();
+                    $(this).find('[data-kt-repeater="shiftpicker"]').flatpickr({
+                        enableTime: true,
+                        noCalendar: true,
+                        dateFormat: "H:i",
+                    });
                 },
 
                 hide: function(deleteElement) {
                     $(this).slideUp(deleteElement);
+                },
+
+                ready: function() {
+                    $('[data-kt-repeater="select2"]').select2();
+                    $('[data-kt-repeater="shiftpicker"]').flatpickr({
+                        enableTime: true,
+                        noCalendar: true,
+                        dateFormat: "H:i",
+                    });
                 }
             });
+
         });
     </script>
     <!--end::Additional Javascript-->
