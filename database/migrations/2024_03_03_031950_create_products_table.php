@@ -18,9 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->string('sku_code')->unique();
             $table->string('name');
-            $table->enum('variant', ['pcs', 'strip', 'box'])->default('pcs');
-            $table->enum('group', ['obat bebas', 'obat bebas terbatas', 'obat keras', 'lain-lain'])->nullable();
-            $table->boolean('is_consigment')->default(false);
+            $table->enum('unit', ['pcs', 'strip', 'box'])->default('pcs');
+            $table->enum('variant', ['tablet', 'botol', 'ampul', 'dus', 'kapsul', 'lain-lain']);
+            $table->enum('group', ['obat bebas', 'obat bebas terbatas', 'obat keras', 'lain-lain']);
+            $table->boolean('is_consignment')->default(false);
             $table->string('product_photo_path')->nullable();
             $table->string('location');
             $table->decimal('cost', 10, 2);

@@ -13,6 +13,6 @@ class BatchSeeder extends Seeder
      */
     public function run(): void
     {
-        Batch::factory(100)->create();
+        Batch::factory(400)->create();
     }
 }

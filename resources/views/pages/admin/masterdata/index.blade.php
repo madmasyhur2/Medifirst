@@ -48,7 +48,7 @@
                 <!-- Search Input -->
                 <div class="col-md-6 mb-3">
                     <label for="search" class="form-label">Cari Produk</label>
-                    <input type="text" id="liveSearch" name="search" class="form-control" placeholder="Cari">
+                    <input type="text" id="liveSearch" name="search" class="form-control" placeholder="Cari Produk">
                 </div>
                 <!-- Filter Dropdowns -->
                 <div class="col-md-2 mb-3">
@@ -105,28 +105,28 @@
 @endsection
 
 @push('after-script')
-    {{-- <!--begin::Vendors Javascript(used for this page only)-->
+    <!--begin::Vendors Javascript(used for this page only)-->
     <script src="{{ asset('backend/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <!--end::Vendors Javascript-->
 
     <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ asset('backend/js/custom/account/settings/signin-methods.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/account/settings/profile-details.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/account/settings/deactivate-account.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/pages/user-profile/general.js') }}"></script>
-    <script src="{{ asset('backend/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/create-campaign.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/type.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/details.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/finance.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/complete.js') }}"></script>
+    {{-- <script src="{{ asset('backend/js/custom/account/settings/signin-methods.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/account/settings/profile-details.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/account/settings/deactivate-account.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/pages/user-profile/general.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/widgets.bundle.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/widgets.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/apps/chat/chat.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/upgrade-plan.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/create-campaign.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/type.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/details.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/finance.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/complete.js') }}"></script> --}}
     <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/main.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/two-factor-authentication.js') }}"></script>
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/two-factor-authentication.js') }}"></script> --}}
     <script src="{{ asset('backend/js/custom/utilities/modals/users-search.js') }}"></script>
-    <!--end::Custom Javascript--> --}}
+    <!--end::Custom Javascript-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
@@ -164,56 +164,56 @@
                         name: 'variant',
                         width: '5%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'group',
                         name: 'group',
                         width: '10%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'category_id',
                         name: 'category_id',
                         width: '10%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'stock',
                         name: 'stock',
                         width: '5%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'selling_price',
                         name: 'selling_price',
                         width: '10%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'location',
                         name: 'location',
                         width: '15%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'updated_at',
                         name: 'updated_at',
                         width: '15%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'action',
                         name: 'action',
                         width: '5%',
                         orderable: false,
-                        serchable: false
+                        searchable: false
                     }
                     ],
                     columnDefs: [
@@ -226,26 +226,27 @@
             });
 
             // Live search
-            $('#liveSearch').on('keyup', function() {
-                $('#productDataTable').DataTable().search($(this).val()).draw();
+            $('#liveSearch').keyup(function() {
+                var filterValue = $(this).val();
+                datatable.columns().search(filterValue).draw();
             });
 
             // Filter by location
             $('#location_filter').on('change', function() {
                 var filterValue = $(this).val();
-                $('#productDataTable').DataTable().column(7).search(filterValue).draw();
+                datatable.column(7).search(filterValue).draw();
             });
 
             // Filter by category
             $('#category_filter').on('change', function() {
                 var filterValue = $(this).val();
-                $('#productDataTable').DataTable().column(4).search(filterValue).draw();
+                datatable.column(4).search(filterValue).draw();
             });
 
             // Filter by group
             $('#group_filter').on('change', function() {
                 var filterValue = $(this).val();
-                $('#productDataTable').DataTable().column(3).search(filterValue).draw();
+                datatable.column(3).search(filterValue).draw();
             });
 
             $.fn.dataTable.ext.errMode = 'throw';

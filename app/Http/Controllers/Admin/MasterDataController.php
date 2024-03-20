@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Batch;
 
 class MasterDataController extends Controller
 {
@@ -17,7 +18,7 @@ class MasterDataController extends Controller
     {
         try {
             if ($request->ajax()) {
-                $query = Product::with('category');
+                $query = Product::with(['category', 'batches']);
 
                 return DataTables::eloquent($query)
                     ->addIndexColumn()
@@ -35,6 +36,13 @@ class MasterDataController extends Controller
                     ->editColumn('category_id', function($item){
                         return $item->category->name; 
                     })
+                    ->editColumn('stock', function($item){
+                        $stock = 0;
+                        foreach($item->batches as $batch){
+                            $stock += $batch->stock;
+                        }
+                        return $stock;
+                    })
                     ->addColumn('action', function($item){
                         return '<div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="action_button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #8F9098; color: white">
@@ -43,7 +51,7 @@ class MasterDataController extends Controller
                                     <ul class="dropdown-menu" aria-labelledby="action_button">
                                         <li><a class="dropdown-item" href="masterdata/'.$item->id.'/edit">Edit Produk</a></li>
                                         <li><a class="dropdown-item" href="#">Tambah Stok Produk</a></li>
-                                        <li><a class="dropdown-item" href="#">Detail Produk</a></li>
+                                        <li><a class="dropdown-item" href="masterdata/'.$item->id.'/details">Detail Produk</a></li>
                                         <li>
                                             <form method="POST" action="masterdata/'.$item->id.'/delete" id="deleteForm">
                                                 '.csrf_field().'
@@ -87,9 +95,32 @@ class MasterDataController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $products = Product::find($id);
+        $category = Category::find($products->category_id);
+        $supplier = Supplier::find($products->supplier_id);
+        $batches = Batch::where('product_id', $id)->get();
+        $totalStock = 0;
+        foreach ($batches as $batch) {
+            $totalStock += $batch->stock;
+        }
+
+        // dd([$products, $category, $supplier, $batches, $totalStock]);
+        // dd($supplier)
+
+        return view('pages.admin.masterdata.details', compact([
+            'products',
+            'category',
+            'supplier',
+            'batches',
+            'totalStock'
+        ]));
+    }
+
     public function edit($id)
     {
-        $products = Product::findOrFail($id);
+        $products = Product::find($id);
         
         $locations = DB::table('products')
                 ->select('location')
@@ -110,7 +141,13 @@ class MasterDataController extends Controller
         
         $suppliers = Supplier::find($products->supplier_id);
 
-        // dd([$products, $locations, $groups, $categories]);
+        $batches = Batch::where('product_id', $id)->get();
+        $totalStock = 0;
+        foreach ($batches as $batch) {
+            $totalStock += $batch->stock;
+        }
+
+        // dd([$batches]);
             
         return view('pages.admin.masterdata.edit', compact([
             'products',
@@ -118,7 +155,9 @@ class MasterDataController extends Controller
             'groups',
             'categories',
             'variants',
-            'suppliers'
+            'suppliers',
+            'batches',
+            'totalStock'
         ]));
     }
     public function update(Request $request)
@@ -171,7 +210,29 @@ class MasterDataController extends Controller
 
     public function create()
     {
-        return view('pages.admin.masterdata.create');
+        $locations = DB::table('products')
+                ->select('location')
+                ->distinct()
+                ->get();
+
+        $variants = DB::table('products')
+            ->select('variant')
+            ->distinct()
+            ->get();
+
+        $groups = DB::table('products')
+            ->select('group')
+            ->distinct()
+            ->get();
+        
+        $categories = Category::all();
+
+        return view('pages.admin.masterdata.create', compact([
+            'locations',
+            'groups',
+            'categories',
+            'variants'
+        ]));
     }
 
     public function destroy($id)

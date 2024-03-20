@@ -146,12 +146,10 @@
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <select id="variant" class="form-select">
-                                            <option value="">Semua Variant</option>
-                                            <option value="Variant 1">Variant 1</option>
-                                            <option value="Variant 2">Variant 2</option>
-                                            <option value="Variant 3">Variant 3</option>
-                                            <option value="Variant 4">Variant 4</option>
-                                            <option value="Variant 5">Variant 5</option>
+                                            <option value="" selected disabled>Pilih Variant</option>
+                                            @foreach ($variants as $variant)
+                                                <option value="{{ $variant->variant }}">{{ $variant->variant }}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Col-->
                                     </div>
@@ -162,12 +160,10 @@
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <select id="group" class="form-select">
-                                            <option value="">Semua Golongan</option>
-                                            <option value="Golongan 1">Golongan 1</option>
-                                            <option value="Golongan 2">Golongan 2</option>
-                                            <option value="Golongan 3">Golongan 3</option>
-                                            <option value="Golongan 4">Golongan 4</option>
-                                            <option value="Golongan 5">Golongan 5</option>
+                                            <option value="" selected disabled>Pilih Golongan</option>
+                                            @foreach ($groups as $group)
+                                                <option value="{{ $group->group }}">{{ $group->group }}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Col-->
                                     </div>
@@ -178,12 +174,10 @@
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <select id="category" class="form-select">
-                                            <option value="">Semua Kategori</option>
-                                            <option value="Kategori 1">Kategori 1</option>
-                                            <option value="Kategori 2">Kategori 2</option>
-                                            <option value="Kategori 3">Kategori 3</option>
-                                            <option value="Kategori 4">Kategori 4</option>
-                                            <option value="Kategori 5">Kategori 5</option>
+                                            <option value="" selected disabled>Pilih Kategori</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->category }}">{{ $category->category }}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Col-->
                                     </div>
@@ -211,12 +205,10 @@
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <select id="category" class="form-select">
-                                            <option value="">Semua Lokasi</option>
-                                            <option value="Lokasi 1">Lokasi 1</option>
-                                            <option value="Lokasi 2">Lokasi 2</option>
-                                            <option value="Lokasi 3">Lokasi 3</option>
-                                            <option value="Lokasi 4">Lokasi 4</option>
-                                            <option value="Lokasi 5">Lokasi 5</option>
+                                            <option value="" selected disabled>Pilih Lokasi</option>
+                                            @foreach ($locations as $location)
+                                                <option value="{{ $location->location }}">{{ $location->location }}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Col-->
                                     </div>
@@ -301,9 +293,6 @@
                                         <div class="col-lg-6">
                                             <h3 class="mb-6 text-start">Batch dan Stok Produk</h3>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <h3 class="mb-6 text-end" style="color: #4EAC52">Stok Total : 50</h3>
-                                        </div>
                                     </div>
                                 </div>
                                 <!--begin::Input group-->
@@ -352,10 +341,13 @@
                                 <!--begin::button add batch-->
                                 <div class="row mb-6">
                                     <div class="col-lg-12">
-                                        <button type="button" class="btn btn-secondary p-auto m-auto" style="background-color: #535561; color: white">
+                                        <button type="button" id="addBatchButton" class="btn btn-secondary p-auto m-auto" style="background-color: #535561; color: white">
                                             <i class="text-light bi bi-plus fs-2 p-auto m-auto"></i> Tambah Batch
                                         </button>
                                     </div>
+                                </div>
+                                <div id="batchContainer">
+                                    {{-- Batch baru bakal muncul di sini --}} 
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -380,3 +372,79 @@
         <!--end::Basic info-->
     </div>
 @endsection
+
+@push('after-script')
+<script>
+    document.getElementById('addBatchButton').addEventListener('click', function() {
+    var batchContainer = document.getElementById('batchContainer');
+    var addBatchButton = document.getElementById('addBatchButton');
+
+    var newBatch = document.createElement('div');
+    newBatch.className = 'row mb-6';
+    newBatch.innerHTML = `
+        <div class="col-lg-4">
+            <label class="col-form-label required fw-semibold fs-6">Kode Batch</label>
+            <div class="fv-row fv-plugins-icon-container">
+                <div class="input-group">
+                    <input type="text" name="batch_code[]" class="form-control form-control-lg form-control-solid"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="col-form-label required fw-semibold fs-6">Tanggal Kadaluarsa</label>
+            <div class="fv-row fv-plugins-icon-container">
+                <div class="input-group">
+                    <input type="date" name="expired_at[]" class="form-control form-control-lg form-control-solid" placeholder="Masukkan Tanggal Kadaluarsa"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="col-form-label required fw-semibold fs-6">Stok</label>
+            <div class="fv-row fv-plugins-icon-container">
+                <div class="input-group">
+                    <input type="text" name="stock[]" class="form-control form-control-lg form-control-solid"/>
+                </div>
+            </div>
+        </div>
+    `;
+
+    batchContainer.appendChild(newBatch);
+    batchContainer.appendChild(addBatchButton);
+});
+
+// Get the total stock element
+var totalStockElement = document.getElementById('totalStock');
+
+// Function to update total stock
+function updateTotalStock() {
+    var stockInputs = document.querySelectorAll('input[name="stock[]"]');
+    var totalStock = 0;
+    stockInputs.forEach(function(input) {
+        var stock = parseInt(input.value);
+        if (!isNaN(stock)) {
+            totalStock += stock;
+        }
+    });
+    totalStockElement.textContent = 'Stok Total : ' + totalStock;
+
+    // Update color based on total stock
+    if (totalStock < 10) {
+        totalStockElement.style.color = '#FF8822';
+    } else if (totalStock < 20) {
+        totalStockElement.style.color = '#FFCC00';
+    } else {
+        totalStockElement.style.color = '#198754'; // green
+    }
+}
+
+// Listen for changes on stock inputs
+document.getElementById('batchContainer').addEventListener('input', function(event) {
+    if (event.target.name === 'stock[]') {
+        updateTotalStock();
+    }
+});
+
+// Update total stock initially
+updateTotalStock();
+</script>
+@endpush

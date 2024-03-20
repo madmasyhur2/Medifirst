@@ -275,7 +275,8 @@
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <div class="form-check my-5">
-                                                <input class="form-check-input" type="checkbox" name="is_consignment" id="is_consignment" value="is_consignment" required>
+                                                <input class="form-check-input" type="checkbox" name="is_consignment" id="is_consignment" value="is_consignment" required
+                                                    {{ $products->is_consignment ? 'checked' : '' }}/>
                                                 <label class="form-check-label" for="is_consignment">
                                                     <h6 class="ms-2 py-auto" style="color: #3B3B3B"><strong></strong>Produk Konsinyasi</h6>
                                                 </label>
@@ -302,11 +303,12 @@
                                             <h3 class="mb-6 text-start">Batch dan Stok Produk</h3>
                                         </div>
                                         <div class="col-lg-6">
-                                            <h3 class="mb-6 text-end" style="color: #4EAC52">Stok Total : {{ $products->stock }}</h3>
+                                            <h3 class="mb-6 text-end" id="totalStock" style="color: #4EAC52">Stok Total : {{ $totalStock }}</h3>
                                         </div>
                                     </div>
                                 </div>
                                 <!--begin::Input group-->
+                                @foreach($batches as $batch)
                                 <div class="row mb-6">
                                     <div class="col-lg-4">
                                         <!--begin::Label-->
@@ -315,8 +317,8 @@
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <div class="input-group">
-                                                <input type="text" name="batch_code" class="form-control form-control-lg form-control-solid"
-                                                    placeholder="Masukkan Kode Batch" value="{{ $products->batch_code }}"/>
+                                                <input type="text" name="batch_code[]" class="form-control form-control-lg form-control-solid"
+                                                    value="{{ $batch->batch_code }}"/>
                                             </div>
                                         </div>
                                         <!--end::Col-->
@@ -328,8 +330,8 @@
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <div class="input-group">
-                                                <input type="date" name="expired_at" class="form-control form-control-lg form-control-solid" 
-                                                    placeholder="Masukkan Tanggal Kadaluarsa" value="{{ $products->expired_at }}"/>
+                                                <input type="date" name="expired_at[]" class="form-control form-control-lg form-control-solid" 
+                                                    placeholder="Masukkan Tanggal Kadaluarsa" value="{{ $batch->expired_at }}"/>
                                             </div>
                                         </div>
                                         <!--end::Col-->
@@ -341,20 +343,24 @@
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <div class="input-group">
-                                                <input type="number" name="stock" class="form-control form-control-lg form-control-solid"
-                                                    placeholder="Masukkan Jumlah Stok" value="{{ $products->stock }}"/>
+                                                <input type="text" name="stock[]" class="form-control form-control-lg form-control-solid"
+                                                    value="{{ $batch->stock }}"/>
                                             </div>
                                         </div>
                                         <!--end::Col-->
                                     </div>
                                 </div>
+                                @endforeach
                                 <!--begin::button add batch-->
                                 <div class="row mb-6">
                                     <div class="col-lg-12">
-                                        <button type="button" class="btn btn-secondary p-auto m-auto" style="background-color: #535561; color: white">
+                                        <button type="button" id="addBatchButton" class="btn btn-secondary p-auto m-auto" style="background-color: #535561; color: white">
                                             <i class="text-light bi bi-plus fs-2 p-auto m-auto"></i> Tambah Batch
                                         </button>
                                     </div>
+                                </div>
+                                <div id="batchContainer">
+                                    {{-- Batch baru bakal muncul di sini --}}
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -379,3 +385,79 @@
         <!--end::Basic info-->
     </div>
 @endsection
+
+@push('after-script')
+<script>
+    document.getElementById('addBatchButton').addEventListener('click', function() {
+    var batchContainer = document.getElementById('batchContainer');
+    var addBatchButton = document.getElementById('addBatchButton');
+
+    var newBatch = document.createElement('div');
+    newBatch.className = 'row mb-6';
+    newBatch.innerHTML = `
+        <div class="col-lg-4">
+            <label class="col-form-label required fw-semibold fs-6">Kode Batch</label>
+            <div class="fv-row fv-plugins-icon-container">
+                <div class="input-group">
+                    <input type="text" name="batch_code[]" class="form-control form-control-lg form-control-solid"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="col-form-label required fw-semibold fs-6">Tanggal Kadaluarsa</label>
+            <div class="fv-row fv-plugins-icon-container">
+                <div class="input-group">
+                    <input type="date" name="expired_at[]" class="form-control form-control-lg form-control-solid" placeholder="Masukkan Tanggal Kadaluarsa"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <label class="col-form-label required fw-semibold fs-6">Stok</label>
+            <div class="fv-row fv-plugins-icon-container">
+                <div class="input-group">
+                    <input type="text" name="stock[]" class="form-control form-control-lg form-control-solid"/>
+                </div>
+            </div>
+        </div>
+    `;
+
+    batchContainer.appendChild(newBatch);
+    batchContainer.appendChild(addBatchButton);
+});
+
+// Get the total stock element
+var totalStockElement = document.getElementById('totalStock');
+
+// Function to update total stock
+function updateTotalStock() {
+    var stockInputs = document.querySelectorAll('input[name="stock[]"]');
+    var totalStock = 0;
+    stockInputs.forEach(function(input) {
+        var stock = parseInt(input.value);
+        if (!isNaN(stock)) {
+            totalStock += stock;
+        }
+    });
+    totalStockElement.textContent = 'Stok Total : ' + totalStock;
+
+    // Update color based on total stock
+    if (totalStock < 10) {
+        totalStockElement.style.color = '#FF8822';
+    } else if (totalStock < 20) {
+        totalStockElement.style.color = '#FFCC00';
+    } else {
+        totalStockElement.style.color = '#198754'; // green
+    }
+}
+
+// Listen for changes on stock inputs
+document.getElementById('batchContainer').addEventListener('input', function(event) {
+    if (event.target.name === 'stock[]') {
+        updateTotalStock();
+    }
+});
+
+// Update total stock initially
+updateTotalStock();
+</script>
+@endpush
