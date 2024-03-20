@@ -17,15 +17,12 @@ return new class extends Migration
             $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('category_id');
             $table->string('sku_code')->unique();
-            $table->string('batch_code')->unique();
             $table->string('name');
             $table->enum('variant', ['pcs', 'strip', 'box'])->default('pcs');
             $table->enum('group', ['obat bebas', 'obat bebas terbatas', 'obat keras', 'lain-lain'])->nullable();
             $table->boolean('is_consigment')->default(false);
             $table->string('product_photo_path')->nullable();
             $table->string('location');
-            $table->integer('stock')->default(0);
-            $table->date('expired_at');
             $table->decimal('cost', 10, 2);
             $table->decimal('margin', 10, 2);
             $table->decimal('selling_price', 10, 2);

@@ -15,6 +15,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function batches()
+    {
+        return $this->hasMany(Batch::class);
+    }
+
     public function store()
     {
         return $this->belongsTo(Store::class);
