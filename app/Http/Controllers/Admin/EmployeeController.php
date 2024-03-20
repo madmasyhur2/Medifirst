@@ -18,7 +18,7 @@ class EmployeeController extends Controller
 	{
 		try {
 			if ($request->ajax()) {
-				$query = User::query()->where('role', '<>', 'owner');
+				$query = User::query()->with(['shifts'])->where('role', '<>', 'owner');
 
 				return DataTables::eloquent($query)
 					->addIndexColumn()
@@ -29,17 +29,23 @@ class EmployeeController extends Controller
 						return '-';
 					})
 					->addColumn('shift', function ($data) {
-						return '
-							<span>06.00 - 15.00</span> <br>
-							<span class="badge badge-secondary badge-sm">+1 shift lainnya</span>
-						';
+						$firstShift = $data->shifts->first();
+						$remainingShiftsCount = $data->shifts->count() - 1;
+
+						$shiftInfo = '<span>' . $firstShift->jam_masuk . ' - ' . $firstShift->jam_pulang . '</span>';
+
+						if ($remainingShiftsCount > 0) {
+							$shiftInfo .= '<br><span class="badge badge-secondary badge-sm">+' . $remainingShiftsCount . ' shift lainnya</span>';
+						}
+
+						return $shiftInfo;
 					})
 					->addColumn('action', function ($data) {
 						return '
 							<a href="#edit_data_' . $data->id . '" class="btn btn-sm btn-icon bg-body">
 								<i class="ki-solid ki-pencil text-dark fs-1"></i>
 							</a>
-							<a href="#hapus_data_' . $data->id . '" class="btn btn-sm btn-icon bg-body">
+							<a role="button" data-id="' . $data->id . '" data-user-name="' . $data->name . '" data-user-role="' . $data->role . '" class="btn btn-sm btn-icon bg-body delete-confirm">
 								<i class="ki-solid ki-trash text-danger fs-1"></i>
 							</a>
 						';
@@ -97,40 +103,40 @@ class EmployeeController extends Controller
 				return back()->with('errors', $validator->messages()->all()[0])->withInput();
 			}
 
-			dd($request->all());
+			// dd($request->all());
 
-			$user = new User();
-			$user->name = $request->input('name');
-			$user->role = $request->input('jabatan');
-			$user->address = $request->input('address');
-			$user->phone_number = $request->input('phone_number');
-			$user->email = $request->input('email');
-			$user->password = bcrypt($request->input('password'));
-			$user->no_sipa = $request->input('no_sipa');
-			$user->berlaku_sampai = $request->input('berlaku_sampai');
+			$user = User::create([
+				'name' => $request->input('name'),
+				'role' => $request->input('jabatan'),
+				'address' => $request->input('address'),
+				'phone_number' => $request->input('phone_number'),
+				'email' => $request->input('email'),
+				'password' => bcrypt($request->input('password')),
+				'license_number' => $request->input('license_number'),
+				'license_expired_date' => $request->input('berlaku_sampai'),
+			]);
 
 			// Upload avatar
 			if ($request->hasFile('avatar')) {
-				$avatar = $request->file('avatar');
-				$avatarName = time() . '.' . $avatar->getClientOriginalExtension();
-				$avatar->move(public_path('avatars'), $avatarName);
-				$user->avatar = $avatarName;
+				$user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
 			}
 
-			$user->save();
+			$user->assignRole($request->input('jabatan'));
 
 			foreach ($request->input('shifts') as $shiftData) {
-				$shift = new Shift();
-				$shift->user_id = $user->id;
-				$shift->hari = $shiftData['hari'];
-				$shift->jam_masuk = $shiftData['jam_masuk'];
-				$shift->jam_pulang = $shiftData['jam_pulang'];
-				$shift->save();
+				$user->shifts()->create([
+					'hari' => $shiftData['hari'],
+					'jam_masuk' => $shiftData['jam_masuk'],
+					'jam_pulang' => $shiftData['jam_pulang'],
+				]);
 			}
 
-			return response()->json(['message' => 'User created successfully'], 200);
+			alert()->success('Karyawan berhasil ditambahkan!');
+			return redirect()->route('admin.employees.index');
 		} catch (\Throwable $th) {
 			//throw $th;
+			alert()->error($th->getMessage());
+			return back()->withInput();
 		}
 	}
 
@@ -163,6 +169,21 @@ class EmployeeController extends Controller
 	 */
 	public function destroy(string $id)
 	{
-		//
+		try {
+			$user = User::findOrFail($id);
+
+			$user->shifts()->delete();
+			$user->delete();
+
+			return response()->json([
+				'success' => true,
+				'message' => 'Data deleted successfully'
+			]);
+		} catch (\Throwable $th) {
+			return response()->json([
+				'success' => false,
+				'message' => $th->getMessage()
+			]);
+		}
 	}
 }

@@ -166,9 +166,9 @@
                                             <select class="form-select form-select-solid" name="jabatan" data-control="select2"
                                                 data-placeholder="Pilih Jabatan Anda">
                                                 <option></option>
-                                                <option value="cashier">Kasir</option>
-                                                <option value="warehouse">Pergudangan</option>
-                                                <option value="finance">Keuangan</option>
+                                                <option value="cashier" {{ old('jabatan') == 'cashier' ? 'selected' : '' }}>Kasir</option>
+                                                <option value="warehouse" {{ old('jabatan') == 'warehouse' ? 'selected' : '' }}>Pergudangan</option>
+                                                <option value="finance" {{ old('jabatan') == 'finance' ? 'selected' : '' }}>Keuangan</option>
                                             </select>
                                         </div>
                                         <!--end::Col-->
@@ -254,7 +254,7 @@
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <input type="text" name="license_number" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Ketikkan nomor lisensi Anda" value="" />
+                                                placeholder="Ketikkan nomor lisensi Anda" value="{{ old('license_number') }}" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -267,7 +267,8 @@
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <input name="berlaku_sampai" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Ketikkan tanggal kadaluarsa no. lisensi Anda" value="" id="kt_datepicker_2" />
+                                                placeholder="Ketikkan tanggal kadaluarsa no. lisensi Anda" value="{{ old('berlaku_sampai') }}"
+                                                id="kt_datepicker_2" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -292,10 +293,10 @@
                             <!--begin::Col-->
                             <div class="col-lg-10">
                                 <!--begin::Repeater-->
-                                <div id="kt_docs_repeater_basic">
+                                <div id="shifts">
                                     <!--begin::Form group-->
                                     <div class="form-group">
-                                        <div data-repeater-list="kt_docs_repeater_basic">
+                                        <div data-repeater-list="shifts">
                                             <div data-repeater-item>
                                                 <div class="form-group row mb-5">
                                                     <div class="col-md-4">
@@ -395,7 +396,7 @@
         $(document).ready(function() {
             $("#kt_datepicker_2").flatpickr();
 
-            $('#kt_docs_repeater_basic').repeater({
+            $('#shifts').repeater({
                 initEmpty: false,
 
                 defaultValues: {
@@ -426,6 +427,25 @@
                 }
             });
 
+            $('#kt_account_profile_details_submit').click(function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You are about to update the account information',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, submit!',
+                    confirmButtonColor: '#409add',
+                    reverseButtons: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#kt_account_profile_details_form').submit();
+                    } else {
+                        Swal.fire('Cancelled', 'Failed to add employee', 'error');
+                    }
+                })
+            });
         });
     </script>
     <!--end::Additional Javascript-->

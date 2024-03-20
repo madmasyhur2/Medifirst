@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 		'role',
 		'avatar',
 		'address',
+		'phone_number',
 		'license_number',
 		'license_expired_date',
 	];
@@ -76,5 +77,10 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 		if ($this->role == 'cashier') return 'Kasir';
 		if ($this->role == 'warehouse') return 'Pergudangan';
 		return '-';
+	}
+
+	public function shifts()
+	{
+		return $this->hasMany(Shift::class);
 	}
 }

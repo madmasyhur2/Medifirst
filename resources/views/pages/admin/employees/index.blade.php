@@ -301,6 +301,56 @@
 
             $.fn.dataTable.ext.errMode = 'throw';
         });
+
+        $(document).on('click', '.delete-confirm', function() {
+            var id = $(this).data('id');
+            var user_name = $(this).data('user-name');
+            var user_role = $(this).data('user-role');
+
+            Swal.fire({
+                title: 'Hapus Data Karyawan',
+                text: "Apakah Anda yakin akan menghapus akun \n " + user_name + " \njabatan " + user_role + " \ndari database?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DC3545',
+                cancelButtonColor: '#8F9098',
+                confirmButtonText: 'Hapus',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var url = "{{ route('admin.employees.destroy', ':id') }}";
+                    $.ajax({
+                        url: url.replace(':id', id),
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(data) {
+                            Swal.fire({
+                                title: 'Success',
+                                text: data.message,
+                                icon: 'success',
+                                confirmButtonText: 'OK',
+                                timer: 1000,
+                                timerProgressBar: true,
+                            });
+                            $('#dataTable').DataTable().ajax.reload();
+                        },
+                        error: function(data) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: data.message,
+                                icon: 'error',
+                                confirmButtonText: 'OK',
+                                timer: 1000,
+                                timerProgressBar: true,
+                            });
+                        }
+                    });
+                }
+            });
+        });
     </script>
     <!--end::Additional Javascript-->
 @endpush
