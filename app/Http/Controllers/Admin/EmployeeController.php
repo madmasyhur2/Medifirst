@@ -20,6 +20,10 @@ class EmployeeController extends Controller
 			if ($request->ajax()) {
 				$query = User::query()->with(['shifts'])->where('role', '<>', 'owner');
 
+				if ($request->has('role') && $request->role != 'all') {
+					$query->where('role', $request->role);
+				}
+
 				return DataTables::eloquent($query)
 					->addIndexColumn()
 					->editColumn('role', function ($data) {
@@ -42,8 +46,8 @@ class EmployeeController extends Controller
 					})
 					->addColumn('action', function ($data) {
 						return '
-							<a href="#edit_data_' . $data->id . '" class="btn btn-sm btn-icon bg-body">
-								<i class="ki-solid ki-pencil text-dark fs-1"></i>
+							<a href=" ' . route('admin.employees.show', $data->id) . ' " class="btn btn-sm btn-icon bg-body">
+								<i class="ki-outline ki-information-5 text-dark fs-1"></i>
 							</a>
 							<a role="button" data-id="' . $data->id . '" data-user-name="' . $data->name . '" data-user-role="' . $data->role . '" class="btn btn-sm btn-icon bg-body delete-confirm">
 								<i class="ki-solid ki-trash text-danger fs-1"></i>
@@ -145,7 +149,16 @@ class EmployeeController extends Controller
 	 */
 	public function show(string $id)
 	{
-		//
+		try {
+			$employee = User::with(['shifts'])->where('id', $id)->firstOrFail();
+			return view('pages.admin.employees.show', [
+				'employee' => $employee,
+			]);
+		} catch (\Throwable $th) {
+			//throw $th;
+			alert()->error($th->getMessage());
+			return back();
+		}
 	}
 
 	/**
@@ -153,7 +166,11 @@ class EmployeeController extends Controller
 	 */
 	public function edit(string $id)
 	{
-		//
+		try {
+			//code...
+		} catch (\Throwable $th) {
+			//throw $th;
+		}
 	}
 
 	/**
@@ -184,6 +201,20 @@ class EmployeeController extends Controller
 				'success' => false,
 				'message' => $th->getMessage()
 			]);
+		}
+	}
+
+	/**
+	 * shiftsUpdate
+	 *
+	 * @return void
+	 */
+	public function shiftsUpdate()
+	{
+		try {
+			//code...
+		} catch (\Throwable $th) {
+			//throw $th;
 		}
 	}
 }

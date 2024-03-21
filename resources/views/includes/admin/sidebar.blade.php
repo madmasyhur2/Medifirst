@@ -1022,7 +1022,7 @@
 
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start"
-                    class="menu-item {{ request()->routeIs('admin.profiles.*') ? 'here show' : '' }} py-2">
+                    class="menu-item {{ request()->routeIs('admin.profiles.*', 'admin.employees.*') ? 'here show' : '' }} py-2">
                     <!--begin:Menu link-->
                     <a href="{{ route('admin.profiles.index') }}" class="menu-link menu-center">
                         <span class="menu-icon me-0">
