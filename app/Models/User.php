@@ -29,6 +29,9 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 		'role',
 		'avatar',
 		'address',
+		'phone_number',
+		'license_number',
+		'license_expired_date',
 	];
 
 	/**
@@ -54,11 +57,30 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 	/**
 	 * Get the avatar url
 	 *
-	 * @param  string  $value
 	 * @return string
 	 */
 	public function getAvatarUrlAttribute()
 	{
-		return $this->getFirstMediaUrl('avatars');
+		if ($this->hasMedia('avatars')) return $this->getFirstMediaUrl('avatars');
+		return asset('backend/media/svg/avatars/blank.svg');
+	}
+
+	/**
+	 * Get the user role name
+	 *
+	 * @return string
+	 */
+	public function getRoleNameAttribute()
+	{
+		if ($this->role == 'owner') return 'Pemilik Apotek';
+		if ($this->role == 'finance') return 'Keuangan';
+		if ($this->role == 'cashier') return 'Kasir';
+		if ($this->role == 'warehouse') return 'Pergudangan';
+		return '-';
+	}
+
+	public function shifts()
+	{
+		return $this->hasMany(Shift::class);
 	}
 }

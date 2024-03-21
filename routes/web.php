@@ -29,11 +29,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 	// Dashboard
 	Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-	// Profiles
+	// Account - Tab Owner
 	Route::get('/profiles', [AdminProfileController::class, 'index'])->name('profiles.index');
+	Route::get('/profiles/edit', [AdminProfileController::class, 'edit'])->name('profiles.edit');
 	Route::put('/profiles/update', [AdminProfileController::class, 'update'])->name('profiles.update');
 
-	Route::get('/employees', [AdminEmployeeController::class, 'index'])->name('employees.index');
+	// Account - Tab Karyawan
+	Route::get('/employees/{id}/edit/shifts', [AdminEmployeeController::class, 'shiftsUpdate'])->name('employees.shifts.update');
+	Route::resource('employees', AdminEmployeeController::class);
 
 	// Contact
 	Route::get('/contacts', [AdminContactController::class, 'index'])->name('contact.index');

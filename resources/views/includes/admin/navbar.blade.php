@@ -110,7 +110,11 @@
                     <!--begin::Menu wrapper-->
                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                         data-kt-menu-placement="bottom-end">
-                        <img src="{{ auth()->user()->avatar_url }}" alt="image" />
+                        @empty(auth()->user()->avatar_url)
+                            <img src="{{ asset('backend/media/svg/avatars/blank.svg') }}" alt="image" />
+                        @else
+                            <img src="{{ auth()->user()->avatar_url }}" alt="image" />
+                        @endempty
                     </div>
                     <!--begin::User account menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
@@ -120,7 +124,11 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="{{ auth()->user()->avatar_url }}" />
+                                    @empty(auth()->user()->avatar_url)
+                                        <img alt="Logo" src="{{ asset('backend/media/svg/avatars/blank.svg') }}" />
+                                    @else
+                                        <img alt="Logo" src="{{ auth()->user()->avatar_url }}" />
+                                    @endempty
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->
