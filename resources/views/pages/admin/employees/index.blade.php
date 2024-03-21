@@ -96,50 +96,32 @@
                                 <!--begin::Input group-->
                                 <div class="mb-10">
                                     <!--begin::Label-->
-                                    <label class="form-label fs-5 fw-semibold mb-3">Month:</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <select class="form-select form-select-solid fw-bold" data-kt-select2="true" data-placeholder="Select option"
-                                        data-allow-clear="true" data-kt-customer-table-filter="month" data-dropdown-parent="#kt-toolbar-filter">
-                                        <option></option>
-                                        <option value="aug">August</option>
-                                        <option value="sep">September</option>
-                                        <option value="oct">October</option>
-                                        <option value="nov">November</option>
-                                        <option value="dec">December</option>
-                                    </select>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="mb-10">
-                                    <!--begin::Label-->
-                                    <label class="form-label fs-5 fw-semibold mb-3">Payment Type:</label>
+                                    <label class="form-label fs-5 fw-semibold mb-3">Jabatan:</label>
                                     <!--end::Label-->
                                     <!--begin::Options-->
-                                    <div class="d-flex flex-column flex-wrap fw-semibold" data-kt-customer-table-filter="payment_type">
+                                    <div class="d-flex flex-column flex-wrap fw-semibold" data-kt-customer-table-filter="user_role">
                                         <!--begin::Option-->
                                         <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                            <input class="form-check-input" type="radio" name="payment_type" value="all" checked="checked" />
+                                            <input class="form-check-input" type="radio" name="user_role" value="all" checked="checked" />
                                             <span class="form-check-label text-gray-600">All</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                            <input class="form-check-input" type="radio" name="payment_type" value="visa" />
-                                            <span class="form-check-label text-gray-600">Visa</span>
+                                            <input class="form-check-input" type="radio" name="user_role" value="cashier" />
+                                            <span class="form-check-label text-gray-600">Jabatan Kasir</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label class="form-check form-check-sm form-check-custom form-check-solid mb-3">
-                                            <input class="form-check-input" type="radio" name="payment_type" value="mastercard" />
-                                            <span class="form-check-label text-gray-600">Mastercard</span>
+                                            <input class="form-check-input" type="radio" name="user_role" value="warehouse" />
+                                            <span class="form-check-label text-gray-600">Jabatan Pergudangan</span>
                                         </label>
                                         <!--end::Option-->
                                         <!--begin::Option-->
                                         <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="radio" name="payment_type" value="american_express" />
-                                            <span class="form-check-label text-gray-600">American Express</span>
+                                            <input class="form-check-input" type="radio" name="user_role" value="finance" />
+                                            <span class="form-check-label text-gray-600">Jabatan Keuangan</span>
                                         </label>
                                         <!--end::Option-->
                                     </div>
@@ -175,14 +157,6 @@
                         <!--end::Add customer-->
                     </div>
                     <!--end::Toolbar-->
-                    <!--begin::Group actions-->
-                    <div class="d-flex justify-content-end align-items-center d-none" data-kt-customer-table-toolbar="selected">
-                        <div class="fw-bold me-5">
-                            <span class="me-2" data-kt-customer-table-select="selected_count"></span>Selected
-                        </div>
-                        <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected">Delete Selected</button>
-                    </div>
-                    <!--end::Group actions-->
                 </div>
                 <!--end::Card toolbar-->
             </div>
@@ -197,9 +171,9 @@
                             <th class="min-w-10px pe-2">No.</th>
                             <th class="min-w-125px">Nama</th>
                             <th class="min-w-125px">Alamat</th>
+                            <th class="min-w-125px">No Hp</th>
                             <th class="min-w-125px">Jabatan</th>
                             <th class="min-w-125px">Shift</th>
-                            <th class="min-w-125px">No HP</th>
                             <th class="text-end min-w-70px">Aksi</th>
                         </tr>
                     </thead>
@@ -241,6 +215,9 @@
                     "<'row'<'col-sm-4 d-flex align-items-center'li><'col-sm-8'p>>",
                 ajax: {
                     url: '{!! url()->current() !!}',
+                    data: function(d) {
+                        d.role = $('input[name=user_role]:checked').val();
+                    },
                 },
                 columns: [{
                         data: 'DT_RowIndex',
@@ -293,6 +270,17 @@
                 order: [
                     [0, 'desc']
                 ]
+            });
+
+            // Filter
+            $(document).on('click', '[data-kt-customer-table-filter="filter"]', function() {
+                $('#kt_customers_table').DataTable().ajax.reload();
+            });
+
+            // Reset filter
+            $(document).on('click', '[data-kt-customer-table-filter="reset"]', function() {
+                $('input[name=payment_type][value=all]').prop('checked', true);
+                $('#kt_customers_table').DataTable().ajax.reload();
             });
 
             $('#mySearchBar').keyup(function() {

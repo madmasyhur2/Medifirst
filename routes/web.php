@@ -35,6 +35,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 	Route::put('/profiles/update', [AdminProfileController::class, 'update'])->name('profiles.update');
 
 	// Account - Tab Karyawan
+	Route::get('/employees/{id}/edit/shifts', [AdminEmployeeController::class, 'shiftsUpdate'])->name('employees.shifts.update');
 	Route::resource('employees', AdminEmployeeController::class);
 
 	// Contact
