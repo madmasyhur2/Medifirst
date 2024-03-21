@@ -226,7 +226,7 @@
                                         <div class="fv-row fv-plugins-icon-container">
                                             <div class="input-group">
                                                 <span class="input-group-text">Rp</span>
-                                                <input type="number" name="purchase" class="form-control form-control-lg form-control-solid"
+                                                <input type="number" name="cost" class="form-control form-control-lg form-control-solid"
                                                     placeholder="Masukkan Harga Beli" />
                                             </div>
                                         </div>
@@ -254,7 +254,7 @@
                                         <div class="fv-row fv-plugins-icon-container">
                                             <div class="input-group">
                                                 <span class="input-group-text">Rp</span>
-                                                <input type="number" name="sell_price" class="form-control form-control-lg form-control-solid"
+                                                <input type="number" name="selling_price" class="form-control form-control-lg form-control-solid"
                                                     placeholder="Masukkan Harga Jual" />
                                             </div>
                                         </div>
@@ -268,7 +268,7 @@
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <div class="form-check my-5">
-                                                <input class="form-check-input" type="checkbox" name="is_consignment" id="is_consignment" value="is_consignment">
+                                                <input class="form-check-input" type="checkbox" id="is_consignment" name="is_consignment" value="1">
                                                 <label class="form-check-label" for="is_consignment">
                                                     <h6 class="ms-2 py-auto" style="color: #3B3B3B"><strong></strong>Produk Konsinyasi</h6>
                                                 </label>

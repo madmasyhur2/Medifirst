@@ -11,14 +11,20 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'sku_code',
-        'selling_price',
-        'category_id',
         'store_id',
         'supplier_id',
-        'description',
-        'image',
+        'category_id',
+        'sku_code',
+        'name',
+        'unit',
+        'variant',
+        'group',
+        'is_consignment',
+        'product_photo_path',
+        'location',
+        'cost',
+        'margin',
+        'selling_price',
     ];
 
     protected $attributes = [

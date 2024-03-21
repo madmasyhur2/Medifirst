@@ -9,6 +9,13 @@ class Batch extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'product_id',
+        'batch_code',
+        'stock',
+        'expired_at',
+    ];
+
     public function product()
     {
         return $this->belongsTo(Product::class);

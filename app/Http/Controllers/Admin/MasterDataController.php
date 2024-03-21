@@ -167,11 +167,12 @@ class MasterDataController extends Controller
             'sku_code' => ['nullable', 'string', 'max:255'],
             'location' => ['nullable', 'string', 'max:255'],
             'selling_price' => ['nullable', 'numeric'],
+            'cost' => ['nullable', 'numeric'],
             'margin' => ['nullable', 'numeric'],
             'purchase_price' => ['nullable', 'numeric'],
             'is_consignment' => ['nullable', 'boolean'],
             'batch_code.*' => ['nullable', 'string', 'max:255'],
-            'expired_date.*' => ['nullable', 'date'],
+            'expired_at.*' => ['nullable', 'date'],
             'stock.*' => ['nullable', 'numeric'],
         ]);
     }
@@ -252,7 +253,18 @@ class MasterDataController extends Controller
             $validated = $request->except('_token', '_method');
             $validated['supplier_id'] = $request->supplier_id;
             $validated['category_id'] = $request->category_id;
+
+            if (!array_key_exists('is_consignment', $validated)) {
+                $validated['is_consignment'] = 0; 
+            }
+
             $product = Product::create($validated);
+            $batch = Batch::create([
+                'product_id' => $product->id,
+                'batch_code' => $request->batch_code,
+                'stock' => $request->stock,
+                'expired_at' => $request->expired_at,
+            ]);
 
             // Upload Image
             if ($request->hasFile('avatar')) {

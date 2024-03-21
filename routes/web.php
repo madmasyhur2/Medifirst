@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\MultiOutletController as AdminMultiOutletControll
 use App\Http\Controllers\Admin\PurchaseController as AdminPurchaseController;
 use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Http\Controllers\Admin\SaleController as AdminSaleController;
+use App\Http\Controllers\Admin\MembershipController as AdminMembershipController;
 
 use App\Http\Controllers\HomeController;
 
@@ -56,7 +57,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 	Route::delete('/masterdata/{id}/delete', [AdminMasterDataController::class, 'destroyProduct'])->name('masterdata.destroyProduct');
 
 	// Membership
-	Route::get('/membership', [AdminMasterDataController::class, 'membership'])->name('membership.index');
+	Route::get('/membership', [AdminMembershipController::class, 'index'])->name('membership.index');
 	
 	// Multioutler
 	Route::get('/multioutlet', [AdminMultiOutletController::class, 'index'])->name('multioutlet.index');
