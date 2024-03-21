@@ -14,12 +14,12 @@
                     <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="masterdata">Produk</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="{{ route('admin.masterdata.index') }}">Produk</a>
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="masterdata/membership">Membership</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="{{ route('admin.membership.index') }}">Membership</a>
                         </li>
                         <!--end::Nav item-->
                     </ul>
@@ -35,10 +35,10 @@
                     <h1 class="mx-0 my-auto">Produk</h1>
                 </div>
                 <div class="col-md-2">
-                    <a class="btn btn-sm" style="background-color: #535561; color: white" href="masterdata/add" role="button">Tambah Produk Satuan</a>
+                    <a class="btn btn-secondary btn-sm" style="background-color: #535561; color: white" href="{{ route('admin.masterdata.create')}}" role="button">Tambah Produk Satuan</a>
                 </div>
                 <div class="col-md-2">
-                    <a class="btn btn-sm" style="color: #282828; border: solid 1px #535561;" href="masterdata/add-multiple" role="button">Tambah Produk Massal</a>
+                    <a class="btn btn-secondary btn-sm" style="background-color: white; color: #282828; border: solid 1px #535561;" href="{{ route('admin.masterdata.add-multiple')}}" role="button">Tambah Produk Massal</a>
                 </div>
             </div>
         </div>    
@@ -48,7 +48,7 @@
                 <!-- Search Input -->
                 <div class="col-md-6 mb-3">
                     <label for="search" class="form-label">Cari Produk</label>
-                    <input type="text" id="liveSearch" name="search" class="form-control" placeholder="Cari">
+                    <input type="text" id="liveSearch" name="search" class="form-control" placeholder="Cari Produk">
                 </div>
                 <!-- Filter Dropdowns -->
                 <div class="col-md-2 mb-3">
@@ -65,7 +65,7 @@
                     <select id="category_filter" class="form-select">
                         <option value="">Semua Kategori</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->category_name }}">{{ $category->category_name }}</option>
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -110,21 +110,21 @@
     <!--end::Vendors Javascript-->
 
     <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ asset('backend/js/custom/account/settings/signin-methods.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/account/settings/profile-details.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/account/settings/deactivate-account.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/pages/user-profile/general.js') }}"></script>
-    <script src="{{ asset('backend/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/create-campaign.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/type.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/details.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/finance.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/complete.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/main.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/two-factor-authentication.js') }}"></script>
+    {{-- <script src="{{ asset('backend/js/custom/account/settings/signin-methods.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/account/settings/profile-details.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/account/settings/deactivate-account.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/pages/user-profile/general.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/widgets.bundle.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/widgets.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/apps/chat/chat.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/upgrade-plan.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/create-campaign.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/type.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/details.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/finance.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/complete.js') }}"></script> --}}
+    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/main.js') }}"></script>x
+    {{-- <script src="{{ asset('backend/js/custom/utilities/modals/two-factor-authentication.js') }}"></script> --}}
     <script src="{{ asset('backend/js/custom/utilities/modals/users-search.js') }}"></script>
     <!--end::Custom Javascript-->
 
@@ -133,7 +133,7 @@
     
     <script>
         $(document).ready(function() {
-            $('#productDataTable').DataTable({
+            var datatable = $('#productDataTable').DataTable({
                 destroy: true,
                 processing: true,
                 serverSide: true,
@@ -141,6 +141,9 @@
                         "<'row'<'col-sm-4 d-flex align-items-center'li><'col-sm-8'p>>",
                 ajax: {
                     url: '{!! url()->current() !!}',
+                    data: function (d) {
+                        d.category_id = $('#category_filter').val();
+                    }
                 },
                 columns: [
                     { 
@@ -161,56 +164,56 @@
                         name: 'variant',
                         width: '5%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'group',
                         name: 'group',
                         width: '10%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
-                        data: 'category_name',
-                        name: 'category_name',
+                        data: 'category_id',
+                        name: 'category_id',
                         width: '10%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'stock',
                         name: 'stock',
                         width: '5%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'selling_price',
                         name: 'selling_price',
                         width: '10%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'location',
                         name: 'location',
                         width: '15%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'updated_at',
                         name: 'updated_at',
                         width: '15%',
                         orderable: true,
-                        serchable: true
+                        searchable: false
                     },
                     {
                         data: 'action',
                         name: 'action',
                         width: '5%',
                         orderable: false,
-                        serchable: false
+                        searchable: false
                     }
                     ],
                     columnDefs: [
@@ -223,30 +226,55 @@
             });
 
             // Live search
-            $('#liveSearch').on('keyup', function() {
-                $('#productDataTable').DataTable().search($(this).val()).draw();
+            $('#liveSearch').keyup(function() {
+                var filterValue = $(this).val();
+                datatable.columns().search(filterValue).draw();
             });
 
             // Filter by location
             $('#location_filter').on('change', function() {
                 var filterValue = $(this).val();
-                $('#productDataTable').DataTable().column(7).search(filterValue).draw();
+                datatable.column(7).search(filterValue).draw();
             });
 
             // Filter by category
             $('#category_filter').on('change', function() {
                 var filterValue = $(this).val();
-                $('#productDataTable').DataTable().column(4).search(filterValue).draw();
+                datatable.column(4).search(filterValue).draw();
             });
-
 
             // Filter by group
             $('#group_filter').on('change', function() {
                 var filterValue = $(this).val();
-                $('#productDataTable').DataTable().column(3).search(filterValue).draw();
+                datatable.column(3).search(filterValue).draw();
             });
 
             $.fn.dataTable.ext.errMode = 'throw';
+
+            // Delete Confirmation
+            $('body').on('click', '#submitForm', function(e){
+                e.preventDefault();
+                var form = $(this).parents('form');
+                var productName = $(this).data('product-name');
+                var productSkuCode = $(this).data('product-sku-code');
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    html: "Anda akan menghapus produk<br><span style='font-size: 1.2em;'><strong><span style='color:red'>" + 
+                        productName + "</span></strong></span><br><span style='font-size: 1.2em;'><strong><span style='color:red'>SKU : " + 
+                        productSkuCode + "</span></strong></span><br>dari database?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'Batal',
+                    cancelButtonColor: '#8F9098',
+                    confirmButtonColor: '#DC3545',
+                    confirmButtonText: 'Hapus',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        form.submit();
+                    }
+                });
+            });
         });
     </script>
 @endpush

@@ -4,15 +4,15 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Category;
+use App\Models\Batch;
 
-class CategorySeeder extends Seeder
+class BatchSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Category::factory(7)->create();
+        Batch::factory(400)->create();
     }
 }
