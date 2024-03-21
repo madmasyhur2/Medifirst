@@ -47,7 +47,7 @@
                 </div>
                 <!--end::Card title-->
             </div>
-            <!--begin::Card header-->
+            <!--end::Card header-->
 
             <!--begin::Content-->
             <div id="kt_account_settings_profile_details" class="collapse show">
