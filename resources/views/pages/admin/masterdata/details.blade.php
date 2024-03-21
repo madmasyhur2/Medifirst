@@ -35,8 +35,15 @@
             <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details"
                 aria-expanded="true" aria-controls="kt_account_profile_details">
                 <!--begin::Card title-->
-                <div class="card-title m-0">
-                    <h3 class="fw-bold m-0">Detail Product</h3>
+                <div class="container py-3 my-6">
+                    <div class="row">
+                        <div class="col-md-10 d-flex align-items-left">
+                            <h1 class="mx-0 my-auto">Detail Produk</h1>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-secondary" style="background-color: #535561; color: white" href="{{ route('admin.masterdata.edit', $products->id) }}" role="button">Edit Produk</a>
+                        </div>
+                    </div>
                 </div>
                 <!--end::Card title-->
             </div>
@@ -76,80 +83,130 @@
                             <div class="row">
                                 <!--begin::Col-->
                                 <div class="col-lg-3">
-                                    <div class="py-5 my-auto">
-                                        <h5 class="fw-bold">Supplier</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="fw-bold"><strong>Supplier</strong></p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="fw-bold">Satuan</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="fw-bold"><strong>Satuan</strong></p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="fw-bold">Golongan</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="fw-bold"><strong>Golongan</strong></p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="fw-bold">Kategori</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="fw-bold"><strong>Kategori</strong></p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="fw-bold">No SKU</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="fw-bold"><strong>No SKU</strong></p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="fw-bold">Lokasi</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="fw-bold"><strong>Lokasi</strong></p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="fw-bold">Total Stok</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="fw-bold"><strong>Total Stok</strong></p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="fw-bold">Harga Beli</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="fw-bold"><strong>Harga Beli</strong></p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="fw-bold">Keuntungan</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="fw-bold"><strong>Keuntungan</strong></p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="fw-bold">Diskon (%)</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="fw-bold"><strong>Diskon (%)</strong></p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="fw-bold">Harga Jual</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="fw-bold"><strong>Harga Jual</strong></p>
                                     </div>
                                 </div>
                                 <!--end::Col-->
                                 <!--begin::Col-->
                                 <div class="col-lg-9">
-                                    <div class="py-5 my-auto">
-                                        <h5 class="">{{ $supplier->name }}</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="">{{ $supplier->name }}</p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="">{{ $products->unit }}</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="">{{ $products->unit }}</p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="">{{ $products->group }}</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="">{{ $products->group }}</p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="">{{ $category->name }}</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="">{{ $category->name }}</p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="">{{ $products->sku_code }}</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="">{{ $products->sku_code }}</p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="">{{ $products->location }}</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="">{{ $products->location }}</p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="">{{ $totalStock }}</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="">{{ $totalStock }}</p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="">Rp {{ number_format($products->cost, 0, ',', '.') }}</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="">Rp {{ number_format($products->cost, 0, ',', '.') }}</p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="">Rp {{ number_format($products->margin, 0, ',', '.') }}</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="">Rp {{ number_format($products->margin, 0, ',', '.') }}</p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="">-</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="">-</p>
                                     </div>
-                                    <div class="py-5 my-auto">
-                                        <h5 class="">Rp {{ number_format($products->selling_price, 0, ',', '.') }}</h5>
+                                    <div class="pb-3 my-auto">
+                                        <p class="">Rp {{ number_format($products->selling_price, 0, ',', '.') }}</p>
                                     </div>
                                 </div>
                                 <!--end::Col-->
                             </div>
                             <!--end::Row-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="row mb-6">
+                        <!--begin::Col-->
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <div class="row mb-6">
+                                    <div class="col-lg-6">
+                                        <h3 class="mb-6 text-start">Batch dan Stok Produk</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--begin::Input group-->
+                            <!--begin::Table-->
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="py-2 my-auto"><strong>No. Batch</strong></th>
+                                        <th class="py-2 my-auto"><strong>Tanggal Expired</strong></th>
+                                        <th class="py-2 my-auto"><strong>Stok</strong></th>
+                                        <th class="py-2 my-auto"><strong>Aksi</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($batches as $batch)
+                                    <tr>
+                                        <td class="py-6 my-auto">{{ $batch->batch_code }}</td>
+                                        <td class="py-6 my-auto">{{ $batch->expired_at }}</td>
+                                        <td class="py-6 my-auto">{{ $batch->stock }}</td>
+                                        <td class="p-auto m-auto">
+                                            <div class="d-flex gap-2">
+                                                <form action="">
+                                                    <button class="btn btn-secondary" style="background-color: #3B3B3B;"><i class="fas fa-plus" style="color: white;"></i></button>
+                                                </form>
+                                                <form method="POST" action="{{ route('admin.masterdata.destroyBatch', ['id' => $batch->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" id="deleteForm" style="background-color: #DC3545;" data-no-batch="{{ $batch->batch_code }}" data-stock="{{ $batch->stock }}">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <!--end::Table-->
+                            <!--end::Input group-->
                         </div>
                         <!--end::Col-->
                     </div>
@@ -162,3 +219,33 @@
     </div>
 @endsection
 
+@push('after-script')
+<script>
+    // Delete Confirmation
+    $(document).ready(function() {
+        $('body').on('click', '#deleteForm', function(e){
+                e.preventDefault();
+                var form = $(this).parents('form');
+                var noBatch = $(this).data('no-batch');
+                var stock = $(this).data('stock');
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    html: "Anda akan menghapus produk<br><span style='font-size: 1.2em;'><strong><span style='color:red'> No. Batch " + 
+                        noBatch + "</span></strong></span><br><span style='font-size: 1.2em;'><strong><span style='color:red'>Stok : " + 
+                        stock + "</span></strong></span><br>dari database?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: 'Batal',
+                    cancelButtonColor: '#8F9098',
+                    confirmButtonColor: '#DC3545',
+                    confirmButtonText: 'Hapus',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        form.submit();
+                    }
+                });
+        });
+    });
+</script>
+@endpush

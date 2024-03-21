@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('batch_code')->unique();
             $table->integer('stock')->default(0);
             $table->date('expired_at');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

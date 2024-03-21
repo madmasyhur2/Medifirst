@@ -45,9 +45,10 @@
             <!--begin::Content-->
             <div id="kt_account_settings_profile_details" class="collapse show">
                 <!--begin::Form-->
-                <form action="#" method="POST" enctype="multipart/form-data" id="kt_account_profile_details_form"
+                <form action="{{ route('admin.masterdata.store') }}" method="POST" enctype="multipart/form-data" id="kt_account_profile_details_form"
                     class="form fv-plugins-bootstrap5 fv-plugins-framework">
-                    @csrf @method('PUT')
+                    @csrf
+                    @method('POST')
 
                     <!--begin::Card body-->
                     <div class="card-body border-top p-9">
@@ -115,7 +116,7 @@
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="medicine" class="form-control form-control-lg form-control-solid"
+                                        <input type="text" name="name" class="form-control form-control-lg form-control-solid"
                                             placeholder="Ketikkan nama obat" />
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                     </div>
@@ -129,11 +130,12 @@
                                     <label class="col-form-label required fw-semibold fs-6">Supplier</label>
                                     <!--end::Label-->
                                     <!--begin::Col-->
-                                    <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="supplier" class="form-control form-control-lg form-control-solid"
-                                            placeholder="Ketikkan nama supplier"/>
-                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                    </div>
+                                    <select id="supplier" name="supplier_id" class="form-select">
+                                        <option value="" selected disabled>Pilih Supplier</option>
+                                        @foreach ($suppliers as $supplier)
+                                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                        @endforeach
+                                    </select>
                                     <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
@@ -145,7 +147,7 @@
                                         <label class="col-form-label required fw-semibold fs-6">Variant</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
-                                        <select id="variant" class="form-select">
+                                        <select id="variant" name="variant" class="form-select">
                                             <option value="" selected disabled>Pilih Variant</option>
                                             @foreach ($variants as $variant)
                                                 <option value="{{ $variant->variant }}">{{ $variant->variant }}</option>
@@ -159,7 +161,7 @@
                                         <label class="col-form-label required fw-semibold fs-6">Golongan</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
-                                        <select id="group" class="form-select">
+                                        <select id="group" name="group" class="form-select">
                                             <option value="" selected disabled>Pilih Golongan</option>
                                             @foreach ($groups as $group)
                                                 <option value="{{ $group->group }}">{{ $group->group }}</option>
@@ -173,10 +175,10 @@
                                         <label class="col-form-label required fw-semibold fs-6">Kategori</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
-                                        <select id="category" class="form-select">
+                                        <select id="category" name="category_id" class="form-select">
                                             <option value="" selected disabled>Pilih Kategori</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->category }}">{{ $category->category }}</option>
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Col-->
@@ -204,12 +206,11 @@
                                         <label class="col-form-label required fw-semibold fs-6">Lokasi</label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
-                                        <select id="category" class="form-select">
-                                            <option value="" selected disabled>Pilih Lokasi</option>
-                                            @foreach ($locations as $location)
-                                                <option value="{{ $location->location }}">{{ $location->location }}</option>
-                                            @endforeach
-                                        </select>
+                                        <div class="fv-row fv-plugins-icon-container">
+                                            <input type="text" name="location" class="form-control form-control-lg form-control-solid"
+                                                placeholder="Masukkan Lokasi" value="" />
+                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                        </div>
                                         <!--end::Col-->
                                     </div>
                                 </div>
@@ -267,7 +268,7 @@
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <div class="form-check my-5">
-                                                <input class="form-check-input" type="checkbox" name="is_consignment" id="is_consignment" value="is_consignment" required>
+                                                <input class="form-check-input" type="checkbox" name="is_consignment" id="is_consignment" value="is_consignment">
                                                 <label class="form-check-label" for="is_consignment">
                                                     <h6 class="ms-2 py-auto" style="color: #3B3B3B"><strong></strong>Produk Konsinyasi</h6>
                                                 </label>
@@ -360,7 +361,7 @@
                     <!--begin::Actions-->
                     <div class="card-footer d-flex justify-content-end py-6 px-9">
                         <button type="reset" class="btn btn-secondary btn-lg me-6" style="background-color: white; color: #282828; border: solid 1px #535561;">Batal</button>
-                        <button type="button" class="btn btn-secondary btn-lg" style="background-color: #535561; color: white" id="kt_account_profile_details_submit">Simpan</button>
+                        <button type="submit" class="btn btn-secondary btn-lg" style="background-color: #535561; color: white" id="kt_account_profile_details_submit">Simpan</button>
                     </div>
                     <!--end::Actions-->
                     <input type="hidden">

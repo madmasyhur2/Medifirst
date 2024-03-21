@@ -121,11 +121,6 @@ class MasterDataController extends Controller
     public function edit($id)
     {
         $products = Product::find($id);
-        
-        $locations = DB::table('products')
-                ->select('location')
-                ->distinct()
-                ->get();
 
         $variants = DB::table('products')
             ->select('variant')
@@ -147,11 +142,10 @@ class MasterDataController extends Controller
             $totalStock += $batch->stock;
         }
 
-        // dd([$batches]);
+        // dd([$products, $groups, $categories, $variants, $suppliers, $batches, $totalStock]);
             
         return view('pages.admin.masterdata.edit', compact([
             'products',
-            'locations',
             'groups',
             'categories',
             'variants',
@@ -160,32 +154,38 @@ class MasterDataController extends Controller
             'totalStock'
         ]));
     }
+
+    public function validator(array $data)
+    {
+        return Validator::make($data, [
+            'avatar' => ['nullable', 'image', 'max:2048'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'supplier' => ['nullable', 'string', 'max:255'],
+            'variant' => ['nullable', 'string', 'max:255'],
+            'group' => ['nullable', 'string', 'max:255'],
+            'category' => ['nullable', 'string', 'max:255'],
+            'sku_code' => ['nullable', 'string', 'max:255'],
+            'location' => ['nullable', 'string', 'max:255'],
+            'selling_price' => ['nullable', 'numeric'],
+            'margin' => ['nullable', 'numeric'],
+            'purchase_price' => ['nullable', 'numeric'],
+            'is_consignment' => ['nullable', 'boolean'],
+            'batch_code.*' => ['nullable', 'string', 'max:255'],
+            'expired_date.*' => ['nullable', 'date'],
+            'stock.*' => ['nullable', 'numeric'],
+        ]);
+    }
+
     public function update(Request $request)
     {
         try {
-            $validator = Validator::make($request->all(), [
-                'avatar' => ['nullable', 'image', 'max:2048'],
-                'name' => ['required', 'string', 'max:255'],
-                'supplier' => ['required', 'string', 'max:255'],
-                'variant' => ['required', 'string', 'max:255'],
-                'group' => ['required', 'string', 'max:255'],
-                'category' => ['required', 'string', 'max:255'],
-                'sku_code' => ['required', 'string', 'max:255'],
-                'location' => ['required', 'string', 'max:255'],
-                'selling_price' => ['required', 'numeric'],
-                'margin' => ['required', 'numeric'],
-                'purchase_price' => ['required', 'numeric'],
-                'is_consignment' => ['required', 'boolean'],
-                'batch_code' => ['required', 'string', 'max:255'],
-                'expired_date' => ['required', 'date'],
-                'stock' => ['required', 'numeric'],
-            ]);
+            $validator = $this->validator($request->all());
 
             if ($validator->fails()){
                 return back()->with('errors', $validator->messages()->all()[0])->withInput();
             }
 
-            $validated = $request->all();
+            $validated = $request->except('_token', '_method');
             $product = Product::where('id', $request->id)->first();
 
             // Upload Image
@@ -199,13 +199,13 @@ class MasterDataController extends Controller
             $update = $product->update($validated);
             if ($update) {
                 alert()->success('Perubahan berhasil disimpan!');
-                return back();
+                return redirect()->route('admin.masterdata.index');
             }
         } catch (\Throwable $th) {
             alert()->error($th->getMessage());
             return back();
         }
-        return view('pages.admin.masterdata.update');
+        return redirect()->route('admin.masterdata.index');
     }
 
     public function create()
@@ -227,20 +227,68 @@ class MasterDataController extends Controller
         
         $categories = Category::all();
 
+        $suppliers = Supplier::all();
+
+        // dd([$locations, $groups, $categories, $variants]);
+
         return view('pages.admin.masterdata.create', compact([
             'locations',
             'groups',
             'categories',
-            'variants'
+            'variants',
+            'suppliers'
         ]));
     }
 
-    public function destroy($id)
+    public function store(Request $request)
+    {
+        try {
+            $validator = $this->validator($request->all());
+
+            if ($validator->fails()){
+                return back()->with('errors', $validator->messages()->all()[0])->withInput();
+            }
+
+            $validated = $request->except('_token', '_method');
+            $validated['supplier_id'] = $request->supplier_id;
+            $validated['category_id'] = $request->category_id;
+            $product = Product::create($validated);
+
+            // Upload Image
+            if ($request->hasFile('avatar')) {
+                $product->addMediaFromRequest('avatar')->toMediaCollection('avatars');
+            }
+
+            if ($product) {
+                alert()->success('Produk berhasil ditambahkan!');
+                return redirect()->route('admin.masterdata.index');
+            }
+        } catch (\Throwable $th) {
+            alert()->error($th->getMessage());
+            return back();
+        }
+        return redirect()->route('admin.masterdata.index');
+    }
+
+    public function destroyProduct($id)
     {
         try {
             $product = Product::findOrFail($id);
             $product->delete();
             alert()->success('Produk berhasil dihapus!');
+            return back();
+        } catch (\Throwable $th) {
+            alert()->error($th->getMessage());
+            return back();
+        }
+    }
+
+    public function destroyBatch($id)
+    {
+        try {
+            $batch = Batch::findOrFail($id);
+            $batch->delete();
+            alert()->success('Batch berhasil dihapus!');
             return back();
         } catch (\Throwable $th) {
             alert()->error($th->getMessage());
