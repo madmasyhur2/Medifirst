@@ -10,9 +10,9 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    public function products(): BelongsToMany
+    public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->hasMany(Product::class);
     }
     
     public function purchases()

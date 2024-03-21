@@ -10,9 +10,29 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'sku_code',
+        'selling_price',
+        'category_id',
+        'store_id',
+        'supplier_id',
+        'description',
+        'image',
+    ];
+
+    protected $attributes = [
+        'supplier_id' => 1,
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function batches()
+    {
+        return $this->hasMany(Batch::class);
     }
 
     public function store()
@@ -30,9 +50,9 @@ class Product extends Model
         return $this->belongsToMany(Purchase::class);
     }
 
-    public function suppliers(): BelongsToMany
+    public function suppliers()
     {
-        return $this->belongsToMany(Supplier::class);
+        return $this->belongsTo(Supplier::class);
     }
 
 }
