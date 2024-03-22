@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Membership;
 use App\Http\Controllers\Controller;
@@ -14,7 +14,8 @@ class MembershipController extends Controller
      */
     public function index()
     {
-        //
+        $datas = Membership::all();
+        return view('pages.admin.membership.index', compact('datas'));
     }
 
     /**
