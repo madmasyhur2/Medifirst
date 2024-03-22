@@ -78,8 +78,8 @@
             <!--begin::Content-->
             <div id="kt_account_settings_profile_details" class="collapse show">
                 <!--begin::Form-->
-                <form action="#" method="POST" enctype="multipart/form-data" id="kt_account_profile_details_form"
-                    class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                <form action="{{ route('admin.employees.shifts.update', $employee->id) }}" method="POST" enctype="multipart/form-data"
+                    id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework">
                     @csrf @method('PUT')
 
                     <!--begin::Card body-->
@@ -237,17 +237,67 @@
                             <!--end::Col-->
 
                             <!--begin::Col-->
-                            <div class="col-lg-8">
-                                @foreach ($employee->shifts as $shift)
-                                    <h5>{{ Str::title($shift->hari) }}</h5>
-                                    <p>{{ $shift->jam_masuk }} - {{ $shift->jam_pulang }}</p>
-                                @endforeach
-                            </div>
-                            <!--end::Col-->
+                            <div class="col-lg-10">
+                                <!--begin::Repeater-->
+                                <div id="shifts">
+                                    <!--begin::Form group-->
+                                    <div class="form-group">
+                                        <div data-repeater-list="shifts">
+                                            @foreach ($employee->shifts as $index => $shift)
+                                                <div data-repeater-item>
+                                                    <input type="hidden" name="shifts[{{ $index }}][id]" value="{{ $shift->id }}" />
 
-                            <!--begin::Col-->
-                            <div class="col-lg-2">
-                                <a href="#" class="btn btn-light btn-dark">Edit Shift</a>
+                                                    <div class="form-group row mb-5">
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">Hari:</label>
+                                                            <select class="form-select" name="shifts[{{ $index }}][hari]"
+                                                                data-kt-repeater="select2" data-placeholder="Pilih hari shift">
+                                                                <option></option>
+                                                                <option value="senin" {{ $shift->hari == 'senin' ? 'selected' : '' }}>Senin</option>
+                                                                <option value="selasa" {{ $shift->hari == 'selasa' ? 'selected' : '' }}>Selasa</option>
+                                                                <option value="rabu" {{ $shift->hari == 'rabu' ? 'selected' : '' }}>Rabu</option>
+                                                                <option value="kamis" {{ $shift->hari == 'kamis' ? 'selected' : '' }}>Kamis</option>
+                                                                <option value="jumat" {{ $shift->hari == 'jumat' ? 'selected' : '' }}>Jum'at</option>
+                                                                <option value="sabtu" {{ $shift->hari == 'sabtu' ? 'selected' : '' }}>Sabtu</option>
+                                                                <option value="minggu" {{ $shift->hari == 'minggu' ? 'selected' : '' }}>Minggu</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label class="form-label">Jam Masuk:</label>
+                                                            <input type="text" name="shifts[{{ $index }}][jam_masuk]"
+                                                                data-kt-repeater="shiftpicker" class="form-control mb-2 mb-md-0"
+                                                                placeholder="Pilih jam masuk" value="{{ $shift->jam_masuk }}" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label class="form-label">Jam Pulang:</label>
+                                                            <input type="email" name="shifts[{{ $index }}][jam_pulang]"
+                                                                data-kt-repeater="shiftpicker" class="form-control mb-2 mb-md-0"
+                                                                placeholder="Pilih jam pulang" value="{{ $shift->jam_pulang }}" />
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <a href="javascript:;" data-repeater-delete
+                                                                class="btn btn-sm btn-light-danger mt-3 mt-md-8">
+                                                                <i class="ki-solid ki-trash fs-5"></i>
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <!--end::Form group-->
+
+                                    <!--begin::Form group-->
+                                    <div class="form-group mt-5">
+                                        <a href="javascript:;" data-repeater-create class="btn btn-light-secondary">
+                                            <i class="ki-duotone ki-plus fs-3"></i>
+                                            Tambah Shift
+                                        </a>
+                                    </div>
+                                    <!--end::Form group-->
+                                </div>
+                                <!--end::Repeater-->
                             </div>
                             <!--end::Col-->
                         </div>
@@ -255,8 +305,10 @@
                     <!--end::Card body-->
 
                     <!--begin::Actions-->
-                    <div class="card-footer d-flex justify-content-start py-6 px-9">
-                        <a href="{{ route('admin.employees.index') }}" class="btn btn-light btn-secondary me-2">Kembali</a>
+                    <div class="card-footer d-flex justify-content-end py-6 px-9">
+                        <a href="{{ route('admin.employees.show', $employee->id) }}"
+                            class="btn btn-secondary btn-active-light-secondary me-2">Batal</a>
+                        <button type="button" class="btn btn-dark" id="kt_account_profile_details_submit">Simpan</button>
                     </div>
                     <!--end::Actions-->
                 </form>
@@ -271,6 +323,7 @@
 @push('after-script')
     <!--begin::Vendors Javascript(used for this page only)-->
     <script src="{{ asset('backend/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('backend/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
     <!--end::Vendors Javascript-->
 
     <!--begin::Custom Javascript(used for this page only)-->
@@ -295,8 +348,57 @@
     <!--begin::Additional Javascript(used for this page only)-->
     <script>
         $(document).ready(function() {
-            //
-        })
+            $('#shifts').repeater({
+                initEmpty: false,
+
+                defaultValues: {
+                    'text-input': 'foo'
+                },
+
+                show: function() {
+                    $(this).slideDown();
+                    $(this).find('[data-kt-repeater="select2"]').select2();
+                    $(this).find('[data-kt-repeater="shiftpicker"]').flatpickr({
+                        enableTime: true,
+                        noCalendar: true,
+                        dateFormat: "H:i",
+                    });
+                },
+
+                hide: function(deleteElement) {
+                    $(this).slideUp(deleteElement);
+                },
+
+                ready: function() {
+                    $('[data-kt-repeater="select2"]').select2();
+                    $('[data-kt-repeater="shiftpicker"]').flatpickr({
+                        enableTime: true,
+                        noCalendar: true,
+                        dateFormat: "H:i",
+                    });
+                }
+            });
+
+            $('#kt_account_profile_details_submit').click(function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You are about to update the account information',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, submit!',
+                    confirmButtonColor: '#409add',
+                    reverseButtons: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#kt_account_profile_details_form').submit();
+                    } else {
+                        Swal.fire('Ups', 'Gagal mengupdate shift karyawan', 'error');
+                    }
+                })
+            });
+        });
     </script>
     <!--end::Additional Javascript-->
 @endpush

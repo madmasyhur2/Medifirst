@@ -35,7 +35,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 	Route::put('/profiles/update', [AdminProfileController::class, 'update'])->name('profiles.update');
 
 	// Account - Tab Karyawan
-	Route::get('/employees/{id}/edit/shifts', [AdminEmployeeController::class, 'shiftsUpdate'])->name('employees.shifts.update');
+	Route::get('/employees/{id}/shifts/edit', [AdminEmployeeController::class, 'editShift'])->name('employees.shifts.edit');
+	Route::put('/employees/{id}/shifts/update', [AdminEmployeeController::class, 'updateShift'])->name('employees.shifts.update');
 	Route::resource('employees', AdminEmployeeController::class);
 
 	// Contact
@@ -57,7 +58,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
 	// Membership
 	Route::get('/membership', [AdminMasterDataController::class, 'membership'])->name('membership.index');
-	
+
 	// Multioutler
 	Route::get('/multioutlet', [AdminMultiOutletController::class, 'index'])->name('multioutlet.index');
 

@@ -174,11 +174,75 @@ class EmployeeController extends Controller
 	}
 
 	/**
+	 * shiftsEdit
+	 *
+	 * @return void
+	 */
+	public function editShift($id)
+	{
+		try {
+			$employee = User::with(['shifts'])->where('id', $id)->firstOrFail();
+			return view('pages.admin.employees.shift-edit', [
+				'employee' => $employee,
+			]);
+		} catch (\Throwable $th) {
+			//throw $th;
+		}
+	}
+
+	/**
 	 * Update the specified resource in storage.
 	 */
 	public function update(Request $request, string $id)
 	{
 		//
+	}
+
+	public function updateShift(Request $request, $id)
+	{
+		try {
+			$validator = Validator::make($request->all(), [
+				'shifts' => 'required|array',
+				'shifts.*.hari' => 'required|string|in:senin,selasa,rabu,kamis,jumat,sabtu,minggu',
+				'shifts.*.jam_masuk' => 'required',
+				'shifts.*.jam_pulang' => 'required',
+			]);
+
+			if ($validator->fails()) {
+				return back()->with('errors', $validator->messages()->all()[0])->withInput();
+			}
+
+			// dd($request->all());
+
+			$employee = User::findOrFail($id);
+
+			foreach ($request->shifts as $shiftData) {
+				$shiftId = $shiftData['id'] ?? null;
+
+				if ($shiftId) {
+					$shift = Shift::findOrFail($shiftId);
+					$shift->update([
+						'hari' => $shiftData['hari'],
+						'jam_masuk' => $shiftData['jam_masuk'],
+						'jam_pulang' => $shiftData['jam_pulang'],
+					]);
+				} else {
+					$employee->shifts()->create([
+						'hari' => $shiftData['hari'],
+						'jam_masuk' => $shiftData['jam_masuk'],
+						'jam_pulang' => $shiftData['jam_pulang'],
+					]);
+				}
+			}
+
+			$existingShiftIds = collect($request->shifts)->pluck('id')->filter();
+			$employee->shifts()->whereNotIn('id', $existingShiftIds)->delete();
+
+			alert()->success('Shift berhasil diupdate');
+			return redirect()->route('admin.employees.show', $employee->id);
+		} catch (\Throwable $th) {
+			//throw $th;
+		}
 	}
 
 	/**
@@ -201,20 +265,6 @@ class EmployeeController extends Controller
 				'success' => false,
 				'message' => $th->getMessage()
 			]);
-		}
-	}
-
-	/**
-	 * shiftsUpdate
-	 *
-	 * @return void
-	 */
-	public function shiftsUpdate()
-	{
-		try {
-			//code...
-		} catch (\Throwable $th) {
-			//throw $th;
 		}
 	}
 }
