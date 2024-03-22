@@ -107,7 +107,7 @@ class MasterDataController extends Controller
         }
 
         // dd([$products, $category, $supplier, $batches, $totalStock]);
-        // dd($supplier)
+        // dd($batches);
 
         return view('pages.admin.masterdata.details', compact([
             'products',

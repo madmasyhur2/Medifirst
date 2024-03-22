@@ -440,9 +440,9 @@ function updateTotalStock() {
 
     // Update color based on total stock
     if (totalStock < 10) {
-        totalStockElement.style.color = '#FF8822';
+        totalStockElement.style.color = 'red';
     } else if (totalStock < 20) {
-        totalStockElement.style.color = '#FFCC00';
+        totalStockElement.style.color = '#FFCC00'; // yellow
     } else {
         totalStockElement.style.color = '#198754'; // green
     }
