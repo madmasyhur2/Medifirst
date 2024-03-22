@@ -247,7 +247,9 @@
 
                             <!--begin::Col-->
                             <div class="col-lg-2">
-                                <a href="#" id="editShiftButton" class="btn btn-light btn-dark">Edit Shift</a>
+                                <a href="{{ route('admin.employees.shifts.edit', $employee->id) }}" id="editShiftButton"
+                                    class="btn btn-light btn-dark">Edit
+                                    Shift</a>
                             </div>
                             <!--end::Col-->
                         </div>
@@ -296,97 +298,7 @@
     <!--begin::Additional Javascript(used for this page only)-->
     <script>
         $(document).ready(function() {
-            $('#editShiftButton').click(function(e) {
-                e.preventDefault();
-
-                $('#editShiftButton').hide();
-                $('.col-lg-8').removeClass('col-lg-8').addClass('col-lg-10');
-
-                var shifts = @json($employee->shifts);
-                var formHtml = `
-					<form id="shiftForm">
-						<div data-repeater-list="shifts">
-							@foreach ($employee->shifts as $shift)
-								<div data-repeater-item>
-									<div class="form-group row mb-5">
-										<div class="col-md-4">
-											<label class="form-label">Hari:</label>
-											<select class="form-select" name="hari" data-control="select2">
-												<option></option>
-												<option value="senin" {{ $shift->hari == 'senin' ? 'selected' : '' }}>Senin</option>
-												<option value="selasa" {{ $shift->hari == 'selasa' ? 'selected' : '' }}>Selasa</option>
-												<option value="rabu" {{ $shift->hari == 'rabu' ? 'selected' : '' }}>Rabu</option>
-												<option value="kamis" {{ $shift->hari == 'kamis' ? 'selected' : '' }}>Kamis</option>
-												<option value="jumat" {{ $shift->hari == 'jumat' ? 'selected' : '' }}>Jum'at</option>
-												<option value="sabtu" {{ $shift->hari == 'sabtu' ? 'selected' : '' }}>Sabtu</option>
-												<option value="minggu" {{ $shift->hari == 'minggu' ? 'selected' : '' }}>Minggu</option>
-												<!-- Tambahkan opsi hari lainnya -->
-											</select>
-										</div>
-										<div class="col-md-3">
-											<label class="form-label">Jam Masuk:</label>
-											<input type="text" name="jam_masuk" class="form-control" value="{{ $shift->jam_masuk }}">
-										</div>
-										<div class="col-md-3">
-											<label class="form-label">Jam Pulang:</label>
-											<input type="text" name="jam_pulang" class="form-control" value="{{ $shift->jam_pulang }}">
-										</div>
-										<div class="col-md-2">
-											<button type="button" data-repeater-delete class="btn btn-sm btn-light-danger mt-3 mt-md-8">
-												<i class="ki-solid ki-trash fs-5"></i> Delete
-											</button>
-										</div>
-									</div>
-								</div>
-							@endforeach
-						</div>
-						<div class="form-group mt-5">
-							<button type="button" data-repeater-create class="btn btn-light-secondary">
-								<i class="ki-duotone ki-plus fs-3"></i> Tambah Shift
-							</button>
-						</div>
-					</form>
-				`;
-
-                $('#shiftFormContainer').html(formHtml);
-                $('[data-control="select2"]').select2();
-                $('#shifts').repeater({
-                    initEmpty: false,
-
-                    defaultValues: {
-                        'text-input': 'foo'
-                    },
-
-                    show: function() {
-                        $(this).slideDown();
-                        $(this).find('[data-kt-repeater="select2"]').select2();
-                        $(this).find('[data-kt-repeater="shiftpicker"]').flatpickr({
-                            enableTime: true,
-                            noCalendar: true,
-                            dateFormat: "H:i",
-                        });
-                    },
-
-                    hide: function(deleteElement) {
-                        $(this).slideUp(deleteElement);
-                    },
-
-                    ready: function() {
-                        $('[data-kt-repeater="select2"]').select2();
-                        $('[data-kt-repeater="shiftpicker"]').flatpickr({
-                            enableTime: true,
-                            noCalendar: true,
-                            dateFormat: "H:i",
-                        });
-                    }
-                });
-
-                $('#cardFooter').removeClass('justify-content-start').addClass('justify-content-end');
-                $('#cardFooter').html(`
-					<a href="{{ route('admin.employees.index') }}" class="btn btn-light btn-active-light-primary me-2">Batal</a>
-					<button type="button" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan</button>
-				`);
-            });
+            //
         });
     </script>
     <!--end::Additional Javascript-->
