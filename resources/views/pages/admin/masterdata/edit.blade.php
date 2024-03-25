@@ -31,7 +31,7 @@
             </div>
             <!--end::Card title-->
         </div>
-        <!--begin::Card header-->
+        <!--end::Card header-->
         <!--begin::Card body-->
         <div class="card-body pt-0">
             <!--begin::Form-->
@@ -108,7 +108,7 @@
                                 <!-- Variant -->
                                 <div class="col-lg-4">
                                     <div class="d-flex flex-column me-8">
-                                        <label class="form-label mb-1">Variant</label>
+                                        <label class="form-label mb-1">Varian</label>
                                         <div class="position-relative">
                                             <select id="variant" class="form-select form-select-solid" data-kt-select2="true" data-allow-clear="true">
                                                 <option value="{{ $products->id }}">{{ old('variant', $products->variant) }}</option>
@@ -139,7 +139,7 @@
                                 </div>
                                 <!-- Category -->
                                 <div class="col-lg-4">
-                                    <div class="d-flex flex-column me-8">
+                                    <div class="d-flex flex-column">
                                         <label class="form-label mb-1">Kategori</label>
                                         <div class="position-relative">
                                             <select id="category" class="form-select form-select-solid" data-kt-select2="true" data-allow-clear="true">
@@ -159,7 +159,7 @@
                             <div class="row mb-6">
                                 <div class="col-lg-6">
                                     <!--begin::Input group-->
-                                    <label for="sku-code" class="form-label">Kode SKU</label>
+                                    <label for="sku_code" class="form-label">Kode SKU</label>
                                     <div class="input-group input-group-solid mb-5">
                                         <input type="text" name="sku_code" class="form-control" id="sku-code" aria-describedby="basic-addon3" 
                                             value="{{ old('sku_code', $products->sku_code) }}"/>
@@ -199,10 +199,10 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <!--begin::Input group-->
-                                    <label for="selling-price" class="form-label">Harga Jual</label>
+                                    <label for="selling_price" class="form-label">Harga Jual</label>
                                     <div class="input-group input-group-solid mb-5">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" name="selling-price" class="form-control" value="{{ old('selling_price', $products->selling_price) }}"/>
+                                        <input type="number" name="selling_price" class="form-control" value="{{ old('selling_price', $products->selling_price) }}"/>
                                     </div>
                                     <!--end::Input group-->
                                 </div>
@@ -290,21 +290,21 @@
                 <!--end::Card body-->
                 <!--begin::Actions-->
                 <div class="card-footer d-flex justify-content-end py-6 px-9">
-                    <a href="{{ route('admin.masterdata.index') }}" class="btn btn-light btn-active-light-primary me-2">Batal</a>
+                    <a href="{{ route('admin.masterdata.index') }}" class="btn btn-light btn-active-light-primary me-6">Batal</a>
                     <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan</button>
                 </div>
                 <!--end::Actions-->
             </form>
             <!--end::Form-->
         </div>
-        <!--end::Content-->
+        <!--end::Card Body-->
     </div>
-    <!--end::Basic info-->
+    <!--end::Card-->
 </div>
 @endsection
 
 @push('after-script')
-<script src = "{{ asset('backend/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
+<script src="{{ asset('backend/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
 <script>
     $(document).ready(function () {
         var totalStockElement = document.getElementById('totalStock');
@@ -357,8 +357,6 @@
                 $(this).slideUp(deleteElement);
             }
         });
-
-
     });
 </script>
 @endpush
