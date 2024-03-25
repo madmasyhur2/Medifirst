@@ -11,6 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Batch;
+use Illuminate\Support\Facades\Log;
 
 class MasterDataController extends Controller
 {
@@ -107,7 +108,7 @@ class MasterDataController extends Controller
         }
 
         // dd([$products, $category, $supplier, $batches, $totalStock]);
-        // dd($supplier)
+        // dd($batches);
 
         return view('pages.admin.masterdata.details', compact([
             'products',
@@ -155,39 +156,29 @@ class MasterDataController extends Controller
         ]));
     }
 
-    public function validator(array $data)
-    {
-        return Validator::make($data, [
-            'avatar' => ['nullable', 'image', 'max:2048'],
-            'name' => ['nullable', 'string', 'max:255'],
-            'supplier' => ['nullable', 'string', 'max:255'],
-            'variant' => ['nullable', 'string', 'max:255'],
-            'group' => ['nullable', 'string', 'max:255'],
-            'category' => ['nullable', 'string', 'max:255'],
-            'sku_code' => ['nullable', 'string', 'max:255'],
-            'location' => ['nullable', 'string', 'max:255'],
-            'selling_price' => ['nullable', 'numeric'],
-            'cost' => ['nullable', 'numeric'],
-            'margin' => ['nullable', 'numeric'],
-            'purchase_price' => ['nullable', 'numeric'],
-            'is_consignment' => ['nullable', 'boolean'],
-            'batch_code.*' => ['nullable', 'string', 'max:255'],
-            'expired_at.*' => ['nullable', 'date'],
-            'stock.*' => ['nullable', 'numeric'],
-        ]);
-    }
-
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         try {
-            $validator = $this->validator($request->all());
+            $validator = Validator::make($request->all(), [
+                'name' => 'nullable|string|max:255',
+                'supplier' => 'nullable|string|max:255',
+                'sku_code' => 'nullable|string|max:255',
+                'location' => 'nullable|string|max:255',
+                'cost' => 'nullable|numeric',
+                'margin' => 'nullable|numeric',
+                'selling_price' => 'nullable|numeric',
+                'is_consignment' => 'boolean',
+                'batch_code.*' => 'nullable|string|max:255',
+                'expired_at.*' => 'nullable|date',
+                'stock.*' => 'nullable|integer',
+            ]);
 
             if ($validator->fails()){
                 return back()->with('errors', $validator->messages()->all()[0])->withInput();
             }
 
             $validated = $request->except('_token', '_method');
-            $product = Product::where('id', $request->id)->first();
+            $product = Product::findOrFail($id);
 
             // Upload Image
             if ($request->hasFile('avatar')) {
@@ -197,17 +188,44 @@ class MasterDataController extends Controller
                 $product->addMediaFromRequest('avatar')->toMediaCollection('avatars');
             }
 
-            $update = $product->update($validated);
-            if ($update) {
-                alert()->success('Perubahan berhasil disimpan!');
-                return redirect()->route('admin.masterdata.index');
+            $product->update($validated);
+            // Update Batch
+            // Update existing batches
+            if ($request->has('batches') && is_array($request->batches)) {
+                foreach ($request->batches as $index => $batchData) {
+                    if (isset($batchData['id'])) {
+                        $batch = Batch::findOrFail($batchData['id']);
+                        $batch->update([
+                            'batch_code' => $request->batch_code[$index],
+                            'stock' => $request->stock[$index],
+                            'expired_at' => $request->expired_at[$index],
+                        ]);
+                    }
+                }
             }
+
+            // Create new batches
+            if ($request->has('new_batches') && is_array($request->new_batches)) {
+                foreach ($request->new_batches as $index => $newBatchData) {
+                    if (!isset($newBatchData['id'])) {
+                        Batch::create([
+                            'product_id' => $product->id,
+                            'batch_code' => $request->batch_code[$index],
+                            'stock' => $request->stock[$index],
+                            'expired_at' => $request->expired_at[$index],
+                        ]);
+                    }
+                }
+            }
+
+            alert()->success('Perubahan berhasil disimpan!');
+            return redirect()->route('admin.masterdata.index');
         } catch (\Throwable $th) {
             alert()->error($th->getMessage());
             return back();
         }
-        return redirect()->route('admin.masterdata.index');
     }
+
 
     public function create()
     {
@@ -244,7 +262,25 @@ class MasterDataController extends Controller
     public function store(Request $request)
     {
         try {
-            $validator = $this->validator($request->all());
+            $validator = Validator::make($request->all(), [
+                'avatar' => ['nullable', 'image', 'max:2048'],
+                'name' => ['nullable', 'string', 'max:255'],
+                'supplier_id' => ['nullable', 'string', 'max:255'],
+                'variant' => ['nullable', 'string', 'max:255'],
+                'group' => ['nullable', 'string', 'max:255'],
+                'category_id' => ['nullable', 'string', 'max:255'],
+                'sku_code' => ['nullable', 'string', 'max:255'],
+                'location' => ['nullable', 'string', 'max:255'],
+                'selling_price' => ['nullable', 'numeric'],
+                'cost' => ['nullable', 'numeric'],
+                'margin' => ['nullable', 'numeric'],
+                'purchase_price' => ['nullable', 'numeric'],
+                'is_consignment' => ['nullable', 'boolean'],
+                'batch'=> ['nullable', 'array'],
+                'batch_code.*' => ['nullable', 'string', 'max:255'],
+                'expired_at.*' => ['nullable', 'date'],
+                'stock.*' => ['nullable', 'numeric'],
+            ]);
 
             if ($validator->fails()){
                 return back()->with('errors', $validator->messages()->all()[0])->withInput();

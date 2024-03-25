@@ -5,7 +5,7 @@
 <head>
     <title>Medifirst - Dashboard</title>
     @include('includes.admin.meta')
-
+    
     @stack('before-style')
     @include('includes.admin.style')
     @stack('after-style')
@@ -68,8 +68,8 @@
                     <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
                         <!--begin::Copyright-->
                         <div class="text-gray-900 order-2 order-md-1">
-                            <span class="text-muted fw-semibold me-1">2024&copy;</span>
-                            <a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Medifirst</a>
+                            <span class="text-muted fw-semibold me-1">{{ date('Y') }}&copy;</span>
+                            <a href="#" target="_blank" class="text-gray-800 text-hover-primary">{{ config('app.name') }}</a>
                         </div>
                         <!--end::Copyright-->
                     </div>
