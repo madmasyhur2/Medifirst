@@ -179,6 +179,7 @@ class MasterDataController extends Controller
 
             $validated = $request->except('_token', '_method');
             $product = Product::findOrFail($id);
+            $batch = Batch::where('product_id', $id)->first();
 
             // Upload Image
             if ($request->hasFile('avatar')) {
@@ -188,7 +189,20 @@ class MasterDataController extends Controller
                 $product->addMediaFromRequest('avatar')->toMediaCollection('avatars');
             }
 
-            $product->update($validated);
+            $product->update([
+                'name' => $request->name,
+                'supplier_id' => $request->supplier_id,
+                'category_id' => $request->category_id,
+                'variant' => $request->variant,
+                'group' => $request->group,
+                'sku_code' => $request->sku_code,
+                'location' => $request->location,
+                'selling_price' => $request->selling_price,
+                'cost' => $request->cost,
+                'margin' => $request->margin,
+                'is_consignment' => $request->is_consignment,
+            ]);
+
             // Update Batch
             // Update existing batches
             if ($request->has('batches') && is_array($request->batches)) {
@@ -264,22 +278,21 @@ class MasterDataController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'avatar' => ['nullable', 'image', 'max:2048'],
-                'name' => ['nullable', 'string', 'max:255'],
-                'supplier_id' => ['nullable', 'string', 'max:255'],
-                'variant' => ['nullable', 'string', 'max:255'],
-                'group' => ['nullable', 'string', 'max:255'],
-                'category_id' => ['nullable', 'string', 'max:255'],
-                'sku_code' => ['nullable', 'string', 'max:255'],
-                'location' => ['nullable', 'string', 'max:255'],
-                'selling_price' => ['nullable', 'numeric'],
-                'cost' => ['nullable', 'numeric'],
-                'margin' => ['nullable', 'numeric'],
-                'purchase_price' => ['nullable', 'numeric'],
-                'is_consignment' => ['nullable', 'boolean'],
-                'batch'=> ['nullable', 'array'],
-                'batch_code.*' => ['nullable', 'string', 'max:255'],
-                'expired_at.*' => ['nullable', 'date'],
-                'stock.*' => ['nullable', 'numeric'],
+                'name' => ['required', 'string', 'max:255'],
+                'supplier' => ['required', 'string', 'max:255'],
+                'variant' => ['required', 'string', 'max:255'],
+                'group' => ['required', 'string', 'max:255'],
+                'category' => ['required', 'string', 'max:255'],
+                'sku_code' => ['required', 'string', 'max:255'],
+                'location' => ['required', 'string', 'max:255'],
+                'selling_price' => ['required', 'numeric'],
+                'cost' => ['required', 'numeric'],
+                'margin' => ['required', 'numeric'],
+                'is_consignment' => ['boolean'],
+                'batch'=> ['required', 'array'],
+                'batch_code.*' => ['required', 'string', 'max:255'],
+                'expired_at.*' => ['required', 'date'],
+                'stock.*' => ['required', 'numeric'],
             ]);
 
             if ($validator->fails()){
@@ -294,7 +307,20 @@ class MasterDataController extends Controller
                 $validated['is_consignment'] = 0; 
             }
 
-            $product = Product::create($validated);
+            $product = Product::create([
+                'name' => $request->name,
+                'supplier_id' => $request->supplier_id,
+                'category_id' => $request->category_id,
+                'variant' => $request->variant,
+                'group' => $request->group,
+                'sku_code' => $request->sku_code,
+                'location' => $request->location,
+                'selling_price' => $request->selling_price,
+                'cost' => $request->cost,
+                'margin' => $request->margin,
+                'is_consignment' => $request->is_consignment,
+            ]);
+
             $batch = Batch::create([
                 'product_id' => $product->id,
                 'batch_code' => $request->batch_code,
@@ -307,7 +333,7 @@ class MasterDataController extends Controller
                 $product->addMediaFromRequest('avatar')->toMediaCollection('avatars');
             }
 
-            if ($product) {
+            if ($product && $batch) {
                 alert()->success('Produk berhasil ditambahkan!');
                 return redirect()->route('admin.masterdata.index');
             }
@@ -315,7 +341,6 @@ class MasterDataController extends Controller
             alert()->error($th->getMessage());
             return back();
         }
-        return redirect()->route('admin.masterdata.index');
     }
 
     public function destroyProduct($id)
