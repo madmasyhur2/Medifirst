@@ -58,8 +58,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 	Route::delete('/masterdata/{id}/delete', [AdminMasterDataController::class, 'destroyProduct'])->name('masterdata.destroyProduct');
 	Route::post('/masterdata/{id}/add-stock', [AdminMasterDataController::class, 'storeBatch'])->name('masterdata.store-batch');
 
-
+	// Membership
 	Route::get('/membership', [AdminMembershipController::class, 'index'])->name('membership.index');
+	Route::get('/membership/create', [AdminMembershipController::class, 'create'])->name('membership.create');
+	Route::post('/membership', [AdminMembershipController::class, 'store'])->name('membership.store');
+	Route::get('/membership/{id}/edit', [AdminMembershipController::class, 'edit'])->name('membership.edit');
+	Route::put('/membership/{id}/update', [AdminMembershipController::class, 'update'])->name('membership.update');
+	Route::delete('/membership/{id}/delete', [AdminMembershipController::class, 'destroy'])->name('membership.destroy');
 
 	// Multioutlet
 	Route::get('/multioutlet', [AdminMultiOutletController::class, 'index'])->name('multioutlet.index');
