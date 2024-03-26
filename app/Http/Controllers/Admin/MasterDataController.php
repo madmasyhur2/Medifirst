@@ -51,7 +51,8 @@ class MasterDataController extends Controller
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="action_button">
                                         <li><a class="dropdown-item" href="masterdata/'.$item->id.'/edit">Edit Produk</a></li>
-                                        <li><a class="dropdown-item" href="#">Tambah Stok Produk</a></li>
+                                        <li><button type="button" class="dropdown-item m-0" data-bs-toggle="modal" 
+                                        data-bs-target="#add_product">Tambah Stok Produk</button></li>
                                         <li><a class="dropdown-item" href="masterdata/'.$item->id.'/details">Detail Produk</a></li>
                                         <li>
                                             <form method="POST" action="masterdata/'.$item->id.'/delete" id="deleteForm">
@@ -84,10 +85,21 @@ class MasterDataController extends Controller
 
             $categories = category::all();
 
+            $products = Product::get('id')->first();
+
+            $batches = Batch::where('product_id', $products)->get([
+                'id',
+                'batch_code',
+                'stock',
+                'expired_at'
+            ]);
+
             return view('pages.admin.masterdata.index', compact([
                 'locations',
                 'groups',
-                'categories'
+                'categories',
+                'products',
+                'batches'   
             ]));
 
         } catch (\Throwable $th) {
@@ -101,21 +113,27 @@ class MasterDataController extends Controller
         $products = Product::find($id);
         $category = Category::find($products->category_id);
         $supplier = Supplier::find($products->supplier_id);
-        $batches = Batch::where('product_id', $id)->get();
+        $batches = Batch::where('product_id', $id)->get([
+            'id',
+            'batch_code',
+            'stock',
+            'expired_at'
+        ]);
+
         $totalStock = 0;
         foreach ($batches as $batch) {
             $totalStock += $batch->stock;
         }
 
         // dd([$products, $category, $supplier, $batches, $totalStock]);
-        // dd($batches);
+        // dd($batchIds);
 
         return view('pages.admin.masterdata.details', compact([
             'products',
             'category',
             'supplier',
             'batches',
-            'totalStock'
+            'totalStock',
         ]));
     }
 
@@ -337,6 +355,29 @@ class MasterDataController extends Controller
                 alert()->success('Produk berhasil ditambahkan!');
                 return redirect()->route('admin.masterdata.index');
             }
+        } catch (\Throwable $th) {
+            alert()->error($th->getMessage());
+            return back();
+        }
+    }
+
+    public function storeBatch(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'stock.*' => 'required|integer',
+            ]);
+
+            if ($validator->fails()){
+                return back()->with('errors', $validator->messages()->all()[0])->withInput();
+            }
+
+            $batch = Batch::findOrFail($id);
+            $batch->stock += $request->stock;
+            $batch->save();
+
+            alert()->success('Stok berhasil ditambahkan!');
+            return redirect()->route('admin.masterdata.show', ['id' => $id]);
         } catch (\Throwable $th) {
             alert()->error($th->getMessage());
             return back();

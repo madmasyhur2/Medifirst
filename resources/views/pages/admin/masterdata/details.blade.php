@@ -157,41 +157,44 @@
                             </div>
                         </div>
                         <!--begin::Input group-->
-                        <!--begin::Table-->
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="py-2 my-auto"><strong>No. Batch</strong></th>
-                                    <th class="py-2 my-auto"><strong>Tanggal Expired</strong></th>
-                                    <th class="py-2 my-auto"><strong>Stok</strong></th>
-                                    <th class="py-2 my-auto"><strong>Aksi</strong></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($batches as $batch)
-                                <tr>
-                                    <td class="py-6 my-auto">{{ $batch->batch_code }}</td>
-                                    <td class="py-6 my-auto">{{ \Carbon\Carbon::parse($batch->expired_at)->format('d/m/Y') }}</td>
-                                    <td class="py-6 my-auto">{{ $batch->stock }}</td>
-                                    <td class="p-auto m-auto">
-                                        <div class="d-flex gap-2">
-                                            <button type="button" class="btn btn-secondary btn-sm" style="background-color: #3B3B3B;" data-bs-toggle="modal" data-bs-target="#batch_modal">
-                                            <i class="fas fa-plus" style="color: white;"></i>
-                                            </button>
-                                            <form method="POST" action="{{ route('admin.masterdata.destroyBatch', ['id' => $batch->id]) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" id="deleteForm" style="background-color: #DC3545;" data-no-batch="{{ $batch->batch_code }}" data-stock="{{ $batch->stock }}">
-                                                <i class="fas fa-trash"></i>
+                        <div class="table-responsive">
+                            <table class="table gs-7 gy-7 gx-7">
+                                <thead>
+                                    <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                                        <th><strong>No. Batch</strong></th>
+                                        <th><strong>Tanggal Expired</strong></th>
+                                        <th><strong>Stok</strong></th>
+                                        <th><strong>Aksi</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($batches as $batch)
+                                    <tr>
+                                        <td>{{ $batch->batch_code }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($batch->expired_at)->format('d/m/Y') }}</td>
+                                        <td>{{ $batch->stock }}</td>
+                                        <td class="d-flex flex-row">
+                                            <div class="p-1">
+                                                <button type="button" class="btn btn-light btn-active-light-primary" data-bs-toggle="modal" 
+                                                    data-bs-target="#batch_modal">
+                                                <i class="ki-solid ki-pencil"></i>
                                                 </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!--end::Table-->
+                                            </div>
+                                            <div class="p-1">
+                                                <form id="deleteForm_{{ $batch->id }}" action="{{ route('admin.masterdata.destroyBatch', ['id' => $batch->id]) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-primary" id="deleteForm" data-no-batch="{{ $batch->batch_code }}" data-stock="{{ $batch->stock }}">
+                                                        <i class="ki-solid ki-trash"></i>
+                                                    </button>
+                                                </form>                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         <!--end::Input group-->
                     </div>
                     <!--end::Col-->
@@ -209,89 +212,133 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Tambah Stok</h3>
+
                 <!--begin::Close-->
                 <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                     <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
                 </div>
                 <!--end::Close-->
             </div>
-            <div class="modal-body">
-                <div class="col-lg-12">
-                    <div class="row mb-4">
-                        <!--begin::Label-->
-                        <label class="col-form-label fw-semibold fs-6">Kode Batch</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <select id="batch[]" class="form-select">
-                            <option value="" disabled>{{ $batch->batch_code }}</option>
-                            @foreach ($batches as $batch)
-                            @if ($batch->batch_code == $batch->batch_code)
-                            <option value="{{ $batch->batch_code }}">{{ $batch->batch_code }}</option>
-                            @endif
-                            @endforeach
-                        </select>
-                        <!--end::Col-->
+            <form action="{{ route('admin.masterdata.store-batch', $products->id) }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <!--begin::Input group-->
+                    <label for="no_batch" class="form-label">No. Batch</label>
+                    <div class="input-group input-group-solid mb-5">
+                        <input type="text" name="no_batch" class="form-control" id="no_batch" aria-describedby="basic-addon3" value="" readonly/>
                     </div>
-                    <div class="row mb-4">
-                        <!--begin::Label-->
-                        <label class="col-form-label fw-semibold fs-6">Tanggal Kadaluarsa</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="fv-row fv-plugins-icon-container">
-                            <div class="input-group">
-                                <input type="date" name="expired_at[]" class="form-control form-control-lg form-control-solid" 
-                                    placeholder="Masukkan Tanggal Kadaluarsa" value="{{ $batch->expired_at }}"/>
-                            </div>
-                        </div>
-                        <!--end::Col-->
+                    <!--end::Input group-->
+                    <!--begin::Date input-->
+                    <div class="mb-5">
+                        <label for="expired_at" class="form-label">Tanggal Kadaluarsa</label>
+                        <input name="expired_at" class="form-control form-control-solid" placeholder="Masukkan Tanggal" id="kt_datepicker_2"
+                            data-kt-repeater="expired_at" value=""/>
                     </div>
-                    <div class="row mb-4">
-                        <div class="col-lg-6">
-                            <!--begin::Label-->
-                            <label class="col-form-label fw-semibold fs-6">Stok Lama</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="fv-row fv-plugins-icon-container">
-                                <div class="input-group">
-                                    <input type="number" name="stock[]" class="form-control form-control-lg form-control-solid"
-                                        value="{{ $batch->stock }}"/>
-                                </div>
+                    <!--end::Date input-->
+                    <!--begin::Input group-->
+                    <div class="row mb-6">
+                        <div class="col-md-6">
+                            <!--begin::Input group-->
+                            <label for="old_stock" class="form-label">Stok Lama</label>
+                            <div class="input-group input-group-solid mb-5">
+                                <input type="number" name="old_stock" class="form-control" id="old_stock" aria-describedby="basic-addon3" 
+                                    value="" readonly/>
                             </div>
-                            <!--end::Col-->
+                            <!--end::Input group-->
                         </div>
-                        <div class="col-lg-6">
-                            <!--begin::Label-->
-                            <label class="col-form-label fw-semibold fs-6">Penambahan Stok</label>
-                            <!--end::Label-->
-                            <!--begin::Col-->
-                            <div class="fv-row fv-plugins-icon-container">
-                                <div class="input-group">
-                                    <input type="number" name="stock[]" class="form-control form-control-lg form-control-solid"
-                                        placeholder="Masukkan stok yang akan ditambahkan" value=""/>
-                                </div>
+                        <div class="col-md-6">
+                            <!--begin::Input group-->
+                            <label for="stock" class="form-label">Tambah Stok</label>
+                            <div class="input-group input-group-solid mb-5">
+                                <input type="number" name="stock" class="form-control" id="stock" aria-describedby="basic-addon3" 
+                                    placeholder="Masukkan Stok"/>
                             </div>
-                            <!--end::Col-->
+                            <!--end::Input group-->
                         </div>
                     </div>
-                    <div class="row mb-4">
-                        <!--begin::Label-->
-                        <label class="col-form-label fw-semibold fs-6">Total Stok</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="fv-row fv-plugins-icon-container">
-                            <div class="input-group">
-                                <input type="number" name="total_stock[]" class="form-control form-control-lg form-control-solid" 
-                                    value=""/>
-                            </div>
-                        </div>
-                        <!--end::Col-->
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <label for="total_stock" class="form-label">Total Stock</label>
+                    <div class="input-group input-group-solid mb-5">
+                        <input type="number" name="total_stock" class="form-control" id="total_stock" aria-describedby="basic-addon3" value="" readonly/>
                     </div>
+                    <!--end::Input group-->
+                    <!--begin::Action-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                    <!--end::Action-->
                 </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" id="batch_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tambah Stok</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
+                <!--end::Close-->
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            <form action="{{ route('admin.masterdata.store-batch', $products->id) }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <!--begin::Input group-->
+                    <label for="no_batch" class="form-label">No. Batch</label>
+                    <div class="input-group input-group-solid mb-5">
+                        <input type="text" name="no_batch" class="form-control" id="no_batch" aria-describedby="basic-addon3" value="" readonly/>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Date input-->
+                    <div class="mb-5">
+                        <label for="expired_at" class="form-label">Tanggal Kadaluarsa</label>
+                        <input name="expired_at" class="form-control form-control-solid" placeholder="Masukkan Tanggal" id="kt_datepicker_2"
+                            data-kt-repeater="expired_at" value=""/>
+                    </div>
+                    <!--end::Date input-->
+                    <!--begin::Input group-->
+                    <div class="row mb-6">
+                        <div class="col-md-6">
+                            <!--begin::Input group-->
+                            <label for="old_stock" class="form-label">Stok Lama</label>
+                            <div class="input-group input-group-solid mb-5">
+                                <input type="number" name="old_stock" class="form-control" id="old_stock" aria-describedby="basic-addon3" 
+                                    value="" readonly/>
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <div class="col-md-6">
+                            <!--begin::Input group-->
+                            <label for="stock" class="form-label">Tambah Stok</label>
+                            <div class="input-group input-group-solid mb-5">
+                                <input type="number" name="stock" class="form-control" id="stock" aria-describedby="basic-addon3" 
+                                    placeholder="Masukkan Stok"/>
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <label for="total_stock" class="form-label">Total Stock</label>
+                    <div class="input-group input-group-solid mb-5">
+                        <input type="number" name="total_stock" class="form-control" id="total_stock" aria-describedby="basic-addon3" value="" readonly/>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Action-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                    <!--end::Action-->
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -324,6 +371,9 @@
                     }
                 });
         });
+
+        $("#kt_datepicker_2").flatpickr();
+
     });
 </script>
 @endpush
