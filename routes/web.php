@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Http\Controllers\Admin\SaleController as AdminSaleController;
 use App\Http\Controllers\Admin\MembershipController as AdminMembershipController;
 
+use App\Http\Controllers\Admin\Account\PharmacyController;
+
 use App\Http\Controllers\HomeController;
 
 use RealRashid\SweetAlert\Facades\Alert;
@@ -39,6 +41,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 	Route::get('/employees/{id}/shifts/edit', [AdminEmployeeController::class, 'editShift'])->name('employees.shifts.edit');
 	Route::put('/employees/{id}/shifts/update', [AdminEmployeeController::class, 'updateShift'])->name('employees.shifts.update');
 	Route::resource('employees', AdminEmployeeController::class);
+
+	// Account - Tab Apotek
+	Route::resource('pharmacies', PharmacyController::class);
 
 	// Contact
 	Route::get('/contacts', [AdminContactController::class, 'index'])->name('contact.index');

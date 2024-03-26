@@ -20,6 +20,8 @@ class UserSeeder extends Seeder
 			'role' => 'owner',
 			'address' => fake('id_ID')->address(),
 			'phone_number' => fake('id_ID')->phoneNumber(),
+			'license_number' => '446/0153/1427/1-16',
+			'license_expired_date' => '2025-08-20',
 		]);
 
 		$owner->assignRole('owner');
@@ -31,6 +33,8 @@ class UserSeeder extends Seeder
 			'role' => 'warehouse',
 			'address' => fake('id_ID')->address(),
 			'phone_number' => fake('id_ID')->phoneNumber(),
+			'license_number' => null,
+			'license_expired_date' => null,
 		]);
 
 		$warehouse->assignRole('warehouse');
@@ -42,6 +46,8 @@ class UserSeeder extends Seeder
 			'role' => 'cashier',
 			'address' => fake('id_ID')->address(),
 			'phone_number' => fake('id_ID')->phoneNumber(),
+			'license_number' => '446/0153/1427/1-16',
+			'license_expired_date' => '2025-02-09',
 		]);
 
 		$cashier->assignRole('cashier');
@@ -53,6 +59,8 @@ class UserSeeder extends Seeder
 			'role' => 'finance',
 			'address' => fake('id_ID')->address(),
 			'phone_number' => fake('id_ID')->phoneNumber(),
+			'license_number' => null,
+			'license_expired_date' => null,
 		]);
 
 		$finance->assignRole('finance');

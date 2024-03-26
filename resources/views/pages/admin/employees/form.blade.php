@@ -33,7 +33,7 @@
 @section('content')
     <div id="kt_content_container" class="container-xxl">
         <!--begin::Navbar-->
-        <div class="card mb-5 mb-xl-10">
+        <div class="card">
             <div class="card-body pt-0 pb-0">
                 <!--begin::Navs-->
                 <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">

@@ -33,7 +33,7 @@
 @section('content')
     <div id="kt_content_container" class="container-xxl">
         <!--begin::Navbar-->
-        <div class="card mb-5 mb-xl-10">
+        <div class="card">
             <div class="card-body pt-0 pb-0">
                 <!--begin::Navs-->
                 <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
@@ -125,11 +125,11 @@
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
                                     <!--begin::Label-->
-                                    <label class="col-form-label required fw-semibold fs-6">Nama Lengkap</label>
+                                    <label class="col-form-label required fw-semibold fs-6 py-0"><strong>Nama Lengkap</strong></label>
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent px-0"
                                             placeholder="Ketikkan alamat Anda" value="{{ $user->name }}" readonly />
                                     </div>
                                     <!--end::Col-->
@@ -139,11 +139,11 @@
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
                                     <!--begin::Label-->
-                                    <label class="col-form-label required fw-semibold fs-6">Jabatan</label>
+                                    <label class="col-form-label required fw-semibold fs-6 py-0"><strong>Jabatan</strong></label>
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent px-0"
                                             placeholder="Ketikkan alamat Anda" value="{{ $user->role_name }}" readonly />
                                     </div>
                                     <!--end::Col-->
@@ -153,11 +153,11 @@
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
                                     <!--begin::Label-->
-                                    <label class="col-form-label required fw-semibold fs-6">Alamat</label>
+                                    <label class="col-form-label required fw-semibold fs-6 py-0"><strong>Alamat</strong></label>
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent px-0"
                                             placeholder="Ketikkan alamat Anda" value="{{ $user->address }}" />
                                     </div>
                                     <!--end::Col-->
@@ -167,11 +167,11 @@
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
                                     <!--begin::Label-->
-                                    <label class="col-form-label required fw-semibold fs-6">No. HP</label>
+                                    <label class="col-form-label required fw-semibold fs-6 py-0"><strong>No. HP</strong></label>
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent px-0"
                                             placeholder="Ketikkan alamat Anda" value="{{ $user->phone_number }}" />
                                     </div>
                                     <!--end::Col-->
@@ -181,11 +181,11 @@
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
                                     <!--begin::Label-->
-                                    <label class="col-form-label required fw-semibold fs-6">Email</label>
+                                    <label class="col-form-label required fw-semibold fs-6 py-0"><strong>Email</strong></label>
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent px-0"
                                             placeholder="Ketikkan alamat Anda" value="{{ $user->email }}" />
                                     </div>
                                     <!--end::Col-->
@@ -195,12 +195,12 @@
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
                                     <!--begin::Label-->
-                                    <label class="col-form-label required fw-semibold fs-6">Password</label>
+                                    <label class="col-form-label required fw-semibold fs-6 py-0"><strong>Password</strong></label>
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
-                                            placeholder="Ketikkan alamat Anda" value="*****" />
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent px-0"
+                                            placeholder="Ketikkan alamat Anda" value="**********" />
                                     </div>
                                     <!--end::Col-->
                                 </div>
@@ -209,11 +209,11 @@
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
                                     <!--begin::Label-->
-                                    <label class="col-form-label required fw-semibold fs-6">Nomor Lisensi</label>
+                                    <label class="col-form-label required fw-semibold fs-6 py-0"><strong>Nomor Lisensi</strong></label>
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent px-0"
                                             placeholder="Ketikkan alamat Anda" value="446/0153/1427/1-16" />
                                     </div>
                                     <!--end::Col-->
@@ -223,12 +223,13 @@
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
                                     <!--begin::Label-->
-                                    <label class="col-form-label required fw-semibold fs-6">Berlaku Sampai</label>
+                                    <label class="col-form-label required fw-semibold fs-6 py-0"><strong>Berlaku Sampai</strong></label>
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
-                                            placeholder="Ketikkan alamat Anda" value="25 Agustus 2025" />
+                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent px-0"
+                                            placeholder="Ketikkan alamat Anda" value="{{ $user->license_expired_date }}" id="license_datepicker"
+                                            disabled />
                                     </div>
                                     <!--end::Col-->
                                 </div>
@@ -237,12 +238,14 @@
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
                                     <!--begin::Label-->
-                                    <label class="col-form-label required fw-semibold fs-6">Dokumen Pendukung</label>
+                                    <label class="col-form-label required fw-semibold fs-6 py-1"><strong>Dokumen Pendukung</strong></label>
                                     <!--end::Label-->
                                     <!--begin::Col-->
-                                    <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-transparent"
-                                            placeholder="Ketikkan alamat Anda" value="Surat SIPA OWNER" />
+                                    <div class="fv-row fv-plugins-icon-container col-lg-4">
+                                        <a href="#" class="btn btn-light">
+                                            <i class="bi bi-file-earmark-pdf fs-4 me-2"></i> <strong class="text-primary">Surat SIPA
+                                                {{ $user->name }}</strong>
+                                        </a>
                                     </div>
                                     <!--end::Col-->
                                 </div>
@@ -267,28 +270,18 @@
     <!--end::Vendors Javascript-->
 
     <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ asset('backend/js/custom/account/settings/signin-methods.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/account/settings/profile-details.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/account/settings/deactivate-account.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/pages/user-profile/general.js') }}"></script>
-    <script src="{{ asset('backend/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/create-campaign.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/type.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/details.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/finance.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/complete.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/main.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/two-factor-authentication.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/users-search.js') }}"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
     <!--end::Custom Javascript-->
 
     <!--begin::Additional Javascript(used for this page only)-->
     <script>
         $(document).ready(function() {
-            //
+            $("#license_datepicker").flatpickr({
+                altInput: true,
+                altFormat: "d F Y",
+                dateFormat: "Y-m-d",
+                "locale": "id",
+            });
         })
     </script>
     <!--end::Additional Javascript-->

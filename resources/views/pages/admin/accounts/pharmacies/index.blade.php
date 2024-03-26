@@ -11,7 +11,7 @@
                     data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                     class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                     <!--begin::Title-->
-                    <h1 class="d-flex align-items-center text-gray-900 fw-bold my-1 fs-3">Akun Karyawan
+                    <h1 class="d-flex align-items-center text-gray-900 fw-bold my-1 fs-3">Akun Apotek
                         <!--begin::Separator-->
                         <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                         <!--end::Separator-->
@@ -44,12 +44,12 @@
                     <!--end::Nav item-->
                     <!--begin::Nav item-->
                     <li class="nav-item mt-2">
-                        <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="#">Karyawan</a>
+                        <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="{{ route('admin.employees.index') }}">Karyawan</a>
                     </li>
                     <!--end::Nav item-->
                     <!--begin::Nav item-->
                     <li class="nav-item mt-2">
-                        <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#">Apotek</a>
+                        <a class="nav-link text-active-primary ms-0 me-10 py-5" href="{{ route('admin.pharmacies.index') }}">Apotek</a>
                     </li>
                     <!--end::Nav item-->
                     <!--begin::Nav item-->
@@ -69,7 +69,7 @@
             <div class="card-header border-0 pt-6">
                 <!--begin::Card title-->
                 <div class="card-title m-0">
-                    <h3 class="fw-bold m-0">Daftar Akun Karyawan</h3>
+                    <h3 class="fw-bold m-0">Daftar Akun Apotek</h3>
                 </div>
                 <!--begin::Card title-->
 
@@ -146,13 +146,13 @@
                         <div class="d-flex align-items-center position-relative me-3">
                             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
                             <input type="text" id="mySearchBar" data-kt-customer-table-filter="search" class="form-control w-250px ps-12"
-                                placeholder="Cari Nama" />
+                                placeholder="Cari Nama Apotek" />
                         </div>
                         <!--end::Search-->
 
                         <!--begin::Add customer-->
                         <a href="{{ route('admin.employees.create') }}" class="btn btn-dark">
-                            Tambah Akun Karyawan
+                            Tambah Akun Apotek
                         </a>
                         <!--end::Add customer-->
                     </div>
@@ -171,9 +171,7 @@
                             <th class="min-w-10px pe-2">No.</th>
                             <th class="min-w-125px">Nama</th>
                             <th class="min-w-125px">Alamat</th>
-                            <th class="min-w-125px">No Hp</th>
-                            <th class="min-w-125px">Jabatan</th>
-                            <th class="min-w-125px">Shift</th>
+                            <th class="min-w-125px">Jam Buka</th>
                             <th class="text-end min-w-70px">Aksi</th>
                         </tr>
                     </thead>
@@ -194,14 +192,9 @@
 
     <!--begin::Custom Javascript(used for this page only)-->
     <script src="{{ asset('backend/js/custom/apps/customers/list/export.js') }}"></script>
-    {{-- <script src="{{ asset('backend/js/custom/apps/customers/list/list.js') }}"></script> --}}
     <script src="{{ asset('backend/js/custom/apps/customers/add.js') }}"></script>
     <script src="{{ asset('backend/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('backend/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/create-campaign.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/users-search.js') }}"></script>
     <!--end::Custom Javascript-->
 
     <!--begin::Additional Javascript(used for this page only)-->
@@ -238,20 +231,8 @@
                         searchable: true
                     },
                     {
-                        data: 'phone_number',
-                        name: 'phone_number',
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: 'role',
-                        name: 'role',
-                        orderable: true,
-                        searchable: true
-                    },
-                    {
-                        data: 'shift',
-                        name: 'shift',
+                        data: 'working_hours',
+                        name: 'working_hours',
                         orderable: false,
                         searchable: false
                     },

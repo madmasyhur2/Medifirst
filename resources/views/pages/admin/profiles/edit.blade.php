@@ -33,7 +33,7 @@
 @section('content')
     <div id="kt_content_container" class="container-xxl">
         <!--begin::Navbar-->
-        <div class="card mb-5 mb-xl-10">
+        <div class="card">
             <div class="card-body pt-0 pb-0">
                 <!--begin::Navs-->
                 <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
@@ -145,11 +145,11 @@
                                 <div class="row mb-6">
                                     <div class="col-lg-6">
                                         <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Nama Lengkap</label>
+                                        <label class="col-form-label required fw-semibold fs-6"><strong>Nama Lengkap</strong></label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
-                                            <input type="text" name="name" class="form-control form-control-lg form-control-solid"
+                                            <input type="text" name="name" class="form-control form-control-lg"
                                                 placeholder="Ketikkan nama lengkap Anda" value="{{ old('name', $user->name) }}" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
@@ -158,13 +158,13 @@
 
                                     <div class="col-lg-6">
                                         <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Jabatan</label>
+                                        <label class="col-form-label required fw-semibold fs-6"><strong>Jabatan</strong></label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
                                             <input type="hidden" name="role" value="{{ $user->role }}" />
-                                            <input type="text" name="jabatan" class="form-control form-control-lg form-control-solid"
-                                                placeholder="---" value="Pemilik Apotek" readonly />
+                                            <input type="text" name="jabatan" class="form-control form-control-lg" placeholder="---"
+                                                value="Pemilik Apotek" readonly />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -175,12 +175,12 @@
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
                                     <!--begin::Label-->
-                                    <label class="col-form-label required fw-semibold fs-6">Alamat</label>
+                                    <label class="col-form-label required fw-semibold fs-6"><strong>Alamat</strong></label>
                                     <!--end::Label-->
                                     <!--begin::Col-->
                                     <div class="fv-row fv-plugins-icon-container">
-                                        <input type="text" name="address" class="form-control form-control-lg form-control-solid"
-                                            placeholder="Ketikkan alamat Anda" value="{{ old('address', $user->address) }}" />
+                                        <input type="text" name="address" class="form-control form-control-lg" placeholder="Ketikkan alamat Anda"
+                                            value="{{ old('address', $user->address) }}" />
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                     </div>
                                     <!--end::Col-->
@@ -189,27 +189,39 @@
 
                                 <!--begin::Input group-->
                                 <div class="row mb-6">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Email</label>
+                                        <label class="col-form-label required fw-semibold fs-6"><strong>No. HP</strong></label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
-                                            <input type="email" name="email" class="form-control form-control-lg form-control-solid"
+                                            <input type="text" name="phone_number" class="form-control form-control-lg"
+                                                placeholder="Ketikkan no hp Anda" value="{{ old('phone_number', $user->phone_number) }}" />
+                                            <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                        </div>
+                                        <!--end::Col-->
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <!--begin::Label-->
+                                        <label class="col-form-label required fw-semibold fs-6"><strong>Email</strong></label>
+                                        <!--end::Label-->
+                                        <!--begin::Col-->
+                                        <div class="fv-row fv-plugins-icon-container">
+                                            <input type="email" name="email" class="form-control form-control-lg"
                                                 placeholder="Ketikkan nama email Anda" value="{{ old('email', $user->email) }}" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
                                     </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Password</label>
+                                        <label class="col-form-label required fw-semibold fs-6"><strong>Password</strong></label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
-                                            <input type="password" name="password" class="form-control form-control-lg form-control-solid"
-                                                placeholder="••••••••" />
+                                            <input type="password" name="password" class="form-control form-control-lg" placeholder="••••••••" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -221,12 +233,12 @@
                                 <div class="row mb-6">
                                     <div class="col-lg-6">
                                         <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">No. SIPA</label>
+                                        <label class="col-form-label required fw-semibold fs-6"><strong>No. SIPA</strong></label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
-                                            <input type="text" name="no_sipa" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Ketikkan No. SIPA Anda" value="" />
+                                            <input type="text" name="license_number" class="form-control form-control-lg"
+                                                placeholder="Ketikkan No. SIPA Anda" value="{{ old('license_number', $user->license_number) }}" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -234,12 +246,13 @@
 
                                     <div class="col-lg-6">
                                         <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Berlaku Sampai</label>
+                                        <label class="col-form-label required fw-semibold fs-6"><strong>Berlaku Sampai</strong></label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
-                                            <input type="text" name="berlaku_sampai" class="form-control form-control-lg form-control-solid"
-                                                placeholder="Ketikkan tanggal kadaluarsa No. SIPA Anda" value="" />
+                                            <input type="text" name="license_expired_date" class="form-control form-control-lg"
+                                                placeholder="Ketikkan tanggal kadaluarsa No. SIPA Anda"
+                                                value="{{ old('license_expired_date', $user->license_expired_date) }}" id="license_datepicker" />
                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                         </div>
                                         <!--end::Col-->
@@ -251,7 +264,7 @@
                                 <div class="row mb-6">
                                     <div class="col-lg-6">
                                         <!--begin::Label-->
-                                        <label class="col-form-label required fw-semibold fs-6">Dokumen pendukung</label>
+                                        <label class="col-form-label required fw-semibold fs-6"><strong>Dokumen Pendukung</strong></label>
                                         <!--end::Label-->
                                         <!--begin::Col-->
                                         <div class="fv-row fv-plugins-icon-container">
@@ -290,22 +303,7 @@
     <!--end::Vendors Javascript-->
 
     <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ asset('backend/js/custom/account/settings/signin-methods.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/account/settings/profile-details.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/account/settings/deactivate-account.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/pages/user-profile/general.js') }}"></script>
-    <script src="{{ asset('backend/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/create-campaign.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/type.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/details.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/finance.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/complete.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/offer-a-deal/main.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/two-factor-authentication.js') }}"></script>
-    <script src="{{ asset('backend/js/custom/utilities/modals/users-search.js') }}"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
     <!--end::Custom Javascript-->
 
     <!--begin::Additional Javascript(used for this page only)-->
@@ -321,6 +319,7 @@
                     showCancelButton: true,
                     confirmButtonText: 'Yes, submit!',
                     confirmButtonColor: '#409add',
+                    reverseButtons: true,
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $('#kt_account_profile_details_form').submit();
@@ -328,7 +327,14 @@
                         Swal.fire('Cancelled', 'Failed to update account', 'error');
                     }
                 })
-            })
+            });
+
+            $("#license_datepicker").flatpickr({
+                altInput: true,
+                altFormat: "d F Y",
+                dateFormat: "Y-m-d",
+                "locale": "id",
+            });
         })
     </script>
     <!--end::Additional Javascript-->

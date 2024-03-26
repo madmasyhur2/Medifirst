@@ -83,4 +83,9 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 	{
 		return $this->hasMany(Shift::class);
 	}
+
+	public function pharmacies()
+	{
+		return $this->hasMany(Pharmacy::class, 'owner_id');
+	}
 }

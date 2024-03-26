@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Store extends Model
+class Pharmacy extends Model
 {
-	use HasFactory;
+	use HasFactory, SoftDeletes;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -26,10 +27,8 @@ class Store extends Model
 		'license_photo_path',
 	];
 
-	public function products()
+	public function owner()
 	{
-		return $this->hasMany(Product::class);
+		return $this->belongsTo(User::class);
 	}
-
-	//relation dengan role owner 1 to many
 }
