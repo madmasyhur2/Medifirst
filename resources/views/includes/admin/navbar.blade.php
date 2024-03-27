@@ -30,17 +30,18 @@
                     <!--begin::Menu-->
                     <div class="menu menu-rounded menu-column menu-lg-row menu-active-bg menu-state-primary menu-title-gray-700 menu-arrow-gray-500 fw-semibold my-5 my-lg-0 px-2 px-lg-0 align-items-stretch"
                         id="#kt_header_menu" data-kt-menu="true">
-                        {{-- <!--begin:Menu item-->
+                        <!--begin:Menu item-->
                         <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"
                             class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
                             <!--begin:Menu link-->
-                            <span class="menu-link py-3">
-                                <span class="menu-title">Dashboards</span>
-                                <span class="menu-arrow d-lg-none"></span>
-                            </span>
+                            <h1 class="d-flex align-items-center text-gray-900 fw-bold my-1 fs-3">@yield('title')
+                                <!--begin::Description-->
+                                <small class="text-muted fs-7 fw-semibold my-1 ms-1"></small>
+                                <!--end::Description-->
+                            </h1>
                             <!--end:Menu link-->
                         </div>
-                        <!--end:Menu item--> --}}
+                        <!--end:Menu item-->
                     </div>
                     <!--end::Menu-->
                 </div>
