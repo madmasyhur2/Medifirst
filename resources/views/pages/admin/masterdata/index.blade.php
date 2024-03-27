@@ -160,6 +160,80 @@
     </div>
     <!--end::Card-->
 </div>
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" id="add_product">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tambah Stok</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
+                <!--end::Close-->
+            </div>
+            <form action="{{ route('admin.masterdata.store-batch', $products->id) }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <!--begin::Input group-->
+                    <label class="form-label mb-1">No. Batch</label>
+                    <div class="position-relative">
+                        <select id="no_batch" class="form-select form-select-solid" data-kt-select2="true" data-allow-clear="true">
+                            <option value="{{ $products->id }}">{{ $products->batch }}</option>
+                            @foreach ($batches as $batch)
+                            <option value="{{ $batch->no_batch }}">{{ $batch->no_batch }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Date input-->
+                    <div class="mb-5">
+                        <label for="expired_at" class="form-label">Tanggal Kadaluarsa</label>
+                        <input name="expired_at" class="form-control form-control-solid" placeholder="Masukkan Tanggal" id="kt_datepicker_2"
+                            data-kt-repeater="expired_at" value=""/>
+                    </div>
+                    <!--end::Date input-->
+                    <!--begin::Input group-->
+                    <div class="row mb-6">
+                        <div class="col-md-6">
+                            <!--begin::Input group-->
+                            <label for="old_stock" class="form-label">Stok Lama</label>
+                            <div class="input-group input-group-solid mb-5">
+                                <input type="number" name="old_stock" class="form-control" id="old_stock" aria-describedby="basic-addon3" 
+                                    value="" readonly/>
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <div class="col-md-6">
+                            <!--begin::Input group-->
+                            <label for="stock" class="form-label">Tambah Stok</label>
+                            <div class="input-group input-group-solid mb-5">
+                                <input type="number" name="stock" class="form-control" id="stock" aria-describedby="basic-addon3" 
+                                    placeholder="Masukkan Stok"/>
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <label for="total_stock" class="form-label">Total Stock</label>
+                    <div class="input-group input-group-solid mb-5">
+                        <input type="number" name="total_stock" class="form-control" id="total_stock" aria-describedby="basic-addon3" value="" readonly/>
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Action-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                    <!--end::Action-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @push('after-script')

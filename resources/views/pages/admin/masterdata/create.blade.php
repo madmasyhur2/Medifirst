@@ -96,7 +96,7 @@
                         <div class="col-lg-9">
                             <!--begin::Input group-->
                             <label for="name" class="form-label">Nama Produk</label>
-                            <div class="input-group input-group-solid mb-5">
+                            <div class="input-group mb-5">
                                 <input type="text" name="name" class="form-control" id="name" aria-describedby="basic-addon3"
                                     placeholder="Masukkan Nama Produk"/>
                             </div>
@@ -161,7 +161,7 @@
                                 <div class="col-lg-6">
                                     <!--begin::Input group-->
                                     <label for="sku_code" class="form-label">Kode SKU</label>
-                                    <div class="input-group input-group-solid mb-5">
+                                    <div class="input-group mb-5">
                                         <input type="text" name="sku_code" class="form-control" id="sku-code" aria-describedby="basic-addon3" 
                                             placeholder="Masukkan Kode SKU"/>
                                     </div>
@@ -170,7 +170,7 @@
                                 <div class="col-lg-6">
                                     <!--begin::Input group-->
                                     <label for="location" class="form-label">Lokasi</label>
-                                    <div class="input-group input-group-solid mb-5">
+                                    <div class="input-group mb-5">
                                         <input type="text" name="location" class="form-control" id="location" aria-describedby="basic-addon3" 
                                             placeholder="Masukkan Lokasi"/>
                                     </div>
@@ -183,7 +183,7 @@
                                 <div class="col-lg-4">
                                     <!--begin::Input group-->
                                     <label for="cost" class="col-form-label">Harga Beli</label>
-                                    <div class="input-group input-group-solid mb-5">
+                                    <div class="input-group mb-5">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" name="cost" class="form-control" placeholder="Masukkan Harga Beli"/>
                                     </div>
@@ -192,7 +192,7 @@
                                 <div class="col-lg-4">
                                     <!--begin::Input group-->
                                     <label class="col-form-label">Keuntungan</label>
-                                    <div class="input-group input-group-solid mb-5">
+                                    <div class="input-group mb-5">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" name="margin" class="form-control" placeholder="Masukkan Keuntungan" />
                                     </div>
@@ -201,7 +201,7 @@
                                 <div class="col-lg-4">
                                     <!--begin::Input group-->
                                     <label class="col-form-label required fw-semibold fs-6">Harga Jual</label>
-                                    <div class="input-group input-group-solid mb-5">
+                                    <div class="input-group mb-5">
                                         <span class="input-group-text">Rp</span>
                                         <input type="number" name="selling_price" class="form-control" placeholder="Masukkan Harga Jual" />
                                     </div>
