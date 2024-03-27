@@ -20,7 +20,7 @@ return new class extends Migration
             $table->dateTime('sold_at');
             $table->decimal('price', 10, 2);
             $table->foreign('cashier_id')->references('id')->on('users');
-            $table->foreign('membership_id')->references('id')->on('memberships');
+            $table->foreign('membership_id')->references('id')->on('memberships')->onDelete('cascade');
             $table->timestamps();
         });
     }
